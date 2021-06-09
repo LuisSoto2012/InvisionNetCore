@@ -1,0 +1,94 @@
+﻿using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.CalibracionDeficiente.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.CalibracionDeficiente.Repuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EmpleoReactivo.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EmpleoReactivo.Repuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EquipoMalCalibrado.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EquipoMalCalibrado.Repuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EquipoUPS.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EquipoUPS.Repuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.MaterialNoCalibrado.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.MaterialNoCalibrado.Repuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.MustraHemolizadaLipemica.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.MustraHemolizadaLipemica.Repuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PocoFrecuente.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PocoFrecuente.Repuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.SueroMalReferenciado.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.SueroMalReferenciado.Respuestas;
+using Ino_InvisionCore.Dominio.Entidades.Compartido;
+using Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Laboratorio
+{
+    public interface IRepositorioDeProcesoAnalitico
+    {
+        RespuestaBD AgregarPocoFrecuente(NuevoPocoFrecuente nuevoPocoFrecuente);
+        RespuestaBD AgregarEmpleoReactivo(NuevoEmpleoReactivo nuevoEmpleoReactivo);
+        RespuestaBD AgregarEquipoMalCalibrado(NuevoEquipoMalCalibrado nuevoEquipoMalCalibrado);
+        RespuestaBD AgregarEquipoUPS(NuevoEquipoUPS nuevoEquipoUPS);
+        RespuestaBD AgregarCalibracionDeficiente(NuevoCalibracionDeficiente nuevoCalibracionDeficiente);
+        RespuestaBD AgregarSueroMalReferenciado(NuevoSueroMalReferenciado nuevoSueroMalReferenciado);
+        RespuestaBD AgregarMaterialNoCalibrado(NuevoMaterialNoCalibrado nuevoMaterialNoCalibrado);
+        RespuestaBD AgregarMuestraHemolizadaLipemica(NuevoMuestraHemolizadaLipemica nuevoMuestraHemolizadaLipemica);
+        RespuestaBD EditarPocoFrecuente(ActualizarPocoFrecuente actualizarPocoFrecuente);
+        RespuestaBD EditarEmpleoReactivo(ActualizarEmpleoReactivo actualizarEmpleoReactivo);
+        RespuestaBD EditarEquipoMalCalibrado(ActualizarEquipoMalCalibrado actualizarEquipoMalCalibrado);
+        RespuestaBD EditarEquipoUPS(ActualizarEquipoUPS actualizarEquipoUPS);
+        RespuestaBD EditarCalibracionDeficiente(ActualizarCalibracionDeficiente actualizarCalibracionDeficiente);
+        RespuestaBD EditarSueroMalReferenciado(ActualizarSueroMalReferenciado actualizarSueroMalReferenciado);
+        RespuestaBD EditarMaterialNoCalibrado(ActualizarMaterialNoCalibrado actualizarMaterialNoCalibrado);
+        RespuestaBD EditarMuestraHemolizadaLipemica(ActualizarMuestraHemolizadaLipemica actualizarMuestraHemolizadaLipemica);
+        IEnumerable<PocoFrecuenteGeneral> ListarPocoFrecuente();
+        IEnumerable<EmpleoReactivoGeneral> ListarEmpleoReactivo();
+        IEnumerable<EquipoMalCalibradoGeneral> ListarEquipoMalCalibrado();
+        IEnumerable<EquipoUPSGeneral> ListarEquipoUPS();    
+        IEnumerable<CalibracionDeficienteGeneral> ListarCalibracionDeficiente();
+        IEnumerable<SueroMalReferenciadoGeneral> ListarSueroMalReferenciado();
+        IEnumerable<MaterialNoCalibradoGeneral> ListarMaterialNoCalibrado();
+        IEnumerable<MuestraHemolizadaLipemicaGeneral> ListarMuestraHemolizadaLipemica();
+        CalibracionDeficiente EncontrarCalibracionDeficiente(int Id);
+        PocoFrecuente EncontrarPocoFrecuente(int Id);
+        EmpleoReactivo EncontrarEmpleoReactivo(int Id);
+        EquipoMalCalibrado EncontrarEquipoMalCalibrado(int Id);
+        EquipoUPS EncontrarEquipoUPS(int Id);
+        SueroMalReferenciado EncontrarSueroMalReferenciado(int Id);
+        MaterialNoCalibrado EncontrarMaterialNoCalibrado(int Id);
+        MuestraHemolizadaLipemica EncontrarMuestraHemolizaadaLipemica(int Id);
+
+        Task<RespuestaBD> AgregarPocoFrecuenteAsync(NuevoPocoFrecuente nuevoPocoFrecuente);
+        Task<RespuestaBD> AgregarEmpleoReactivoAsync(NuevoEmpleoReactivo nuevoEmpleoReactivo);
+        Task<RespuestaBD> AgregarEquipoMalCalibradoAsync(NuevoEquipoMalCalibrado nuevoEquipoMalCalibrado);
+        Task<RespuestaBD> AgregarEquipoUPSAsync(NuevoEquipoUPS nuevoEquipoUPS);
+        Task<RespuestaBD> AgregarCalibracionDeficienteAsync(NuevoCalibracionDeficiente nuevoCalibracionDeficiente);
+        Task<RespuestaBD> AgregarSueroMalReferenciadoAsync(NuevoSueroMalReferenciado nuevoSueroMalReferenciado);
+        Task<RespuestaBD> AgregarMaterialNoCalibradoAsync(NuevoMaterialNoCalibrado nuevoMaterialNoCalibrado);
+        Task<RespuestaBD> AgregarMuestraHemolizadaLipemicaAsync(NuevoMuestraHemolizadaLipemica nuevoMuestraHemolizadaLipemica);
+        Task<RespuestaBD> EditarPocoFrecuenteAsync(ActualizarPocoFrecuente actualizarPocoFrecuente);
+        Task<RespuestaBD> EditarEmpleoReactivoAsync(ActualizarEmpleoReactivo actualizarEmpleoReactivo);
+        Task<RespuestaBD> EditarEquipoMalCalibradoAsync(ActualizarEquipoMalCalibrado actualizarEquipoMalCalibrado);
+        Task<RespuestaBD> EditarEquipoUPSAsync(ActualizarEquipoUPS actualizarEquipoUPS);
+        Task<RespuestaBD> EditarCalibracionDeficienteAsync(ActualizarCalibracionDeficiente actualizarCalibracionDeficiente);
+        Task<RespuestaBD> EditarSueroMalReferenciadoAsync(ActualizarSueroMalReferenciado actualizarSueroMalReferenciado);
+        Task<RespuestaBD> EditarMaterialNoCalibradoAsync(ActualizarMaterialNoCalibrado actualizarMaterialNoCalibrado);
+        Task<RespuestaBD> EditarMuestraHemolizadaLipemicaAsync(ActualizarMuestraHemolizadaLipemica actualizarMuestraHemolizadaLipemica);
+        Task<IEnumerable<PocoFrecuenteGeneral>> ListarPocoFrecuenteAsync(int? Id);
+        Task<IEnumerable<EmpleoReactivoGeneral>> ListarEmpleoReactivoAsync(int? Id);
+        Task<IEnumerable<EquipoMalCalibradoGeneral>> ListarEquipoMalCalibradoAsync(int? Id);
+        Task<IEnumerable<EquipoUPSGeneral>> ListarEquipoUPSAsync(int? Id);
+        Task<IEnumerable<CalibracionDeficienteGeneral>> ListarCalibracionDeficienteAsync(int? Id);
+        Task<IEnumerable<SueroMalReferenciadoGeneral>> ListarSueroMalReferenciadoAsync(int? Id);
+        Task<IEnumerable<MaterialNoCalibradoGeneral>> ListarMaterialNoCalibradoAsync(int? Id);
+        Task<IEnumerable<MuestraHemolizadaLipemicaGeneral>> ListarMuestraHemolizadaLipemicaAsync(int? Id);
+        Task<CalibracionDeficiente> EncontrarCalibracionDeficienteAsync(int Id);
+        Task<PocoFrecuente> EncontrarPocoFrecuenteAsync(int Id);
+        Task<EmpleoReactivo> EncontrarEmpleoReactivoAsync(int Id);
+        Task<EquipoMalCalibrado> EncontrarEquipoMalCalibradoAsync(int Id);
+        Task<EquipoUPS> EncontrarEquipoUPSAsync(int Id);
+        Task<SueroMalReferenciado> EncontrarSueroMalReferenciadoAsync(int Id);
+        Task<MaterialNoCalibrado> EncontrarMaterialNoCalibradoAsync(int Id);
+        Task<MuestraHemolizadaLipemica> EncontrarMuestraHemolizaadaLipemicaAsync(int Id);
+    }
+}

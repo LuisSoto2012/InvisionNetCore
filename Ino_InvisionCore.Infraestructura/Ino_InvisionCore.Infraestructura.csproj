@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20191112144815_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112153310_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112155011_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112155814_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112160159_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112163231_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112164348_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112165159_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112170841_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112172102_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112172508_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112193128_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112193256_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112195641_AddColumn_PacienteSinResultado_FixColumn_OrdenesMedicasCodigosOpcionesOrdenMedica.cs" />
+    <Compile Remove="Migrations\20191112200701_AreaLaboratorioIdentity.cs" />
+    <Compile Remove="Migrations\20191112201010_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112201118_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112201259_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112201838_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112202213_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112202659_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112202844_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112203106_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112205640_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112210121_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112210318_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112210607_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112210759_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112211337_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191112212201_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191113133023_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191113134101_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191113135227_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191113135551_FirstMigration.cs" />
+    <Compile Remove="Migrations\20191113140141_FirstMigration.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="AutofacSerilogIntegration" Version="2.1.0" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.0" />
+    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ino_InvisionCore.Dominio\Ino_InvisionCore.Dominio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.abstractions\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.options\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlClient">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\system.data.sqlclient\4.5.1\ref\netcoreapp2.1\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
+    <Folder Include="Hubs\" />
+    <Folder Include="WebServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+</Project>

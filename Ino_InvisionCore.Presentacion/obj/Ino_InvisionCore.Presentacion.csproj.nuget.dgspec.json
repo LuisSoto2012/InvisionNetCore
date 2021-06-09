@@ -1,0 +1,299 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Presentacion\\Ino_InvisionCore.Presentacion.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\Ino_InvisionCore.Dominio.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\Ino_InvisionCore.Dominio.csproj",
+        "projectName": "Ino_InvisionCore.Dominio",
+        "projectPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\Ino_InvisionCore.Dominio.csproj",
+        "packagesPath": "C:\\Users\\Giancarlo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Giancarlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://www.nuget.org/api/v2": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "JWT": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.Extensions.Primitives": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Infraestructura\\Ino_InvisionCore.Infraestructura.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Infraestructura\\Ino_InvisionCore.Infraestructura.csproj",
+        "projectName": "Ino_InvisionCore.Infraestructura",
+        "projectPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Infraestructura\\Ino_InvisionCore.Infraestructura.csproj",
+        "packagesPath": "C:\\Users\\Giancarlo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Infraestructura\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Giancarlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://www.nuget.org/api/v2": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\Ino_InvisionCore.Dominio.csproj": {
+                "projectPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\Ino_InvisionCore.Dominio.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Autofac": {
+              "target": "Package",
+              "version": "[4.9.4, )"
+            },
+            "Autofac.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "AutofacSerilogIntegration": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.9.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Presentacion\\Ino_InvisionCore.Presentacion.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Presentacion\\Ino_InvisionCore.Presentacion.csproj",
+        "projectName": "Ino_InvisionCore.Presentacion",
+        "projectPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Presentacion\\Ino_InvisionCore.Presentacion.csproj",
+        "packagesPath": "C:\\Users\\Giancarlo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Presentacion\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Giancarlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://www.nuget.org/api/v2": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\Ino_InvisionCore.Dominio.csproj": {
+                "projectPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Dominio\\Ino_InvisionCore.Dominio.csproj"
+              },
+              "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Infraestructura\\Ino_InvisionCore.Infraestructura.csproj": {
+                "projectPath": "C:\\Users\\Giancarlo\\Desktop\\Ino_InvisionCore\\Ino_InvisionCore.Infraestructura\\Ino_InvisionCore.Infraestructura.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Autofac": {
+              "target": "Package",
+              "version": "[4.9.4, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.1, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.1.10, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.9.0, )"
+            },
+            "Serilog.Enrichers.Environment": {
+              "target": "Package",
+              "version": "[2.1.3, )"
+            },
+            "Serilog.Enrichers.Process": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "Serilog.Enrichers.Thread": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Serilog.Sinks.ColoredConsole": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Serilog.Sinks.RollingFileAlternate": {
+              "target": "Package",
+              "version": "[2.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
