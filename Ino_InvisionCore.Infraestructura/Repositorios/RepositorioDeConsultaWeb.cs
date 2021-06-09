@@ -1748,5 +1748,48 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
             return respuesta;
         }
+
+        #region Comunes
+
+        public async Task<IEnumerable<ComboBox>> ListarEspecialidadesPorFechaConsultaRapida(DateTime fechaCita)
+        {
+            var idMedico = 0;
+            var idEspecialidad = 0;
+
+            var list = await GalenContext.Query<ProgramacionMedicaFiltroView>()
+                                        .FromSql("INO_ProgramacionMedicaPorFiltro @Fecha, @IdMedico, @IdEspecialidad",
+                                        new SqlParameter("Fecha", fechaCita.Date),
+                                        new SqlParameter("IdMedico", idMedico),
+                                        new SqlParameter("IdEspecialidad", idEspecialidad))
+                                        .ToListAsync();
+
+            return list.Select(x => new ComboBox { Id = x.IdEspecialidad, Descripcion = x.Especialidad });
+        }
+
+        public async Task<IEnumerable<ComboBoxMedico>> ListarMedicosPorEspecialidadConsultaRapida(DateTime fechaCita, int idEspecialidad)
+        {
+            var idMedico = 0;
+            var list = await GalenContext.Query<ProgramacionMedicaFiltroView>()
+                                        .FromSql("INO_ProgramacionMedicaPorFiltro @Fecha, @IdMedico, @IdEspecialidad",
+                                        new SqlParameter("Fecha", fechaCita.Date),
+                                        new SqlParameter("IdMedico", idMedico),
+                                        new SqlParameter("IdEspecialidad", idEspecialidad))
+                                        .ToListAsync();
+
+            return list.Select(x => new ComboBoxMedico { IdMedico = x.IdMedico, Medico = x.Medico, IdProgramacion = x.IdProgramacion });
+        }
+
+        public async Task<IEnumerable<ComboBox>> ListarCuposPorProgramacionConsultaRapida(int idProgramacion)
+        {
+            var list = await GalenContext.Query<CuposPorProgramacionView>()
+                                        .FromSql("INO_ReprogramacionesCuposLibres @idProgramacion",
+                                        new SqlParameter("idProgramacion", idProgramacion))
+                                        .ToListAsync();
+
+            return list.Select(x => new ComboBox { Id = (int)x.RowId, Descripcion = x.Cupo });
+        }
+
+        #endregion
+
     }
 }

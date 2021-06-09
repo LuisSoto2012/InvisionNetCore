@@ -9,5 +9,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas
         public int IdMedico { get; set; }
         public int IdEmpleado { get; set; }
         public string Medico { get; set; }
+        public int IdProgramacion { get; set; }
     }
 }

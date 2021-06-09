@@ -38,5 +38,9 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.ConsultaWeb
         Task<IEnumerable<ComboBox>> ListarCuposConsultaRapida(DateTime fecha, string horaInicio, string horaFin, int intervalo);
         Task<IEnumerable<SolicitudConsultaRapidaDto>> ListarSolicitudConsultaRapida(DateTime fechaDesde, DateTime fechaHasta, int? idEstado);
         Task<RespuestaBD> AceptarSolicitudConsultaRapida(AceptarSolicitudConsultaRapidaDto solicitud);
+
+        Task<IEnumerable<ComboBox>> ListarEspecialidadesPorFechaConsultaRapida(DateTime fechaCita);
+        Task<IEnumerable<ComboBoxMedico>> ListarMedicosPorEspecialidadConsultaRapida(DateTime fechaCita, int idEspecialidad);
+        Task<IEnumerable<ComboBox>> ListarCuposPorProgramacionConsultaRapida(int idProgramacion);
     }
 }

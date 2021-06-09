@@ -77,6 +77,9 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             //Teleconsulta
             modelBuilder.Query<CitaPostCuarentenaView>();
             modelBuilder.Query<AtencionCEView>();
+
+            modelBuilder.Query<ProgramacionMedicaFiltroView>();
+            modelBuilder.Query<CuposPorProgramacionView>();
         }
     }
 }

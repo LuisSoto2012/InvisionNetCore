@@ -1,0 +1,43 @@
+﻿<Properties StartupConfiguration="{0A568786-2C1E-426A-A603-C3DAE99D4DF1}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Ino_InvisionCore.Infraestructura/Repositorios/RepositorioDeConsultaWeb.cs">
+    <Files>
+      <File FileName="Ino_InvisionCore.Presentation/Controllers/ConsultaWebController.cs" Line="231" Column="93" />
+      <File FileName="Ino_InvisionCore.Infraestructura/Repositorios/RepositorioDeConsultaWeb.cs" Line="1789" Column="62" />
+      <File FileName="Ino_InvisionCore.Infraestructura/Repositorios/RepositorioDeComunes.cs" Line="142" Column="10" />
+      <File FileName="Ino_InvisionCore.Dominio/Contratos/Servicios/ConsultaWeb/IServicioDeConsultaWeb.cs" Line="44" Column="9" />
+      <File FileName="Ino_InvisionCore.Dominio/Servicios/ServicioDeConsultaWeb.cs" Line="160" Column="96" />
+      <File FileName="Ino_InvisionCore.Infraestructura/Contexto/GalenPlusContext.cs" Line="82" Column="56" />
+      <File FileName="Ino_InvisionCore.Infraestructura/Repositorios/RepositorioDeAtenciones.cs" Line="1" Column="1" />
+      <File FileName="Ino_InvisionCore.Infraestructura/Contexto/ClassViews/CuposPorProgramacionView.cs" Line="13" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Ino_InvisionCore" expanded="True">
+            <Node name="1. Presentacion" expanded="True" />
+            <Node name="2. Dominio" expanded="True">
+              <Node name="Ino_InvisionCore.Dominio" expanded="True" />
+            </Node>
+            <Node name="3. Infraestructura" expanded="True">
+              <Node name="Ino_InvisionCore.Infraestructura" expanded="True">
+                <Node name="Contexto" expanded="True">
+                  <Node name="ClassViews" expanded="True" />
+                </Node>
+                <Node name="Repositorios" expanded="True">
+                  <Node name="RepositorioDeConsultaWeb.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.1._220Presentacion.Ino__InvisionCore.Presentation PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

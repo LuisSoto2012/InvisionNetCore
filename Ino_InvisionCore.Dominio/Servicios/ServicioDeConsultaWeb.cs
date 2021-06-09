@@ -15,11 +15,13 @@ namespace Ino_InvisionCore.Dominio.Servicios
     {
         public IRepositorioDeConsultaWeb _repositorio { get; set; }
 
+        #region Teleorientacion y teleconsulta
+
         public ServicioDeConsultaWeb(IRepositorioDeConsultaWeb repositorio)
         {
             _repositorio = repositorio;
         }
- 
+
         public RespuestaBD CrearSolicitudCita(RegistroSolicitudCita solicitud)
         {
             return _repositorio.CrearSolicitudCita(solicitud);
@@ -47,7 +49,7 @@ namespace Ino_InvisionCore.Dominio.Servicios
 
         public RespuestaBD ValidarSolicitudCita(RegistroSolicitudCita solicitud)
         {
-            return  _repositorio.ValidarSolicitudCita(solicitud);
+            return _repositorio.ValidarSolicitudCita(solicitud);
         }
 
         public async Task<CitaCuarentenaDto> ConsultarCitaCuarentena(string dni)
@@ -115,6 +117,8 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return _repositorio.ObtenerDatosGeneralesRENIEC(dni);
         }
 
+        #endregion
+
         #region Consulta Rapida
 
         public async Task<RespuestaBD> CrearSolicitudConsultaRapida(RegistroSolicitudConsultaRapidaDto solicitud)
@@ -139,6 +143,23 @@ namespace Ino_InvisionCore.Dominio.Servicios
 
         #endregion
 
+        #region Comunes
 
+        public async Task<IEnumerable<ComboBox>> ListarEspecialidadesPorFechaConsultaRapida(DateTime fechaCita)
+        {
+            return await _repositorio.ListarEspecialidadesPorFechaConsultaRapida(fechaCita);
+        }
+
+        public async Task<IEnumerable<ComboBoxMedico>> ListarMedicosPorEspecialidadConsultaRapida(DateTime fechaCita, int idEspecialidad)
+        {
+            return await _repositorio.ListarMedicosPorEspecialidadConsultaRapida(fechaCita, idEspecialidad);
+        }
+
+        public async Task<IEnumerable<ComboBox>> ListarCuposPorProgramacionConsultaRapida(int idProgramacion)
+        {
+            return await _repositorio.ListarCuposPorProgramacionConsultaRapida(idProgramacion);
+        }
+
+        #endregion
     }
 }
