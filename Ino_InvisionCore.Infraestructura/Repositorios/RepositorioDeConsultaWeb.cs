@@ -1599,49 +1599,30 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         solicitudConsultaRapida.IdEstado = 1;
                         solicitudConsultaRapida.FechaAcepta = DateTime.Now;
                         solicitudConsultaRapida.IdUsuarioAcepta = solicitud.IdUsuario;
-                        solicitudConsultaRapida.IdEspecialidad = solicitud.Especialidad.Id;
-                        solicitudConsultaRapida.NombreEspecialidad = solicitud.Especialidad.Descripcion;
 
                         await Context.SaveChangesAsync();
                         respuesta.Id = 1;
-                        respuesta.Mensaje = "Su consulta por emergencia ha sido registrada correctamente!";
+                        respuesta.Mensaje = "El correo de teleconsulta ha sido enviado con éxito!";
 
-                        using (StreamReader SourceReader = System.IO.File.OpenText("msg_emergencia.html"))
+                        using (StreamReader SourceReader = System.IO.File.OpenText("teleconsulta_consultarapida.html"))
                         {
                             MailMessage mailMessage = new MailMessage();
 
-                            string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", $"{solicitud.Nombres} {solicitud.ApellidoPaterno} {solicitud.ApellidoMaterno}");
+                            string body = (SourceReader.ReadToEnd()).Replace("NombresPaciente", $"{solicitud.Nombres}");
                             AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
 
-                            byte[] reader = File.ReadAllBytes("logo_ino.jpg");
+                            byte[] reader = File.ReadAllBytes("teleconsulta.jpg");
                             MemoryStream image1 = new MemoryStream(reader);
 
                             LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                            headerImage.ContentId = "logoIno";
+                            headerImage.ContentId = "logoTeleconsulta";
                             headerImage.ContentType = new ContentType("image/jpg");
                             av.LinkedResources.Add(headerImage);
-
-                            byte[] reader2 = File.ReadAllBytes("logo_invision.jpg");
-                            MemoryStream image2 = new MemoryStream(reader2);
-
-                            LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                            headerImage2.ContentId = "logoInvision";
-                            headerImage2.ContentType = new ContentType("image/jpg");
-                            av.LinkedResources.Add(headerImage2);
-
-                            byte[] reader3 = File.ReadAllBytes("atencionemg.jpg");
-                            MemoryStream image3 = new MemoryStream(reader3);
-
-                            LinkedResource headerImage3 = new LinkedResource(image3, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                            headerImage3.ContentId = "atencionemg";
-                            headerImage3.ContentType = new ContentType("image/jpg");
-                            av.LinkedResources.Add(headerImage3);
-
 
                             mailMessage.AlternateViews.Add(av);
                             mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
                             mailMessage.To.Add(solicitud.CorreoElectronico);
-                            mailMessage.Subject = "INO CONSULTAS WEB - Confirmación de Solicitud Consulta por Emergencia";
+                            mailMessage.Subject = "INO TELECONSULTA - CONSULTA RÁPIDA";
                             mailMessage.IsBodyHtml = true;
                             ContentType mimeType = new System.Net.Mime.ContentType("text/html");
                             AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
@@ -1682,19 +1663,23 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                             solicitudConsultaRapida.IdUsuarioAcepta = solicitud.IdUsuario;
                             solicitudConsultaRapida.FechaCita = solicitud.FechaCita;
                             solicitudConsultaRapida.HoraCita = solicitud.HoraCita.Descripcion;
+                            solicitudConsultaRapida.IdEspecialidad = solicitud.Especialidad.Id;
+                            solicitudConsultaRapida.NombreEspecialidad = solicitud.Especialidad.Descripcion;
 
                             await Context.SaveChangesAsync();
 
                             respuesta.Id = 1;
-                            respuesta.Mensaje = "Su consulta rápida ha sido registrada correctamente!";
+                            respuesta.Mensaje = "El correo de su consulta presencial ha sido enviado con éxito!";
 
-                            using (StreamReader SourceReader = System.IO.File.OpenText("aprobacion_emergencia.html"))
+                            using (StreamReader SourceReader = System.IO.File.OpenText("consultaexterna_presencial.html"))
                             {
                                 MailMessage mailMessage = new MailMessage();
 
-                                string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", $"{solicitud.Nombres} {solicitud.ApellidoPaterno} {solicitud.ApellidoMaterno}");
+                                string body = (SourceReader.ReadToEnd()).Replace("NombresPaciente", $"{solicitud.Nombres}");
                                 body = body.Replace("FechaAtencion", solicitud.FechaCita.ToString("dd/MM/yyyy"));
                                 body = body.Replace("HoraAtencion", solicitud.HoraCita.Descripcion);
+                                body = body.Replace("NombreEspecialidad", solicitud.Especialidad.Descripcion);
+
                                 AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
 
                                 byte[] reader = File.ReadAllBytes("logo_ino.jpg");
@@ -1713,11 +1698,11 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                 headerImage2.ContentType = new ContentType("image/jpg");
                                 av.LinkedResources.Add(headerImage2);
 
-                                byte[] reader3 = File.ReadAllBytes("citaEmergencia.jpg");
+                                byte[] reader3 = File.ReadAllBytes("banner_consultarapida.jpg");
                                 MemoryStream image3 = new MemoryStream(reader3);
 
                                 LinkedResource headerImage3 = new LinkedResource(image3, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                                headerImage3.ContentId = "citaEmergencia";
+                                headerImage3.ContentId = "bannerConsultaRapida";
                                 headerImage3.ContentType = new ContentType("image/jpg");
                                 av.LinkedResources.Add(headerImage3);
 
@@ -1725,7 +1710,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                 mailMessage.AlternateViews.Add(av);
                                 mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
                                 mailMessage.To.Add(solicitud.CorreoElectronico);
-                                mailMessage.Subject = "INO CONSULTAS WEB - Confirmación de Solicitud Consulta Rápida por Emergencia";
+                                mailMessage.Subject = "INO CONSULTA PRESENCIAL - CONSULTA RÁPIDA";
                                 mailMessage.IsBodyHtml = true;
                                 ContentType mimeType = new System.Net.Mime.ContentType("text/html");
                                 AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
