@@ -37,5 +37,8 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.SolicitudWeb.Respuestas
         public string NumeroReferencia { get; set; }
         public ComboBox Especialidad { get; set; }
         public string OrigenPaciente { get; set; }
+        public int? IdUsuarioRechaza { get; set; }
+        public string FechaRechazo { get; set; }
+        public string MotivoRechazo { get; set; }
     }
 }

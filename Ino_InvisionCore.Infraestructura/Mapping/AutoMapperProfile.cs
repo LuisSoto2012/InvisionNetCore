@@ -520,7 +520,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                             .ForMember(r => r.Edad, x => x.MapFrom(p => this.CalculateAgeStr(p.FechaNacimiento,4)))
                             .ForMember(r => r.TipoSeguro, x => x.MapFrom(p => p.TipoSeguro ?? 0))
                             .ForMember(r => r.NumeroReferencia, x => x.MapFrom(p => p.NumeroReferencia ?? ""))
-                            .ForMember(r => r.Especialidad, x => x.MapFrom(p => p.IdEspecialidad.HasValue ? new ComboBox { Id = p.IdEspecialidad.Value, Descripcion = p.NombreEspecialidad } : new ComboBox { Id = 0, Descripcion = "<SELECCIONAR>"}));
+                            .ForMember(r => r.Especialidad, x => x.MapFrom(p => p.IdEspecialidad.HasValue ? new ComboBox { Id = p.IdEspecialidad.Value, Descripcion = p.NombreEspecialidad } : new ComboBox { Id = 0, Descripcion = "<SELECCIONAR>"}))
+                            .ForMember(r => r.FechaRechazo, x => x.MapFrom(p => p.FechaRechazo.HasValue ? p.FechaRechazo.Value.ToString("dd/MM/yyyy HH:mm") : ""));
 
             //Vacunacion Covid - 19
             CreateMap<GuardarCIDto, ConsentimientoInformadoCOVID19>();

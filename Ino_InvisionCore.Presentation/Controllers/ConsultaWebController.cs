@@ -202,7 +202,7 @@ namespace Ino_InvisionCore.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AceptarSolicitudConsultaRapida([FromBody]AceptarSolicitudConsultaRapidaDto solicitud)
+        public async Task<IActionResult> AceptarRechazarSolicitudConsultaRapida([FromBody]AceptarSolicitudConsultaRapidaDto solicitud)
         {
             var respuesta = await _servicio.AceptarSolicitudConsultaRapida(solicitud);
 
