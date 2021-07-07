@@ -17,5 +17,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.SolicitudWeb.Peticiones
         public DateTime FechaCita { get; set; }
         public ComboBox HoraCita { get; set; }
         public ComboBox Especialidad { get; set; }
+        public string MotivoRechazo { get; set; }
+        public int IdOperacion { get; set; }
     }
 }

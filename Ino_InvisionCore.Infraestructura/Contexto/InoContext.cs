@@ -1,5 +1,6 @@
 ﻿using Ino_InvisionCore.Dominio.Entidades;
 using Ino_InvisionCore.Dominio.Entidades.AccidenteDeTrabajo;
+using Ino_InvisionCore.Dominio.Entidades.Anestesia;
 using Ino_InvisionCore.Dominio.Entidades.AtencionCE;
 using Ino_InvisionCore.Dominio.Entidades.Comunes;
 using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb;
@@ -38,6 +39,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public DbSet<EmpleoReactivo> EmpleoReactivo { set; get; }
         public DbSet<EquipoMalCalibrado> EquipoMalCalibrado { set; get; }
         public DbSet<EquipoUPS> EquipoUPS { set; get; }
+        public DbSet<EvaluacionPreAnestesica> EvaluacionesPreAnestesicas { get; set; }
         public DbSet<MaterialNoCalibrado> MaterialNoCalibrado { set; get; }
         public DbSet<MuestraHemolizadaLipemica> MuestraHemolizadaLipemica { set; get; }
         public DbSet<PocoFrecuente> PocoFrecuente { set; get; }

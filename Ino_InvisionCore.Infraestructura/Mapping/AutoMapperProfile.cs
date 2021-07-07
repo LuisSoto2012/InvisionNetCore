@@ -2,6 +2,7 @@
 using Ino_InvisionCore.Dominio.Contratos.Helpers.AccidenteDeTrabajo.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.AccidenteDeTrabajo.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Adicional.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Aplicacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Aplicacion.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Archivo.Peticiones;
@@ -77,6 +78,7 @@ using Ino_InvisionCore.Dominio.Contratos.Helpers.Ticket.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Ticket.Respuestas;
 using Ino_InvisionCore.Dominio.Entidades;
 using Ino_InvisionCore.Dominio.Entidades.AccidenteDeTrabajo;
+using Ino_InvisionCore.Dominio.Entidades.Anestesia;
 using Ino_InvisionCore.Dominio.Entidades.AtencionCE;
 using Ino_InvisionCore.Dominio.Entidades.Comunes;
 using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb;
@@ -547,6 +549,11 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                             .ForMember(r => r.EstimuloColor, x => x.MapFrom(p => string.IsNullOrEmpty(p.EstimuloColor) ? new string[] { } : p.EstimuloColor.Split(',', StringSplitOptions.None)))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.ToString("dd/MM/yyyy HH:mm")))
                             .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy HH:mm") : ""));
+
+            //Anestesia
+            CreateMap<RegistrarEvaluacionPreAnestesica, EvaluacionPreAnestesica>();
+            CreateMap<ModificarEvaluacionPreAnestesica, EvaluacionPreAnestesica>();
+
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

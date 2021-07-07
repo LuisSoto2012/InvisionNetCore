@@ -2,6 +2,7 @@
 using AutofacSerilogIntegration;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.AccidenteDeTrabajo;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Adicional;
+using Ino_InvisionCore.Dominio.Contratos.Repositorios.Anestesia;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Aplicacion;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Archivo;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Atencion;
@@ -26,6 +27,7 @@ using Ino_InvisionCore.Dominio.Contratos.Repositorios.Ticket;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Tramas;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.AccidenteTrabajo;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Adicional;
+using Ino_InvisionCore.Dominio.Contratos.Servicios.Anestesia;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Aplicacion;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Archivo;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Atencion;
@@ -93,6 +95,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<RepositorioDeTramas>().As<IRepositorioDeTramas>();
             builder.RegisterType<RepositorioDeConsultaWeb>().As<IRepositorioDeConsultaWeb>();
             builder.RegisterType<RepositorioDeVacunacionCOVID19>().As<IRepositorioDeVacunacionCOVID19>();
+            builder.RegisterType<RepositorioDeAnestesias>().As<IRepositorioDeAnestesias>();
 
             // Services
             builder.RegisterType<ServicioDeAdicionales>().As<IServicioDeAdicionales>();
@@ -124,7 +127,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<ServicioDeTramas>().As<IServicioDeTramas>();
             builder.RegisterType<ServicioDeConsultaWeb>().As<IServicioDeConsultaWeb>();
             builder.RegisterType<ServicioDeVacunacionCOVID19>().As<IServicioDeVacunacionCOVID19>();
-            
+            builder.RegisterType<ServicioDeAnestesias>().As<IServicioDeAnestesias>();
         }
     }
 }
