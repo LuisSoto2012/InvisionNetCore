@@ -30,13 +30,13 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             //return Context.Database.SqlQuery<HistorialAtenciones>("dbo.INO_CEHistorialAtenciones @NroHistoriaClinica",
             //        new SqlParameter("NroHistoriaClinica", paciente.NroHistoriaClinica.Value)).ToList();
 
-            return Context.Query<HistorialAtencionesView>().FromSql("dbo.INO_CEHistorialAtenciones @NroHistoriaClinica, @IdDepartamento",
+            return Context.Query<HistorialAtencionesView>().FromSql("dbo.Invision_CEHistorialAtenciones @NroHistoriaClinica, @IdDepartamento",
                     new SqlParameter("NroHistoriaClinica", paciente.NroHistoriaClinica.Value), new SqlParameter("IdDepartamento", idDepartamento)).ToList().Select(x => Mapper.Map<HistorialAtenciones>(x)).ToList();
         }
 
         public async Task<IEnumerable<HistorialAtenciones>> ListarHistorialAtencionesAsync(PacientePorHcDni paciente)
         {
-            return await Context.Query<HistorialAtencionesView>().FromSql("dbo.INO_CEHistorialAtenciones @NroHistoriaClinica",
+            return await Context.Query<HistorialAtencionesView>().FromSql("dbo.Invision_CEHistorialAtenciones @NroHistoriaClinica",
                     new SqlParameter("NroHistoriaClinica", paciente.NroHistoriaClinica.Value)).Select(x => Mapper.Map<HistorialAtenciones>(x)).ToListAsync();
         }
 
