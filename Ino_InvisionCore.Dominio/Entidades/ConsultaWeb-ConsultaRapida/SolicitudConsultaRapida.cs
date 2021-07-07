@@ -61,6 +61,9 @@ namespace Ino_InvisionCore.Dominio.Entidades.ConsultaWeb_ConsultaRapida
         public string OrigenPaciente { get; set; }
         public int? IdUsuarioModificacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public string MotivoRechazo { get; set; }
+        public int? IdUsuarioRechaza { get; set; }
+        public DateTime? FechaRechazo { get; set; }
 
         public SolicitudConsultaRapida()
         {
