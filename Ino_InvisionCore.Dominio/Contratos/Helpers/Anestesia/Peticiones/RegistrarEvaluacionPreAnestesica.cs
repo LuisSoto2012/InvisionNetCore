@@ -4,6 +4,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
     public class RegistrarEvaluacionPreAnestesica
     {
         public int IdPaciente { get; set; }
+        public int IdAtencion { get; set; }
         public string Paciente { get; set; }
         public string HistoriaClinica { get; set; }
         public string Edad { get; set; }
@@ -74,5 +75,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
         public string Anestesiologo { get; set; }
         public int IdUsuarioCreacion { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public int IdEstado { get; set; } = 1;
     }
 }

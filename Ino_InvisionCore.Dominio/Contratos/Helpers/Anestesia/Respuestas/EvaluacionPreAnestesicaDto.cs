@@ -5,6 +5,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Respuestas
     {
         public int Id { get; set; }
         public int IdPaciente { get; set; }
+        public int IdAtencion { get; set; }
         public string Paciente { get; set; }
         public string HistoriaClinica { get; set; }
         public string Edad { get; set; }
@@ -66,6 +67,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Respuestas
         public string LaboratorioImagen_Otros { get; set; }
         public string LaboratorioImagen_FechaExamen4 { get; set; }
         public string ClasificacionASA { get; set; }
+        public bool ClasificacionASA_Emergencia { get; set; }
         public string ClasificacionGOLDMAN { get; set; }
         public string PlanAnestesico_Sedoanalgesia { get; set; }
         public string PlanAnestesico_AnestesiaGeneralBalanceada { get; set; }
@@ -78,5 +80,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Respuestas
         public string FechaCreacion { get; set; }
         public int? IdUsuarioModificacion { get; set; }
         public string FechaModificacion { get; set; }
+        public int IdEstado { get; set; }
     }
 }

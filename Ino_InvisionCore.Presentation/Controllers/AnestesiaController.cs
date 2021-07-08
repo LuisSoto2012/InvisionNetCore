@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Anestesia;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Ino_InvisionCore.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegistrarEvaluacionPreAnestesica(RegistrarEvaluacionPreAnestesica solicitud)
+        public async Task<IActionResult> RegistrarEvaluacionPreAnestesica([FromBody]RegistrarEvaluacionPreAnestesica solicitud)
         {
             var respuesta = await _servicio.RegistrarEvaluacionPreAnestesica(solicitud);
 
@@ -32,9 +33,23 @@ namespace Ino_InvisionCore.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ModificarEvaluacionPreAnestesica(ModificarEvaluacionPreAnestesica solicitud)
+        public async Task<IActionResult> ModificarEvaluacionPreAnestesica([FromBody]ModificarEvaluacionPreAnestesica solicitud)
         {
             var respuesta = await _servicio.ModificarEvaluacionPreAnestesica(solicitud);
+
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<PreAnestesiaDto>> ListarEvaluacionPreAnestesica([FromQuery]int idAtencion)
+        {
+            return await _servicio.ListarEvaluacionPreAnestesica(idAtencion);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EliminarEvaluacionPreAnestesica([FromBody]EliminarPreAnestesiaDto solicitud)
+        {
+            var respuesta = await _servicio.EliminarEvaluacionPreAnestesica(solicitud);
 
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
