@@ -1741,7 +1741,11 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         solicitudConsultaRapida.MotivoRechazo = solicitud.MotivoRechazo;
                         solicitudConsultaRapida.IdUsuarioRechaza = solicitud.IdUsuario;
                         solicitudConsultaRapida.FechaRechazo = DateTime.Now;
+                        solicitudConsultaRapida.IdEstado = 3; 
                         await Context.SaveChangesAsync();
+                        respuesta.Id = 1;
+                        respuesta.Mensaje = "La solicitud se ha rechazado de manera exitosa.";
+                        return respuesta;
                     }
                 }
 
