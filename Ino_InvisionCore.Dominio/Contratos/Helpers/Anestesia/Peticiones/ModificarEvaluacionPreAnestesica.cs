@@ -69,12 +69,9 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
         public string ClasificacionASA { get; set; }
         public bool ClasificacionASA_Emergencia { get; set; }
         public string ClasificacionGOLDMAN { get; set; }
-        public string PlanAnestesico_Sedoanalgesia { get; set; }
-        public string PlanAnestesico_AnestesiaGeneralBalanceada { get; set; }
-        public string PlanAnestesico_AnestesiaGeneralInhalatoria { get; set; }
+        public string PlanAnestesico { get; set; }
         public string PlanAnestesico_Otros { get; set; }
         public string ConclusionesRecomendaciones { get; set; }
-        public string Anestesiologo { get; set; }
         public int? IdUsuarioModificacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
     }

@@ -62,7 +62,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             {
                 Id = x.Id,
                 IdAtencion = x.IdAtencion,
-                FechaRegistro = x.FechaRegistro.ToString("dd/MM/yyyy HH:mm")
+                FechaRegistro = x.FechaCreacion.ToString("dd/MM/yyyy HH:mm")
             });
         }
 

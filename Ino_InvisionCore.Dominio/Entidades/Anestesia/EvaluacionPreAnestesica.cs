@@ -72,13 +72,9 @@ namespace Ino_InvisionCore.Dominio.Entidades.Anestesia
         public string ClasificacionASA { get; set; }
         public bool ClasificacionASA_Emergencia { get; set; }
         public string ClasificacionGOLDMAN { get; set; }
-        public string PlanAnestesico_Sedoanalgesia { get; set; }
-        public string PlanAnestesico_AnestesiaGeneralBalanceada { get; set; }
-        public string PlanAnestesico_AnestesiaGeneralInhalatoria { get; set; }
+        public string PlanAnestesico{ get; set; }
         public string PlanAnestesico_Otros { get; set; }
         public string ConclusionesRecomendaciones { get; set; }
-        public DateTime FechaRegistro { get; set; }
-        public string Anestesiologo { get; set; }
         public int IdUsuarioCreacion { get; set; }
         public DateTime FechaCreacion { get; set; }
         public int? IdUsuarioModificacion { get; set; }
