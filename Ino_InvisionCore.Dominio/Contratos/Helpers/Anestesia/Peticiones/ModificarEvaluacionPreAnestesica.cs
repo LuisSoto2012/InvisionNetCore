@@ -4,8 +4,10 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
     public class ModificarEvaluacionPreAnestesica
     {
         public int Id { get; set; }
-        public int IdAtencion { get; set; }
         public int IdPaciente { get; set; }
+        public int IdAtencion { get; set; }
+        public int IdMedico { get; set; }
+        public string Medico { get; set; }
         public string Paciente { get; set; }
         public string HistoriaClinica { get; set; }
         public string Edad { get; set; }
@@ -67,12 +69,12 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
         public string LaboratorioImagen_Otros { get; set; }
         public DateTime? LaboratorioImagen_FechaExamen4 { get; set; }
         public string ClasificacionASA { get; set; }
-        public bool ClasificacionASA_Emergencia { get; set; }
-        public string ClasificacionGOLDMAN { get; set; }
+        public string[] ClasificacionGOLDMAN { get; set; }
         public string PlanAnestesico { get; set; }
         public string PlanAnestesico_Otros { get; set; }
         public string ConclusionesRecomendaciones { get; set; }
         public int? IdUsuarioModificacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        public bool Antecedentes { get; set; }
     }
 }

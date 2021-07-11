@@ -23,7 +23,7 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return await _repositorio.EliminarEvaluacionPreAnestesica(solicitud);
         }
 
-        public async Task<IEnumerable<PreAnestesiaDto>> ListarEvaluacionPreAnestesica(int idAtencion)
+        public async Task<IEnumerable<EvaluacionPreAnestesicaDto>> ListarEvaluacionPreAnestesica(int idAtencion)
         {
             return await _repositorio.ListarEvaluacionPreAnestesica(idAtencion);
         }

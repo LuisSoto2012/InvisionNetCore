@@ -41,7 +41,7 @@ namespace Ino_InvisionCore.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PreAnestesiaDto>> ListarEvaluacionPreAnestesica([FromQuery]int idAtencion)
+        public async Task<IEnumerable<EvaluacionPreAnestesicaDto>> ListarEvaluacionPreAnestesica([FromQuery]int idAtencion)
         {
             return await _servicio.ListarEvaluacionPreAnestesica(idAtencion);
         }

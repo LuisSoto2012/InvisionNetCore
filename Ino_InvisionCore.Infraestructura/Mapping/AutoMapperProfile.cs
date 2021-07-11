@@ -3,6 +3,7 @@ using Ino_InvisionCore.Dominio.Contratos.Helpers.AccidenteDeTrabajo.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.AccidenteDeTrabajo.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Adicional.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Aplicacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Aplicacion.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Archivo.Peticiones;
@@ -553,9 +554,19 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
 
             //Anestesia
             CreateMap<RegistrarEvaluacionPreAnestesica, EvaluacionPreAnestesica>()
-                            .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now));
+                            .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now))
+                            .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => string.Join(",", p.ClasificacionGOLDMAN)));
             CreateMap<ModificarEvaluacionPreAnestesica, EvaluacionPreAnestesica>()
-                            .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now));
+                            .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now))
+                            .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => string.Join(",", p.ClasificacionGOLDMAN)));
+            CreateMap<EvaluacionPreAnestesica, EvaluacionPreAnestesicaDto>()
+                            .ForMember(r => r.LaboratorioImagen_FechaExamen1, x => x.MapFrom(p => p.LaboratorioImagen_FechaExamen1.HasValue ? p.LaboratorioImagen_FechaExamen1.Value.ToString("dd/MM/yyyy") : ""))
+                            .ForMember(r => r.LaboratorioImagen_FechaExamen2, x => x.MapFrom(p => p.LaboratorioImagen_FechaExamen2.HasValue ? p.LaboratorioImagen_FechaExamen2.Value.ToString("dd/MM/yyyy") : ""))
+                            .ForMember(r => r.LaboratorioImagen_FechaExamen3, x => x.MapFrom(p => p.LaboratorioImagen_FechaExamen3.HasValue ? p.LaboratorioImagen_FechaExamen3.Value.ToString("dd/MM/yyyy") : ""))
+                            .ForMember(r => r.LaboratorioImagen_FechaExamen4, x => x.MapFrom(p => p.LaboratorioImagen_FechaExamen4.HasValue ? p.LaboratorioImagen_FechaExamen4.Value.ToString("dd/MM/yyyy") : ""))
+                            .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.ToString("dd/MM/yyyy")))
+                            .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy") : ""))
+                            .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => p.ClasificacionGOLDMAN.Split(',', StringSplitOptions.None)));
 
         }
 

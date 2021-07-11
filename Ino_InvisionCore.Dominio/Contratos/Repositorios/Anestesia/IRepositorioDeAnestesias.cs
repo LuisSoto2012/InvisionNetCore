@@ -11,7 +11,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Anestesia
     {
         Task<RespuestaBD> RegistrarEvaluacionPreAnestesica(RegistrarEvaluacionPreAnestesica solicitud);
         Task<RespuestaBD> ModificarEvaluacionPreAnestesica(ModificarEvaluacionPreAnestesica solicitud);
-        Task<IEnumerable<PreAnestesiaDto>> ListarEvaluacionPreAnestesica(int idAtencion);
+        Task<IEnumerable<EvaluacionPreAnestesicaDto>> ListarEvaluacionPreAnestesica(int idAtencion);
         Task<RespuestaBD> EliminarEvaluacionPreAnestesica(EliminarPreAnestesiaDto solicitud);
         //Task<EvaluacionPreAnestesicaDto> ListarEvaluacionPreAnestesica();
     }

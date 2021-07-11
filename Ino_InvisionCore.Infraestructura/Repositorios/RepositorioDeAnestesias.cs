@@ -55,15 +55,16 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             return respuesta;
         }
 
-        public async Task<IEnumerable<PreAnestesiaDto>> ListarEvaluacionPreAnestesica(int idAtencion)
+        public async Task<IEnumerable<EvaluacionPreAnestesicaDto>> ListarEvaluacionPreAnestesica(int idAtencion)
         {
             var list = await _context.EvaluacionesPreAnestesicas.Where(x => x.IdAtencion == idAtencion && x.IdEstado == 1).ToListAsync();
-            return list.Select(x => new PreAnestesiaDto
-            {
-                Id = x.Id,
-                IdAtencion = x.IdAtencion,
-                FechaRegistro = x.FechaCreacion.ToString("dd/MM/yyyy HH:mm")
-            });
+            return list.Select(x => Mapper.Map<EvaluacionPreAnestesicaDto>(x));
+            //return list.Select(x => new PreAnestesiaDto
+            //{
+            //    Id = x.Id,
+            //    IdAtencion = x.IdAtencion,
+            //    FechaRegistro = x.FechaCreacion.ToString("dd/MM/yyyy HH:mm")
+            //});
         }
 
         public async Task<RespuestaBD> ModificarEvaluacionPreAnestesica(ModificarEvaluacionPreAnestesica solicitud)
@@ -79,7 +80,10 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     respuesta.Mensaje = "No se ha encontrado el registro en la BD.";
                     return respuesta;
                 }
-
+                if (!solicitud.Antecedentes)
+                {
+                    solicitud.AntecedentesQuirurgicosAnastesicos = "NO REFIERE";
+                }
                 evaluacion = Mapper.Map<EvaluacionPreAnestesica>(solicitud);
                 await _context.SaveChangesAsync();
                 respuesta.Id = 1;
@@ -101,6 +105,10 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
             try
             {
+                if (!solicitud.Antecedentes)
+                {
+                    solicitud.AntecedentesQuirurgicosAnastesicos = "NO REFIERE";
+                }
                 EvaluacionPreAnestesica evaluacionPreAnestesica = Mapper.Map<EvaluacionPreAnestesica>(solicitud);
                 _context.EvaluacionesPreAnestesicas.Add(evaluacionPreAnestesica);
                 await _context.SaveChangesAsync();
