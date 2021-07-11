@@ -107,6 +107,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
 
         public string Observaciones { get; set; }
         public string MedidasGenerales { get; set; }
+        public string Antecedentes { get; set; }
 
         public string HoraCita { get; set; }
     }

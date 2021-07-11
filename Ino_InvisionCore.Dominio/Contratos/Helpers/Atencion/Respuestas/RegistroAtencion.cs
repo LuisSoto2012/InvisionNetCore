@@ -100,5 +100,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Atencion.Respuestas
 
         public string Observaciones { get; set; }
         public string MedidasGenerales { get; set; }
+        public string Antecedentes { get; set; }
     }
 }

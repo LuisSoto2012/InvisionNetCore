@@ -51,6 +51,8 @@ namespace Ino_InvisionCore.Dominio.Entidades.AtencionCE
         public string Observaciones { get; set; }
         public string MedidasGenerales { get; set; }
 
+        public string Antecedentes { get; set; }
+
         public DateTime? ProximaCita { get; set; }
         public string PlanDeTrabajo { get; set; }
         public int IdUsuarioRegistro { get; set; }

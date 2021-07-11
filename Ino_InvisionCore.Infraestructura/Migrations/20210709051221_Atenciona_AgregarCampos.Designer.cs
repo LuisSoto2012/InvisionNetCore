@@ -4,14 +4,16 @@ using Ino_InvisionCore.Infraestructura.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ino_InvisionCore.Infraestructura.Migrations
 {
     [DbContext(typeof(InoContext))]
-    partial class InoContextModelSnapshot : ModelSnapshot
+    [Migration("20210709051221_Atenciona_AgregarCampos")]
+    partial class Atenciona_AgregarCampos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,7 +411,7 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Antecedentes");
+                    b.Property<string>("Antencedentes");
 
                     b.Property<string>("AvConAEOD");
 

@@ -139,7 +139,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         IdUsuarioRegistro = nuevaAtencion.IdUsuario,
                         FechaRegistro = DateTime.Now,
                         Observaciones = nuevaAtencion.Observaciones,
-                        MedidasGenerales = nuevaAtencion.MedidasGenerales
+                        MedidasGenerales = nuevaAtencion.MedidasGenerales,
+                        Antecedentes = nuevaAtencion.Antecedentes
                     };
 
                     InoContext.AtencionesCE.Add(atencionCE);
@@ -339,6 +340,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 atencionCE.FechaModificacion = DateTime.Now;
                 atencionCE.Observaciones = nuevaAtencion.Observaciones;
                 atencionCE.MedidasGenerales = nuevaAtencion.MedidasGenerales;
+                atencionCE.Antecedentes = nuevaAtencion.Antecedentes;
 
                 InoContext.SaveChanges();
             }

@@ -552,8 +552,10 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                             .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy HH:mm") : ""));
 
             //Anestesia
-            CreateMap<RegistrarEvaluacionPreAnestesica, EvaluacionPreAnestesica>();
-            CreateMap<ModificarEvaluacionPreAnestesica, EvaluacionPreAnestesica>();
+            CreateMap<RegistrarEvaluacionPreAnestesica, EvaluacionPreAnestesica>()
+                            .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now));
+            CreateMap<ModificarEvaluacionPreAnestesica, EvaluacionPreAnestesica>()
+                            .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now));
 
         }
 
