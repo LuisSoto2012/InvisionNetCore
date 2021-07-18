@@ -9,6 +9,7 @@ using Ino_InvisionCore.Dominio.Contratos.Repositorios.Atencion;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.AtencionTrabajador;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Auditoria;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.BonoDesempeno;
+using Ino_InvisionCore.Dominio.Contratos.Repositorios.CitasWeb;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Comunes;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Congreso;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.ConsultaWeb;
@@ -99,6 +100,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<RepositorioDeVacunacionCOVID19>().As<IRepositorioDeVacunacionCOVID19>();
             builder.RegisterType<RepositorioDeAnestesias>().As<IRepositorioDeAnestesias>();
             builder.RegisterType<RepositorioDeNervioOptico>().As<IRepositorioDeNervioOptico>();
+            builder.RegisterType<RepositorioDeCitasWeb>().As<IRepositorioDeCitasWeb>();
 
             // Services
             builder.RegisterType<ServicioDeAdicionales>().As<IServicioDeAdicionales>();
@@ -132,6 +134,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<ServicioDeVacunacionCOVID19>().As<IServicioDeVacunacionCOVID19>();
             builder.RegisterType<ServicioDeAnestesias>().As<IServicioDeAnestesias>();
             builder.RegisterType<ServicioDeNervioOptico>().As<IServicioDeNervioOptico>();
+            builder.RegisterType<ServicioDeCitasWeb>().As<IRepositorioDeCitasWeb>();
         }
     }
 }
