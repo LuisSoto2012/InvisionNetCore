@@ -107,6 +107,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
                     mailMessage.To.Add(solicitud.CorreoElectronico);
                     mailMessage.Subject = "INO CITAS WEB - Registro Paciente";
+                    mailMessage.Body = body;
                     client.Send(mailMessage);
                 
                     respuesta.Id = 1;
