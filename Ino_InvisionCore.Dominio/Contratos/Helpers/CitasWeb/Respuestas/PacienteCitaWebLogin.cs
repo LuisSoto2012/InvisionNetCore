@@ -16,6 +16,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas
         public string FechaNacimiento { get; set; }
         public List<RolGeneral> Roles { get; set; }
         public List<ModuloMenu> Modulo { get; set; }
-        public bool LoginEstado { get; set; }
+        public bool EsPaciente { get; set; } = true;
     }
 }
