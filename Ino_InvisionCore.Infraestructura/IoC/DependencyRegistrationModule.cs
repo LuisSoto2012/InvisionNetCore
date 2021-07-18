@@ -16,6 +16,7 @@ using Ino_InvisionCore.Dominio.Contratos.Repositorios.COVID19;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Laboratorio;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Medico;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Modulo;
+using Ino_InvisionCore.Dominio.Contratos.Repositorios.NervioOptico;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.OrdenMedica;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Paciente;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.RecetaMedica;
@@ -41,6 +42,7 @@ using Ino_InvisionCore.Dominio.Contratos.Servicios.COVID19;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Laboratorio;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Medico;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Modulo;
+using Ino_InvisionCore.Dominio.Contratos.Servicios.NervioOptico;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.OrdenMedica;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Paciente;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.RecetaMedica;
@@ -96,6 +98,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<RepositorioDeConsultaWeb>().As<IRepositorioDeConsultaWeb>();
             builder.RegisterType<RepositorioDeVacunacionCOVID19>().As<IRepositorioDeVacunacionCOVID19>();
             builder.RegisterType<RepositorioDeAnestesias>().As<IRepositorioDeAnestesias>();
+            builder.RegisterType<RepositorioDeNervioOptico>().As<IRepositorioDeNervioOptico>();
 
             // Services
             builder.RegisterType<ServicioDeAdicionales>().As<IServicioDeAdicionales>();
@@ -128,6 +131,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<ServicioDeConsultaWeb>().As<IServicioDeConsultaWeb>();
             builder.RegisterType<ServicioDeVacunacionCOVID19>().As<IServicioDeVacunacionCOVID19>();
             builder.RegisterType<ServicioDeAnestesias>().As<IServicioDeAnestesias>();
+            builder.RegisterType<ServicioDeNervioOptico>().As<IServicioDeNervioOptico>();
         }
     }
 }

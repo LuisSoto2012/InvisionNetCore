@@ -68,6 +68,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
         public string LaboratorioImagen_Otros { get; set; }
         public DateTime? LaboratorioImagen_FechaExamen4 { get; set; }
         public string ClasificacionASA { get; set; }
+        public bool ClasificacionASA_Emergencia { get; set; }
         public string[] ClasificacionGOLDMAN { get; set; }
         public string PlanAnestesico { get; set; }
         public string PlanAnestesico_Otros { get; set; }

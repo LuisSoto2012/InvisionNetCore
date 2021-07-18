@@ -4,14 +4,16 @@ using Ino_InvisionCore.Infraestructura.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ino_InvisionCore.Infraestructura.Migrations
 {
     [DbContext(typeof(InoContext))]
-    partial class InoContextModelSnapshot : ModelSnapshot
+    [Migration("20210711065633_Anestesia_ModificarCampos")]
+    partial class Anestesia_ModificarCampos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2339,65 +2341,6 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.HasIndex("IdReporte");
 
                     b.ToTable("SubModulo_Reporte");
-                });
-
-            modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.NervioOptico.NervioOptico", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AreaAnillo_OD");
-
-                    b.Property<string>("AreaAnillo_OI");
-
-                    b.Property<string>("Confiabilidad_OD");
-
-                    b.Property<string>("Confiabilidad_OI");
-
-                    b.Property<string>("DiagnosticoPreoperatorio");
-
-                    b.Property<string>("Edad");
-
-                    b.Property<DateTime>("FechaCreacion");
-
-                    b.Property<DateTime?>("FechaModificacion");
-
-                    b.Property<string>("FibrasNerviosas_OD");
-
-                    b.Property<string>("FibrasNerviosas_OI");
-
-                    b.Property<string>("HistoriaClinica");
-
-                    b.Property<int>("IdAtencion");
-
-                    b.Property<int>("IdEstado");
-
-                    b.Property<int>("IdMedico");
-
-                    b.Property<int>("IdPaciente");
-
-                    b.Property<int>("IdUsuarioCreacion");
-
-                    b.Property<int?>("IdUsuarioModificacion");
-
-                    b.Property<string>("Medico");
-
-                    b.Property<string>("Paciente");
-
-                    b.Property<string>("Procedimiento");
-
-                    b.Property<string>("PromedioTotal_OD");
-
-                    b.Property<string>("PromedioTotal_OI");
-
-                    b.Property<string>("RelacionCopia_OD");
-
-                    b.Property<string>("RelacionCopia_OI");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NervioOptico");
                 });
 
             modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.OrdenMedica.OpcionesOrdenMedica", b =>

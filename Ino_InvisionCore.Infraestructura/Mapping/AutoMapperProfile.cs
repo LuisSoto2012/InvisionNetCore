@@ -60,6 +60,8 @@ using Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.VenopunturasFallida
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Medico.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Modulo.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Modulo.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.NervioOptico.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.NervioOptico.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.OrdenMedica.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.OrdenMedica.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Paciente.Respuestas;
@@ -88,6 +90,7 @@ using Ino_InvisionCore.Dominio.Entidades.EvaluacionesExamenes;
 using Ino_InvisionCore.Dominio.Entidades.IndicadoresGestion;
 using Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico;
 using Ino_InvisionCore.Dominio.Entidades.MuchosAMuchos;
+using Ino_InvisionCore.Dominio.Entidades.NervioOptico;
 using Ino_InvisionCore.Dominio.Entidades.OrdenMedica;
 using Ino_InvisionCore.Dominio.Entidades.RecetaMedica;
 using Ino_InvisionCore.Dominio.Entidades.VacunacionCOVID19;
@@ -555,10 +558,12 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             //Anestesia
             CreateMap<RegistrarEvaluacionPreAnestesica, EvaluacionPreAnestesica>()
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now))
-                            .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => string.Join(",", p.ClasificacionGOLDMAN)));
+                            .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => string.Join(",", p.ClasificacionGOLDMAN)))
+                            .ForMember(r => r.IdEstado, x => x.MapFrom(p => 1));
             CreateMap<ModificarEvaluacionPreAnestesica, EvaluacionPreAnestesica>()
                             .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now))
-                            .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => string.Join(",", p.ClasificacionGOLDMAN)));
+                            .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => string.Join(",", p.ClasificacionGOLDMAN)))
+                            .ForMember(r => r.IdEstado, x => x.MapFrom(p => 1));
             CreateMap<EvaluacionPreAnestesica, EvaluacionPreAnestesicaDto>()
                             .ForMember(r => r.LaboratorioImagen_FechaExamen1, x => x.MapFrom(p => p.LaboratorioImagen_FechaExamen1.HasValue ? p.LaboratorioImagen_FechaExamen1.Value.ToString("dd/MM/yyyy") : ""))
                             .ForMember(r => r.LaboratorioImagen_FechaExamen2, x => x.MapFrom(p => p.LaboratorioImagen_FechaExamen2.HasValue ? p.LaboratorioImagen_FechaExamen2.Value.ToString("dd/MM/yyyy") : ""))
@@ -568,6 +573,15 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                             .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy") : ""))
                             .ForMember(r => r.ClasificacionGOLDMAN, x => x.MapFrom(p => p.ClasificacionGOLDMAN.Split(',', StringSplitOptions.None)));
 
+            //Nervio Optico
+            CreateMap<RegistrarNervioOptico, NervioOptico>()
+                            .ForMember(r => r.IdEstado, x => x.MapFrom(p => 1))
+                            .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now));
+            CreateMap<ModificarNervioOptico, NervioOptico>()
+                            .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now));
+            CreateMap<NervioOptico, NervioOpticoDto>()
+                            .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.ToString("dd/MM/yyyy")))
+                            .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy") : ""));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

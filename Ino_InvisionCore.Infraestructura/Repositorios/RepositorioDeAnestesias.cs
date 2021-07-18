@@ -84,10 +84,10 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 {
                     solicitud.AntecedentesQuirurgicosAnastesicos = "NO REFIERE";
                 }
-                evaluacion = Mapper.Map<EvaluacionPreAnestesica>(solicitud);
+                Mapper.Map(solicitud, evaluacion);
                 await _context.SaveChangesAsync();
                 respuesta.Id = 1;
-                respuesta.Mensaje = "Modificación satisfactorio!";
+                respuesta.Mensaje = "Modificación satisfactoria!";
             }
             catch (Exception ex)
             {

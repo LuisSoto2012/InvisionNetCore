@@ -8,6 +8,7 @@ using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb_ConsultaRapida;
 using Ino_InvisionCore.Dominio.Entidades.EvaluacionesExamenes;
 using Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico;
 using Ino_InvisionCore.Dominio.Entidades.MuchosAMuchos;
+using Ino_InvisionCore.Dominio.Entidades.NervioOptico;
 using Ino_InvisionCore.Dominio.Entidades.OrdenMedica;
 using Ino_InvisionCore.Dominio.Entidades.RecetaMedica;
 using Ino_InvisionCore.Dominio.Entidades.VacunacionCOVID19;
@@ -87,6 +88,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
 
         public DbSet<AtencionCE> AtencionesCE { get; set; }
         public DbSet<EvaluacionExamen> EvaluacionesExamenes { get; set; }
+
+        public DbSet<NervioOptico> NerviosOpticos { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 
