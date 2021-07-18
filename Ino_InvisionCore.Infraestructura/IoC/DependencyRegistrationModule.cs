@@ -38,6 +38,7 @@ using Ino_InvisionCore.Dominio.Contratos.Servicios.Auditoria;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.BonoDesempeno;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Comunes;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Congreso;
+using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultaWeb;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.COVID19;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Laboratorio;
@@ -134,7 +135,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<ServicioDeVacunacionCOVID19>().As<IServicioDeVacunacionCOVID19>();
             builder.RegisterType<ServicioDeAnestesias>().As<IServicioDeAnestesias>();
             builder.RegisterType<ServicioDeNervioOptico>().As<IServicioDeNervioOptico>();
-            builder.RegisterType<ServicioDeCitasWeb>().As<IRepositorioDeCitasWeb>();
+            builder.RegisterType<ServicioDeCitasWeb>().As<IServicioDeCitasWeb>();
         }
     }
 }
