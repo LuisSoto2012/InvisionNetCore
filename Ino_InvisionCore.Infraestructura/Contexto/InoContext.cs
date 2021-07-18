@@ -2,6 +2,7 @@
 using Ino_InvisionCore.Dominio.Entidades.AccidenteDeTrabajo;
 using Ino_InvisionCore.Dominio.Entidades.Anestesia;
 using Ino_InvisionCore.Dominio.Entidades.AtencionCE;
+using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Comunes;
 using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb;
 using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb_ConsultaRapida;
@@ -90,6 +91,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public DbSet<EvaluacionExamen> EvaluacionesExamenes { get; set; }
 
         public DbSet<NervioOptico> NerviosOpticos { get; set; }
+        public DbSet<PacienteCitaWeb> PacientesCitaWeb { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 
@@ -442,6 +444,13 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             {
                 entity.Property(e => e.Descripcion).IsUnicode(false);
             });
+            
+            //Empleado CondicionTrabajo (Relacion de uno a uno - transaccional-maestra)
+            modelBuilder.Entity<PacienteCitaWeb>()
+                .HasOne(w => w.Rol)
+                .WithOne(ct => ct.PacienteCitaWeb)
+                .HasForeignKey<PacienteCitaWeb>(m => m.IdRol)
+                .IsRequired();
         }
 
     }

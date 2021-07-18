@@ -9,7 +9,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Seguridad.Usuario.Peticione
 {
     public class UsuarioLogin
     {
-        [Key]
+        [Key] 
         public int IdEmpleado { get; set; }
         public string Usuario { get; set; }
         public string Nombres { get; set; }

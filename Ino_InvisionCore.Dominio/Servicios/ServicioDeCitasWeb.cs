@@ -2,6 +2,7 @@
 
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.CitasWeb;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
@@ -20,6 +21,11 @@ namespace Ino_InvisionCore.Dominio.Servicios
         public async Task<RespuestaBD> RegistrarPaciente(RegistrarPacienteDto solicitud)
         {
             return await _repositorio.RegistrarPaciente(solicitud);
+        }
+
+        public async Task<PacienteCitaWebLogin> Login(string usuario, string contrasena)
+        {
+            return await _repositorio.Login(usuario, contrasena);
         }
     }
 }

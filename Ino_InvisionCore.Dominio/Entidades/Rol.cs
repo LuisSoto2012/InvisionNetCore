@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 
 namespace Ino_InvisionCore.Dominio.Entidades
 {
@@ -22,7 +23,8 @@ namespace Ino_InvisionCore.Dominio.Entidades
 
         [JsonIgnore]
         public virtual IList<RolSubModulo> RolSubModulos { get; set; }
-
+        [JsonIgnore]
+        public virtual PacienteCitaWeb PacienteCitaWeb { get; set; }
         public Rol()
         {
             //this.Empleado = new HashSet<Empleado>();

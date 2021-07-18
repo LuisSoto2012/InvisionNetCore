@@ -1,8 +1,10 @@
 // RepositorioDeCitasWeb.cs22:0122:01
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones;
@@ -12,6 +14,11 @@ using Ino_InvisionCore.Infraestructura.Contexto;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http;
 using System.Net.Mail;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Modulo.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Seguridad.Rol.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.SubModulo.Respuestas;
+using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 using Newtonsoft.Json;
 
 namespace Ino_InvisionCore.Infraestructura.Repositorios
@@ -77,10 +84,17 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         Direction = System.Data.ParameterDirection.Output
                     };
                     
+                    var parametroPacienteSalida = new SqlParameter
+                    {
+                        ParameterName = "IdPaciente",
+                        SqlDbType = SqlDbType.Int,
+                        Direction = System.Data.ParameterDirection.Output
+                    };
+                    
                     string sql = "EXEC dbo.Invision_CitasWeb_RegistrarPaciente @ApellidoPaterno,@ApellidoMaterno,@PrimerNombre," +
                                  "@FechaNacimiento,@NroDocumento,@Telefono,@DireccionDomicilio,@IdTipoSexo,@IdEstadoCivil," +
-                                 "@IdDocIdentidad,@Email,@RegistroExitoso OUTPUT";
-
+                                 "@IdDocIdentidad,@Email,@RegistroExitoso OUTPUT,@IdPaciente OUTPUT";
+                    
                     await _galenosContext.Database.ExecuteSqlCommandAsync(sql,
                         new SqlParameter("ApellidoPaterno", solicitud.ApellidoPaterno),
                         new SqlParameter("ApellidoMaterno", solicitud.ApellidoMaterno),
@@ -93,7 +107,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         new SqlParameter("IdEstadoCivil", solicitud.IdEstadoCivil),
                         new SqlParameter("IdDocIdentidad", solicitud.IdTipoDocumento),
                         new SqlParameter("Email", solicitud.CorreoElectronico),
-                        parametroSalida);
+                        parametroSalida,
+                        parametroPacienteSalida);
                     var outParamValue = Convert.ToBoolean(parametroSalida.Value);
                     if (!outParamValue)
                     {
@@ -112,7 +127,32 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     mailMessage.Subject = "INO CITAS WEB - Registro Paciente";
                     mailMessage.Body = body;
                     client.Send(mailMessage);
-                
+                    
+                    
+                    
+                    //Registrar Paciente en Invision
+                    PacienteCitaWeb pacienteCitaWeb = new PacienteCitaWeb
+                    {
+                        IdPacienteGalenos = Convert.ToInt32(parametroPacienteSalida.Value),
+                        ApellidoPaterno = solicitud.ApellidoPaterno,
+                        ApellidoMaterno = solicitud.ApellidoMaterno,
+                        Nombres = solicitud.Nombres,
+                        FechaNacimiento = solicitud.FechaNacimiento,
+                        NumeroDocumento = solicitud.NumeroDocumento,
+                        TelefonoMovil = solicitud.TelefonoMovil,
+                        Direccion = solicitud.Direccion,
+                        IdSexo = solicitud.IdSexo,
+                        IdEstadoCivil = solicitud.IdEstadoCivil,
+                        IdTipoDocumento = solicitud.IdTipoDocumento,
+                        CorreoElectronico = solicitud.CorreoElectronico,
+                        Usuario = solicitud.CorreoElectronico,
+                        Contrasena = Security.HashSHA1(solicitud.NumeroDocumento),
+                        IdRol = 23
+                    };
+
+                    _inoContext.PacientesCitaWeb.Add(pacienteCitaWeb);
+                    await _inoContext.SaveChangesAsync();
+                    
                     respuesta.Id = 1;
                     respuesta.Mensaje = "Registro exitoso!";
                 }
@@ -126,6 +166,81 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
             
             return respuesta;
+        }
+
+        public async Task<PacienteCitaWebLogin> Login(string usuario, string contrasena)
+        {
+            
+            PacienteCitaWebLogin paciente = await _inoContext.PacientesCitaWeb
+                                        .Include(x => x.Rol)
+                                        .Where(x => x.Usuario == usuario && x.Contrasena == contrasena && x.EsActivo == true)
+                                        .Select(x => new PacienteCitaWebLogin
+                                        {
+                                            IdPacienteInvision = x.Id,
+                                            IdPacienteGalenos = x.IdPacienteGalenos,
+                                            ApellidoPaterno = x.ApellidoPaterno,
+                                            Nombres = x.Nombres,
+                                            Usuario = x.Usuario,
+                                            FechaNacimiento = x.FechaNacimiento.ToString("yyyy-MM-dd"),
+                                            Roles = new List<RolGeneral>{new RolGeneral{IdRol = x.Rol.IdRol, Nombre = x.Rol.Nombre, EsActivo = x.Rol.EsActivo}},
+                                        })
+                                        .FirstOrDefaultAsync();
+            if (paciente != null)
+            {
+                paciente.Modulo = ObtenerMenu(paciente).Modulo;
+            }
+            return paciente;
+        }
+        
+        private PacienteCitaWebLogin ObtenerMenu(PacienteCitaWebLogin usuarioLogin)
+        {
+            List<SubModuloMenu> subModulos = (from e in _inoContext.Roles
+                                              join rsm in _inoContext.RolSubModulo on e.IdRol equals rsm.IdRol
+                                              join sm in _inoContext.SubModulo on rsm.IdSubModulo equals sm.IdSubModulo
+                                              //where e.Empleado.Any(x => x.IdEmpleado == usuarioLogin.IdEmpleado)
+                                              where e.PacienteCitaWeb.Id == usuarioLogin.IdPacienteInvision
+                                              && rsm.EsActivo == true
+                                              orderby sm.Orden ascending
+                                              select new SubModuloMenu
+                                              {
+                                                  IdSubModulo = sm.IdSubModulo,
+                                                  IdModulo = sm.IdModulo,
+                                                  SubModulo = sm.Nombre,
+                                                  Ruta = sm.Ruta,
+                                                  Orden = sm.Orden,
+                                                  Ver = rsm.Ver,
+                                                  Agregar = rsm.Agregar,
+                                                  Editar = rsm.Editar,
+                                                  Eliminar = rsm.Eliminar
+                                              }).ToList();
+
+            List<ModuloMenu> modulos = (from e in _inoContext.Roles
+                                        join rsm in _inoContext.RolSubModulo on e.IdRol equals rsm.IdRol
+                                        join sm in _inoContext.SubModulo on rsm.IdSubModulo equals sm.IdSubModulo
+                                        join m in _inoContext.Modulo on sm.IdModulo equals m.IdModulo
+                                        //where e.Empleado.Any(x => x.IdEmpleado == usuarioLogin.IdEmpleado)
+                                        where e.PacienteCitaWeb.Id == usuarioLogin.IdPacienteInvision
+                                              && rsm.EsActivo == true
+                                        select new ModuloMenu
+                                        {
+                                            IdModulo = m.IdModulo,
+                                            Modulo = m.Nombre,
+                                            Icono = m.Icono,
+                                            Orden = m.Orden,
+                                        }).Distinct().OrderBy(x => x.Orden).ToList();
+
+            List<ModuloMenu> menuModulo = modulos
+                .Select(x => new ModuloMenu
+                {
+                    IdModulo = x.IdModulo,
+                    Modulo = x.Modulo,
+                    Icono = x.Icono,
+                    Orden = x.Orden,
+                    SubModulo = subModulos.Where(y => y.IdModulo == x.IdModulo).ToList()
+                }).ToList();
+
+            usuarioLogin.Modulo = menuModulo;
+            return usuarioLogin;
         }
     }
 }
