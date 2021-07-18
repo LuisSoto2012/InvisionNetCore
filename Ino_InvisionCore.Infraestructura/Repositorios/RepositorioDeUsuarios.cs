@@ -537,6 +537,15 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 EsActivo = x.EsActivo
             }).FirstOrDefault();
 
+            if (user == null)
+            {
+                var paciente = Context.PacientesCitaWeb.FirstOrDefault(x => x.Id == Id);
+                user = new EmpleadoView
+                {
+                    IdEmpleado = paciente.Id
+                };
+            }
+
             return Mapper.Map<EmpleadoGeneral>(user);
         }
 
