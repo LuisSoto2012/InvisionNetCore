@@ -247,7 +247,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     await _inoContext.SaveChangesAsync();
 
                     respuesta.Id = 1;
-                    respuesta.Mensaje = "Registro satisfactorio!";
+                    respuesta.Mensaje = "El personal del instituto se comunicará a la brevedad para confirmar los datos de la cita";
                 }
             }
             catch (Exception e)
