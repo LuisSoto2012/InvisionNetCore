@@ -1,5 +1,7 @@
 // ServicioDeConsultasWeb.cs22:2622:26
 
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
@@ -31,6 +33,11 @@ namespace Ino_InvisionCore.Dominio.Servicios
         public async Task<RespuestaBD> RegistrarConsultaRapida(RegistrarConsultaRapida solicitud)
         {
             return await _repositorio.RegistrarConsultaRapida(solicitud);
+        }
+
+        public async Task<IEnumerable<CuposProgramacionDto>> ListarCuposProgramacion(DateTime fecha, int idEspecialidad)
+        {
+            return await _repositorio.ListarCuposProgramacion(fecha, idEspecialidad);
         }
     }
 }

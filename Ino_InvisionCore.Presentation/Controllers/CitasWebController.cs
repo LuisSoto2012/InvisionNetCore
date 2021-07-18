@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
 using Ino_InvisionCore.Presentacion.Models;
@@ -83,6 +85,13 @@ namespace Ino_InvisionCore.Presentation.Controllers
         {
             var respuesta = await _servicio.RegistrarConsultaRapida(solicitud);
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<CuposProgramacionDto>> ListarCuposProgramacion([FromQuery] DateTime fecha,
+            [FromQuery] int idEspecialidad)
+        {
+            return await _servicio.ListarCuposProgramacion(fecha, idEspecialidad);
         }
     }
 }

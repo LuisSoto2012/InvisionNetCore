@@ -259,6 +259,41 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             return respuesta;
         }
 
+        public async Task<IEnumerable<CuposProgramacionDto>> ListarCuposProgramacion(DateTime fecha, int idEspecialidad)
+        {
+            var cuposSql = await _galenosContext.Query<CupoProgramacionView>().FromSql(
+                "dbo.Invision_CitasWeb_CuposPorProgramacionMedica @Fecha, @IdEspecialidad",
+                new SqlParameter("Fecha", fecha),
+                new SqlParameter("IdEspecialidad", idEspecialidad))
+                .ToListAsync();
+
+            return cuposSql.GroupBy(c => new
+            {
+                c.IdProgramacion,
+                c.IdEspecialidad,
+                c.Especialidad,
+                c.IdServicio,
+                c.Servicio,
+                c.IdMedico,
+                c.Medico
+            }).Select(cf => new CuposProgramacionDto
+            {
+                IdProgramacion = cf.Key.IdProgramacion,
+                IdEspecialidad = cf.Key.IdEspecialidad,
+                Especialidad = cf.Key.Especialidad,
+                IdServicio = cf.Key.IdServicio,
+                Servicio = cf.Key.Servicio,
+                IdMedico = cf.Key.IdMedico,
+                Medico = cf.Key.Medico,
+                Cupos = cf.Select(cp => new CupoDto
+                {
+                    HoraInicio = cp.HoraInicio,
+                    HoraFin = cp.HoraFin,
+                    Estado = cp.Estado
+                }).ToList()
+            });
+        }
+
         private PacienteCitaWebLogin ObtenerMenu(PacienteCitaWebLogin usuarioLogin)
         {
             List<SubModuloMenu> subModulos = (from e in _inoContext.Roles
