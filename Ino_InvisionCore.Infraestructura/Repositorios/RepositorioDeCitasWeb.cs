@@ -78,8 +78,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     };
                     
                     string sql = "EXEC dbo.Invision_CitasWeb_RegistrarPaciente @ApellidoPaterno,@ApellidoMaterno,@PrimerNombre," +
-                                                                          "@FechaNacimiento,@NroDocumento,@Telefono,@DireccionDomicilio,@IdTipoSexo,@IdEstadoCivil," +
-                                                                          "@IdDocIdentidad,@Email,@RegistroExitoso OUTPUT";
+                                 "@FechaNacimiento,@NroDocumento,@Telefono,@DireccionDomicilio,@IdTipoSexo,@IdEstadoCivil," +
+                                 "@IdDocIdentidad,@Email,@RegistroExitoso OUTPUT";
 
                     await _galenosContext.Database.ExecuteSqlCommandAsync(sql,
                         new SqlParameter("ApellidoPaterno", solicitud.ApellidoPaterno),
@@ -110,6 +110,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
                     mailMessage.To.Add(solicitud.CorreoElectronico);
                     mailMessage.Subject = "INO CITAS WEB - Registro Paciente";
+                    mailMessage.Body = body;
                     client.Send(mailMessage);
                 
                     respuesta.Id = 1;
