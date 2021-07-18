@@ -77,9 +77,11 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         Direction = System.Data.ParameterDirection.Output
                     };
                     
-                    await _galenosContext.Database.ExecuteSqlCommandAsync("dbo.Invision_CitasWeb_RegistrarPaciente @ApellidoPaterno,@ApellidoMaterno,@PrimerNombre," +
+                    string sql = "EXEC dbo.Invision_CitasWeb_RegistrarPaciente @ApellidoPaterno,@ApellidoMaterno,@PrimerNombre," +
                                                                           "@FechaNacimiento,@NroDocumento,@Telefono,@DireccionDomicilio,@IdTipoSexo,@IdEstadoCivil," +
-                                                                          "@IdDocIdentidad,@Email,@RegistroExitoso OUTPUT",
+                                                                          "@IdDocIdentidad,@Email,@RegistroExitoso OUTPUT";
+
+                    await _galenosContext.Database.ExecuteSqlCommandAsync(sql,
                         new SqlParameter("ApellidoPaterno", solicitud.ApellidoPaterno),
                         new SqlParameter("ApellidoMaterno", solicitud.ApellidoMaterno),
                         new SqlParameter("PrimerNombre", solicitud.Nombres),
@@ -97,6 +99,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     {
                         respuesta.Id = 0;
                         respuesta.Mensaje = "Registro sin éxito. El paciente ya existe.";
+                        return respuesta;
                     }
                 
                     //Correo
