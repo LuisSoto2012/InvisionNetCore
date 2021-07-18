@@ -27,5 +27,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.Login(usuario, contrasena);
         }
+
+        public async Task<RespuestaBD> RegistrarConsultaRapida(RegistrarConsultaRapida solicitud)
+        {
+            return await _repositorio.RegistrarConsultaRapida(solicitud);
+        }
     }
 }

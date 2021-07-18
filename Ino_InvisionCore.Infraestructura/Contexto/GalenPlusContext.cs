@@ -80,6 +80,9 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
 
             modelBuilder.Query<ProgramacionMedicaFiltroView>();
             modelBuilder.Query<CuposPorProgramacionView>();
+            
+            //CitaWeb
+            modelBuilder.Query<PacienteCitaWebView>();
         }
     }
 }

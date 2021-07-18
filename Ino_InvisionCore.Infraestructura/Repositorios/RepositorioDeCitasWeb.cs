@@ -19,6 +19,8 @@ using Ino_InvisionCore.Dominio.Contratos.Helpers.Modulo.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Seguridad.Rol.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.SubModulo.Respuestas;
 using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
+using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb_ConsultaRapida;
+using Ino_InvisionCore.Infraestructura.Contexto.ClassViews;
 using Newtonsoft.Json;
 
 namespace Ino_InvisionCore.Infraestructura.Repositorios
@@ -191,7 +193,72 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
             return paciente;
         }
-        
+
+        public async Task<RespuestaBD> RegistrarConsultaRapida(RegistrarConsultaRapida solicitud)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+
+            try
+            {
+                var pacienteGalenos = await _galenosContext.Query<PacienteCitaWebView>().FromSql(
+                    "dbo.Invision_CitasWeb_ObtenerDatosPaciente @IdPacienteGalenos",
+                    new SqlParameter("IdPacienteGalenos", solicitud.IdPacienteGalenos)
+                ).FirstOrDefaultAsync();
+
+                if (pacienteGalenos != null)
+                {
+                    var solicitudDia =
+                        await _inoContext.SolicitudesConsultaRapida.FirstOrDefaultAsync(x =>
+                            x.NumeroDocumento == pacienteGalenos.NumeroDocumento);
+
+                    if (solicitudDia != null)
+                    {
+                        respuesta.Id = 0;
+                        respuesta.Mensaje =
+                            "Registro sin éxito. El paciente ya tiene registrado una solicitud para el día de hoy.";
+                        return respuesta;
+                    }
+                    
+                    SolicitudConsultaRapida solicitudConsultaRapida = new SolicitudConsultaRapida
+                    {
+                        ApellidoPaterno = pacienteGalenos.ApellidoPaterno,
+                        ApellidoMaterno = pacienteGalenos.ApellidoMaterno,
+                        Nombres = pacienteGalenos.Nombres,
+                        IdTipoDocumento = pacienteGalenos.IdTipoDocumento,
+                        NumeroDocumento = pacienteGalenos.NumeroDocumento,
+                        CorreoElectronico = pacienteGalenos.CorreoElectronico,
+                        TelefonoMovil = pacienteGalenos.TelefonoMovil,
+                        IdEstadoCivil = pacienteGalenos.IdEstadoCivil,
+                        FechaNacimiento = pacienteGalenos.FechaNacimiento,
+                        IdSexo = pacienteGalenos.IdSexo,
+                        IdDepartamento = pacienteGalenos.IdDepartamento,
+                        IdProvincia = pacienteGalenos.IdProvincia,
+                        IdDistrito = pacienteGalenos.IdDepartamento,
+                        Direccion = pacienteGalenos.Direccion,
+                        MotivoConsulta = solicitud.MotivoConsulta,
+                        NumeroReferencia = solicitud.NumeroReferencia,
+                        IdEstado = 0,
+                        FechaCreacion = DateTime.Now,
+                        IdUsuarioCreacion = solicitud.IdUsuarioCreacion,
+                        OrigenPaciente = "CITA WEB"
+                    };
+
+                    _inoContext.SolicitudesConsultaRapida.Add(solicitudConsultaRapida);
+                    await _inoContext.SaveChangesAsync();
+
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Registro satisfactorio!";
+                }
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+
+            return respuesta;
+        }
+
         private PacienteCitaWebLogin ObtenerMenu(PacienteCitaWebLogin usuarioLogin)
         {
             List<SubModuloMenu> subModulos = (from e in _inoContext.Roles

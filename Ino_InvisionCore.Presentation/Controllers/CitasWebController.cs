@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +9,6 @@ using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
 using Ino_InvisionCore.Presentacion.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
@@ -79,6 +76,13 @@ namespace Ino_InvisionCore.Presentation.Controllers
                 Usuario = user,
                 Mensaje = "Bienvenido a Invision"
             });
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> RegistrarConsultaRapida (RegistrarConsultaRapida solicitud)
+        {
+            var respuesta = await _servicio.RegistrarConsultaRapida(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
     }
 }
