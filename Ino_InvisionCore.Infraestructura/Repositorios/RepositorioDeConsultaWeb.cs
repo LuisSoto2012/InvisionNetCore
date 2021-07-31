@@ -1650,7 +1650,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                             var listaSolicitudesPorDia = await Context.SolicitudesConsultaRapida.Where(x => x.IdEstado == 2 &&
                                                                                                                 x.FechaCita.HasValue &&
                                                                                                                 x.FechaCita.Value.ToString("yyyy-MM-dd") == solicitud.FechaCita.ToString("yyyy-MM-dd") &&
-                                                                                                                x.HoraCita == solicitud.HoraCita.Descripcion)
+                                                                                                                x.HoraCita == solicitud.HoraCita.Descripcion &&
+                                                                                                                x.IdMedico == solicitud.Medico.IdMedico)
                                                                                                 .ToListAsync();
                             if (listaSolicitudesPorDia.Count > 0)
                             {
@@ -1667,6 +1668,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                 solicitudConsultaRapida.HoraCita = solicitud.HoraCita.Descripcion;
                                 solicitudConsultaRapida.IdEspecialidad = solicitud.Especialidad.Id;
                                 solicitudConsultaRapida.NombreEspecialidad = solicitud.Especialidad.Descripcion;
+                                solicitudConsultaRapida.IdMedico = solicitud.Medico.IdMedico;
+                                solicitudConsultaRapida.Medico = solicitud.Medico.Medico;
 
                                 await Context.SaveChangesAsync();
 

@@ -112,18 +112,18 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         parametroSalida,
                         parametroPacienteSalida);
                     var outParamValue = Convert.ToBoolean(parametroSalida.Value);
-                    if (!outParamValue)
-                    {
-                        respuesta.Id = 0;
-                        respuesta.Mensaje = "Registro sin éxito. El paciente ya existe.";
-                        return respuesta;
-                    }
+                    //if (!outParamValue)
+                    //{
+                    //    respuesta.Id = 0;
+                    //    respuesta.Mensaje = "Registro sin éxito. El paciente ya existe.";
+                    //    return respuesta;
+                    //}
                 
                     //Correo
                     MailMessage mailMessage = new MailMessage();
 
                     string body =
-                        $"Sus credenciales de Accesso son -> Email: {solicitud.CorreoElectronico} Doc. Identidad: {solicitud.NumeroDocumento}";
+                        $"Sus credenciales de Accesso son -> Usuario: {solicitud.CorreoElectronico} Constraseña: {solicitud.NumeroDocumento}";
                     mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
                     mailMessage.To.Add(solicitud.CorreoElectronico);
                     mailMessage.Subject = "INO CITAS WEB - Registro Paciente";
@@ -156,7 +156,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     await _inoContext.SaveChangesAsync();
                     
                     respuesta.Id = 1;
-                    respuesta.Mensaje = "Registro exitoso!";
+                    respuesta.Mensaje = "Registro exitoso! Se le enviará un correo con sus credenciales de acceso.";
                 }
                 catch (Exception e)
                 {
@@ -247,7 +247,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     await _inoContext.SaveChangesAsync();
 
                     respuesta.Id = 1;
-                    respuesta.Mensaje = "El personal del instituto se comunicará a la brevedad para confirmar los datos de la cita";
+                    respuesta.Mensaje = "Su registro se ha registrado con éxito. El personal del instituto se comunicará a la brevedad para la validación de su hoja de referencia";
                 }
             }
             catch (Exception e)

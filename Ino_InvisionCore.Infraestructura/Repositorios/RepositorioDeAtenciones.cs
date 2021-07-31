@@ -34,6 +34,20 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         {
             try
             {
+                //
+                var atencionPorCita = GalenPlusContext.Query<AtencionCEView>().FromSql("dbo.INO_Teleconsulta_ObtenerIdAtencionPorCita @IdCita",
+                            new SqlParameter("IdCita", nuevaAtencion.IdCita))
+                         .FirstOrDefault();
+
+                if (atencionPorCita != null)
+                {
+                    return new RespuestaBD
+                    {
+                        Id = 0,
+                        Mensaje = "Ya existe una atención registrada para la cita."
+                    };
+                }
+
                 var result = GalenPlusContext.Database.ExecuteSqlCommand("dbo.INO_Teleconsulta_CEAtencionesRegistrar @IdCita,@NroHistoriaClinica,@Paciente,@IdMedico,@Medico,@IdEspecialidad,@Especialidad,@IdServicio,@Servicio,@Financiamiento," +
                     "@Diacod1,@Diades1,@IdTipoDiagnostico1,@Diacod2,@Diades2,@IdTipoDiagnostico2,@Diacod3,@Diades3,@IdTipoDiagnostico3,@FechaAtencion,@IdUsuario,@Usuario,@CodProc1,@Coddes1,@CodProc2," +
                     "@Coddes2,@CodProc3,@Coddes3,@IdResidente,@Residente,@IdTipoCondicionEstablecimiento,@IdTipoCondicionServicio,@Diacod1_OI,@Diades1_OI,@IdTipoDiagnostico1_OI,@Diacod2_OI,@Diades2_OI," +
