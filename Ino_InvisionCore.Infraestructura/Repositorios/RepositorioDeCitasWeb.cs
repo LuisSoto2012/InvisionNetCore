@@ -299,7 +299,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             var cuposSql = await _galenosContext.Query<FechaProgramacionView>().FromSql(
                     "dbo.Invision_CitasWeb_ProgramacionMedica @IdMedico",
                     new SqlParameter("IdMedico", idMedico))
-                .Select(x => x.Fecha)
+                .Select(x => x.Fecha.ToString("yyyy-MM-dd"))
                 .ToListAsync();
 
             return cuposSql.ToArray();
