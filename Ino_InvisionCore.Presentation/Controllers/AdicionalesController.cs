@@ -31,7 +31,7 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         }
         
         [HttpGet(Name = "Adicionales por HC")]
-        public async Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListar([FromQuery]string hc)
+        public async Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListarPorHc([FromQuery]string hc)
         {
             return await _servicioDeAdicionales.ConsultaExternaAdicionalesPorMedicoListar(hc);
         }
