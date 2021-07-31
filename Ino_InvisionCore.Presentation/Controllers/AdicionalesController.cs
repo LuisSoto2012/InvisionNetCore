@@ -24,13 +24,13 @@ namespace Ino_InvisionCore.Presentacion.Controllers
             _servicioDeAdicionales = servicioDeAdicionales;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "Adicionales por Filtors")]
         public IEnumerable<Adicionales> ConsultaExternaAdicionalesPorMedicoListar([FromQuery]BuscarPaciente paciente)
         {
             return _servicioDeAdicionales.ConsultaExternaAdicionalesPorMedicoListar(paciente);
         }
         
-        [HttpGet]
+        [HttpGet(Name = "Adicionales por HC")]
         public async Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListar([FromQuery]string hc)
         {
             return await _servicioDeAdicionales.ConsultaExternaAdicionalesPorMedicoListar(hc);
