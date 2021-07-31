@@ -112,7 +112,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
             try
             {
-                await Context.Database.ExecuteSqlCommandAsync("dbo.INO_ConsultaExternaAdicionalesPorMedicoElimina @idAdicional",
+                await Context.Database.ExecuteSqlCommandAsync("dbo.INO_ConsultaExternaAdicionalesPorMedicoEliminar @idAdicional",
                     new SqlParameter("idAdicional", idAdicional));
 
                 respuesta.Id = 1;
