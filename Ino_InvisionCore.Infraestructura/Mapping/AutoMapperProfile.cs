@@ -378,6 +378,9 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
 
             //Repositorio de Adicionales
             CreateMap<Adicionales, AdicionalesView>();
+            CreateMap<AdicionalesView, Adicionales>()
+                .ForMember(r => r.FechaAdicional, x => x.MapFrom(p => p.FechaAdicional.ToString("dd/MM/yyyy")))
+                .ForMember(r => r.FechaRegistro, x => x.MapFrom(p => p.FechaRegistro.ToString("dd/MM/yyyy")));
 
             //Reposiorio de Archivos
             CreateMap<ArchivoPorFechaYUsuario, ArchivoPorFechaYUsuarioView>();

@@ -11,7 +11,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Adicional.Respuestas
         public string Paciente { get; set; }
         public string Especialidad { get; set; }
         public string Medico { get; set; }
-        public DateTime FechaRegistro { get; set; }
-        public DateTime FechaAdicional { get; set; }
+        public string FechaRegistro { get; set; }
+        public string FechaAdicional { get; set; }
     }
 }

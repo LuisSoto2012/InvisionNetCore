@@ -17,5 +17,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public int IdEspecialidad { get; set; }
         [NotMapped]
         public bool Temporal { get; set; }
+        public int? IdDepartamento { get; set; }
+        public bool Anestesia { get; set; }
     }
 }

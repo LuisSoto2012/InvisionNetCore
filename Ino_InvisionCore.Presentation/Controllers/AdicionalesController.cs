@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Adicional.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Adicional.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Paciente.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Adicional;
+using Ino_InvisionCore.Dominio.Entidades.Compartido;
 using Ino_InvisionCore.Presentacion.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +34,13 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         public int ConsultaExternaAdicionalesPorMedicoRegistrar([FromBody]NuevoAdicional nuevaAdicional)
         {
             return _servicioDeAdicionales.ConsultaExternaAdicionalesPorMedicoRegistrar(nuevaAdicional);
+        }
+
+        [HttpPost]
+        public async Task<RespuestaBD> ConsultaExternaAdicionalesPorMedicoEliminar(
+            [FromBody] NuevoAdicional nuevoAdicional)
+        {
+            return await _servicioDeAdicionales.ConsultaExternaAdicionalesPorMedicoEliminar(nuevoAdicional.IdAdicional);
         }
     }
 }

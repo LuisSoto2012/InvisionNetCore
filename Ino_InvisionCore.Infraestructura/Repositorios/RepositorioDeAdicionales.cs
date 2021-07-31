@@ -13,6 +13,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Ino_InvisionCore.Dominio.Entidades.Compartido;
 
 namespace Ino_InvisionCore.Infraestructura.Repositorios
 {
@@ -81,6 +82,27 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
 
             return adicional;
+        }
+
+        public async Task<RespuestaBD> ConsultaExternaAdicionalesPorMedicoEliminar(int idAdicional)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+
+            try
+            {
+                await Context.Database.ExecuteSqlCommandAsync("dbo.INO_Teleconsulta_CEAtencionesRegistrar @idAdicional",
+                    new SqlParameter("idAdicional", idAdicional));
+
+                respuesta.Id = 1;
+                respuesta.Mensaje = "Se ha eliminado el adicional correctamente!";
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+            
+            return respuesta;
         }
 
         public async Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListarAsync(BuscarPaciente paciente)

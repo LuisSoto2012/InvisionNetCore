@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Ino_InvisionCore.Dominio.Entidades.Compartido;
 
 namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Adicional
 {
@@ -12,6 +13,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Adicional
     {
         IEnumerable<Adicionales> ConsultaExternaAdicionalesPorMedicoListar(BuscarPaciente paciente);
         int ConsultaExternaAdicionalesPorMedicoRegistrar(NuevoAdicional nuevoAdicional);
+        Task<RespuestaBD> ConsultaExternaAdicionalesPorMedicoEliminar(int idAdicional);
         Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListarAsync(BuscarPaciente paciente);
         Task<int> ConsultaExternaAdicionalesPorMedicoRegistrarAsync(NuevoAdicional nuevoAdicional);
     }

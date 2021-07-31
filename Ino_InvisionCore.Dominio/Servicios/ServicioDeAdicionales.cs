@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Ino_InvisionCore.Dominio.Entidades.Compartido;
 
 namespace Ino_InvisionCore.Dominio.Servicios
 {
@@ -42,6 +44,11 @@ namespace Ino_InvisionCore.Dominio.Servicios
             };
             ServicioDeAuditoria.AgregarAuditoria(auditoria);
             return RepositorioDeAdicionales.ConsultaExternaAdicionalesPorMedicoRegistrar(nuevaAdicional);
+        }
+
+        public async Task<RespuestaBD> ConsultaExternaAdicionalesPorMedicoEliminar(int idAdicional)
+        {
+            return await RepositorioDeAdicionales.ConsultaExternaAdicionalesPorMedicoEliminar(idAdicional);
         }
     }
 }

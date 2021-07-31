@@ -6,6 +6,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Adicional.Peticiones
 {
     public class NuevoAdicional
     {
+        public int IdAdicional { get; set; }
         public string Hc { get; set; }
         public string Paciente { get; set; }
         public int IdEspecialidad { get; set; }
