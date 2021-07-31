@@ -38,11 +38,32 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             {
                 //Log.Information("   Ejecutando SP: dbo.INO_ConsultaExternaAdicionalesPorMedicoListar");
 
-                adicionales = Context.Query<AdicionalesView>().FromSql("dbo.INO_ConsultaExternaAdicionalesPorMedicoListar @Idmedico, @Fecha, @IdEspecialidad, @Hc",
+                adicionales = Context.Query<AdicionalesView>().FromSql("dbo.INO_ConsultaExternaAdicionalesPorMedicoListar @Idmedico, @Fecha, @IdEspecialidad",
                                 new SqlParameter("IdMedico", paciente.IdMedico),
                                 new SqlParameter("Fecha", paciente.Fecha),
-                                new SqlParameter("IdEspecialidad", paciente.IdEspecialidad),
-                                new SqlParameter("Hc", paciente.Hc)).ToList().Select(x => Mapper.Map<Adicionales>(x)).ToList();
+                                new SqlParameter("IdEspecialidad", paciente.IdEspecialidad))
+                    .ToList().Select(x => Mapper.Map<Adicionales>(x)).ToList();
+
+                //Log.Information("   Cantidad de resultados: ", adicionales.Count);
+            }
+            catch (Exception ex)
+            {
+                //Log.Error(ex.Message, "Error");
+            }
+
+            return adicionales;
+        }
+
+        public async Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListar(string hc)
+        {
+            IList<Adicionales> adicionales = new List<Adicionales>();
+
+            try
+            {
+                //Log.Information("   Ejecutando SP: dbo.INO_ConsultaExternaAdicionalesPorMedicoListar");
+
+                adicionales = Context.Query<AdicionalesView>().FromSql("dbo.INO_ConsultaExternaAdicionalesPorMedicoListar_PorHc @Hc",
+                    new SqlParameter("Hc", hc)).ToList().Select(x => Mapper.Map<Adicionales>(x)).ToList();
 
                 //Log.Information("   Cantidad de resultados: ", adicionales.Count);
             }

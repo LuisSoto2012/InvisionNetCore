@@ -31,6 +31,11 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return RepositorioDeAdicionales.ConsultaExternaAdicionalesPorMedicoListar(paciente);
         }
 
+        public async Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListar(string hc)
+        {
+            return await RepositorioDeAdicionales.ConsultaExternaAdicionalesPorMedicoListar(hc);
+        }
+
         public int ConsultaExternaAdicionalesPorMedicoRegistrar(NuevoAdicional nuevaAdicional)
         {
             // Auditoria

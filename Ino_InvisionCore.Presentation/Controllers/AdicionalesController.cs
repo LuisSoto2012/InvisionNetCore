@@ -29,6 +29,12 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         {
             return _servicioDeAdicionales.ConsultaExternaAdicionalesPorMedicoListar(paciente);
         }
+        
+        [HttpGet]
+        public async Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListar([FromQuery]string hc)
+        {
+            return await _servicioDeAdicionales.ConsultaExternaAdicionalesPorMedicoListar(hc);
+        }
 
         [HttpPost]
         public int ConsultaExternaAdicionalesPorMedicoRegistrar([FromBody]NuevoAdicional nuevaAdicional)

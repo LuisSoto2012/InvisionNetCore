@@ -12,6 +12,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.Adicional
     public interface IServicioDeAdicionales
     {
         IEnumerable<Adicionales> ConsultaExternaAdicionalesPorMedicoListar(BuscarPaciente paciente);
+        Task<IEnumerable<Adicionales>> ConsultaExternaAdicionalesPorMedicoListar(string hc);
         int ConsultaExternaAdicionalesPorMedicoRegistrar(NuevoAdicional nuevaAdicional);
         Task<RespuestaBD> ConsultaExternaAdicionalesPorMedicoEliminar(int idAdicional);
     }
