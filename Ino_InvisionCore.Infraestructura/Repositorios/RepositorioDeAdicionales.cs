@@ -38,10 +38,11 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             {
                 //Log.Information("   Ejecutando SP: dbo.INO_ConsultaExternaAdicionalesPorMedicoListar");
 
-                adicionales = Context.Query<AdicionalesView>().FromSql("dbo.INO_ConsultaExternaAdicionalesPorMedicoListar @Idmedico, @Fecha, @IdEspecialidad",
+                adicionales = Context.Query<AdicionalesView>().FromSql("dbo.INO_ConsultaExternaAdicionalesPorMedicoListar @Idmedico, @Fecha, @IdEspecialidad, @Hc",
                                 new SqlParameter("IdMedico", paciente.IdMedico),
                                 new SqlParameter("Fecha", paciente.Fecha),
-                                new SqlParameter("IdEspecialidad", paciente.IdEspecialidad)).ToList().Select(x => Mapper.Map<Adicionales>(x)).ToList();
+                                new SqlParameter("IdEspecialidad", paciente.IdEspecialidad),
+                                new SqlParameter("Hc", paciente.Hc)).ToList().Select(x => Mapper.Map<Adicionales>(x)).ToList();
 
                 //Log.Information("   Cantidad de resultados: ", adicionales.Count);
             }
@@ -90,7 +91,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
             try
             {
-                await Context.Database.ExecuteSqlCommandAsync("dbo.INO_Teleconsulta_CEAtencionesRegistrar @idAdicional",
+                await Context.Database.ExecuteSqlCommandAsync("dbo.INO_ConsultaExternaAdicionalesPorMedicoElimina @idAdicional",
                     new SqlParameter("idAdicional", idAdicional));
 
                 respuesta.Id = 1;

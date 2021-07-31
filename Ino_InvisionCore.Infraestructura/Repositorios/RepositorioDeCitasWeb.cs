@@ -294,6 +294,17 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             });
         }
 
+        public async Task<string[]> ListarFechasProgramacion(int idMedico)
+        {
+            var cuposSql = await _galenosContext.Query<FechaProgramacionView>().FromSql(
+                    "dbo.Invision_CitasWeb_ProgramacionMedica @IdMedico",
+                    new SqlParameter("IdMedico", idMedico))
+                .Select(x => x.Fecha)
+                .ToListAsync();
+
+            return cuposSql.ToArray();
+        }
+
         private PacienteCitaWebLogin ObtenerMenu(PacienteCitaWebLogin usuarioLogin)
         {
             List<SubModuloMenu> subModulos = (from e in _inoContext.Roles

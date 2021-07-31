@@ -84,6 +84,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             //CitaWeb
             modelBuilder.Query<PacienteCitaWebView>();
             modelBuilder.Query<CupoProgramacionView>();
+            modelBuilder.Query<FechaProgramacionView>();
         }
     }
 }

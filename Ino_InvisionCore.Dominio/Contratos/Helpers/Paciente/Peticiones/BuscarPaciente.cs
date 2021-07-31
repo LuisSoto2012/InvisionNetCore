@@ -9,5 +9,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Paciente.Peticiones
         public DateTime Fecha { get; set; }
         public int IdMedico { get; set; }
         public int IdEspecialidad { get; set; }
+        public string Hc { get; set; }
     }
 }
