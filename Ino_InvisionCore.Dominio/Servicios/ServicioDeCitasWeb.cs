@@ -40,9 +40,9 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return await _repositorio.ListarCuposProgramacion(fecha, idEspecialidad);
         }
 
-        public async Task<string[]> ListarFechasProgramacion(int idMedico)
+        public async Task<string[]> ListarFechasProgramacion(int idMedico, int idEspecialidad)
         {
-            return await _repositorio.ListarFechasProgramacion(idMedico);
+            return await _repositorio.ListarFechasProgramacion(idMedico, idEspecialidad);
         }
     }
 }

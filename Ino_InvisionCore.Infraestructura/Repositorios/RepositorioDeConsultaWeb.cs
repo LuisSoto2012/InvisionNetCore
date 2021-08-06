@@ -1354,7 +1354,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                 int nroCupo = await Context.SolicitudesTeleconsulta.CountAsync(x => x.IdEstado == 1 && x.FechaReprogramacion.HasValue && x.FechaReprogramacion.Value.ToString("yyyy-MM-dd") == solicitud.Fecha.ToString("yyyy-MM-dd") && x.Especialidad == solicitud.Especialidad && x.IdMedico == solicitud.IdMedico);
 
-                if (nroCupo < 150)
+                if (nroCupo < 15)
                 {
                     await GalenContext.Database.ExecuteSqlCommandAsync("dbo.INO_ReprogramacionEntreEspecialidades @idCuentaAtencion = {0}, @especialidad = {1}, @fecha = {2}, @idMedico = {3}, @horaInicio = {4}, @horaFin = {5}", 
                         solicitudDb.IdCuentaAtencion, solicitudDb.Especialidad, solicitud.Fecha, solicitudDb.IdMedico,

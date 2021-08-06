@@ -95,9 +95,9 @@ namespace Ino_InvisionCore.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<string[]> ListarFechasProgramacion([FromQuery] int idMedico)
+        public async Task<string[]> ListarFechasProgramacion([FromQuery] int idMedico, [FromQuery]int idEspecialidad)
         {
-            return await _servicio.ListarFechasProgramacion(idMedico);
+            return await _servicio.ListarFechasProgramacion(idMedico, idEspecialidad);
         }
     }
 }

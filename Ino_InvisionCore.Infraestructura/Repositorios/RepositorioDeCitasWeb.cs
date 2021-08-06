@@ -294,11 +294,11 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             });
         }
 
-        public async Task<string[]> ListarFechasProgramacion(int idMedico)
+        public async Task<string[]> ListarFechasProgramacion(int idMedico, int idEspecialidad)
         {
             var cuposSql = await _galenosContext.Query<FechaProgramacionView>().FromSql(
-                    "dbo.Invision_CitasWeb_ProgramacionMedica @IdMedico",
-                    new SqlParameter("IdMedico", idMedico))
+                    "dbo.Invision_CitasWeb_ProgramacionMedica @IdMedico, @IdEspecialidad",
+                    new SqlParameter("IdMedico", idMedico), new SqlParameter("IdEspecialidad", idEspecialidad))
                 .Select(x => x.Fecha.ToString("yyyy-MM-dd"))
                 .ToListAsync();
 

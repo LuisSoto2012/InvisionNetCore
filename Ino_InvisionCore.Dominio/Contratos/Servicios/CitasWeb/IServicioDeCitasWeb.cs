@@ -15,6 +15,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb
         Task<PacienteCitaWebLogin> Login(string usuario, string contrasena);
         Task<RespuestaBD> RegistrarConsultaRapida(RegistrarConsultaRapida solicitud);
         Task<IEnumerable<CuposProgramacionDto>> ListarCuposProgramacion(DateTime fecha, int idEspecialidad);
-        Task<string[]> ListarFechasProgramacion(int idMedico);
+        Task<string[]> ListarFechasProgramacion(int idMedico, int idEspecialidad);
     }
 }
