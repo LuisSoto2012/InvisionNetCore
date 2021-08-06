@@ -53,7 +53,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
         public string ExamenFisico_MovCervical { get; set; }
         public string ExamenFisico_Mallampati { get; set; }
         public string ExamenFisico_TestGanzouri { get; set; }
-        public bool ExamenFisico_LaringoscopiaDificil { get; set; }
+        public string ExamenFisico_LaringoscopiaDificil { get; set; }
         public string ExamenFisico_OtrosHallazgos { get; set; }
         public string LaboratorioImagenImagen_HbHcto { get; set; }
         public string LaboratorioImagen_Glicemia { get; set; }
@@ -77,5 +77,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Anestesia.Peticiones
         public int? IdUsuarioModificacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
         public bool Antecedentes { get; set; }
+        public string OjoProcedimiento { get; set; }
     }
 }
