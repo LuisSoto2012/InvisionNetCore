@@ -16,5 +16,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public string Medico { get; set; }
         public DateTime FechaRegistro { get; set; }
         public DateTime FechaAdicional { get; set; }
+        public string Rne { get; set; }
+        public string Cmp { get; set; }
     }
 }

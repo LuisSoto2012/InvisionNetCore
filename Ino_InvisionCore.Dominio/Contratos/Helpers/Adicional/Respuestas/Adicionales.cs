@@ -13,5 +13,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Adicional.Respuestas
         public string Medico { get; set; }
         public string FechaRegistro { get; set; }
         public string FechaAdicional { get; set; }
+        public string Cmp { get; set; }
+        public string Rne { get; set; }
     }
 }
