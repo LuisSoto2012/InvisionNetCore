@@ -21,5 +21,6 @@ namespace Ino_InvisionCore.Dominio.EntidadesView
         public string Medico { get; set; }
         public virtual TipoOrdenMedica TipoOrdenMedica { get; set; }
         public virtual List<OrdenesMedicasCodigosView> OrdenesMedicasCodigos { get; set; }
+        public string TiempoCita { get; set; }
     }
 }

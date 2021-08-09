@@ -18,6 +18,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.OrdenMedica.Peticiones
         public int IdEspecialidad { get; set; }
         public string NombreEspecialidad { get; set; }
         public List<NuevaOrdenesMedicasCodigos> OrdenesMedicasCodigos { get; set; }
-        public int IdUsuarioCreacion { get; set; }        
+        public int IdUsuarioCreacion { get; set; }
+        public string TiempoCita { get; set; }
     }
 }

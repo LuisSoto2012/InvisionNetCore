@@ -19,5 +19,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.OrdenMedica.Respuestas
         public string Medico { get; set; }
         public virtual ComboBox TipoOrdenMedica { get; set; }
         public virtual List<OrdenesMedicasCodigosGeneral> OrdenesMedicasCodigos { get; set; }
+        public string TiempoCita { get; set; }
     }
 }
