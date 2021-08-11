@@ -28,11 +28,15 @@ namespace Ino_InvisionCore.Dominio.Entidades.NervioOptico
         public string FibrasNerviosas_OI { get; set; }
         public string RelacionCopia_OI { get; set; }
 
+        public string Comentarios { get; set; }     
+        
         public int IdEstado { get; set; }
 
         public int IdUsuarioCreacion { get; set; }
         public DateTime FechaCreacion { get; set; }
         public int? IdUsuarioModificacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
+        
+        
     }
 }

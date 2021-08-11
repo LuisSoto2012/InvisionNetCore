@@ -28,5 +28,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.NervioOptico.Peticiones
         public string RelacionCopia_OI { get; set; }
 
         public int IdUsuarioCreacion { get; set; }
+
+        public string Comentarios { get; set; }
     }
 }

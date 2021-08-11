@@ -32,5 +32,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.NervioOptico.Respuestas
         public string FechaCreacion { get; set; }
         public int? IdUsuarioModificacion { get; set; }
         public string FechaModificacion { get; set; }
+
+        public string Comentarios { get; set; }
     }
 }
