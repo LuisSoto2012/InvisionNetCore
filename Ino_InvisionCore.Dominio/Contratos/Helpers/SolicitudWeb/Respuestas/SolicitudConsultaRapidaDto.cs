@@ -40,5 +40,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.SolicitudWeb.Respuestas
         public int? IdUsuarioRechaza { get; set; }
         public string FechaRechazo { get; set; }
         public string MotivoRechazo { get; set; }
+        public string TipoPaciente { get; set; }
     }
 }
