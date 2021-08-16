@@ -2,22 +2,21 @@
 
 namespace Ino_InvisionCore.Infraestructura.Migrations
 {
-    public partial class OrdenesMedicas_TiempoCita : Migration
+    public partial class NervioOptico_AgregarCampo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             //migrationBuilder.AddColumn<string>(
-            //    name: "TiempoCita",
-            //    table: "OrdenesMedicas",
-            //    maxLength: 20,
+            //    name: "Comentarios",
+            //    table: "NervioOptico",
             //    nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             //migrationBuilder.DropColumn(
-            //    name: "TiempoCita",
-            //    table: "OrdenesMedicas");
+            //    name: "Comentarios",
+            //    table: "NervioOptico");
         }
     }
 }
