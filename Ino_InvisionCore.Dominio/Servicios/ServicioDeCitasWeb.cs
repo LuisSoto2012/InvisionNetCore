@@ -44,5 +44,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.ListarFechasProgramacion(idMedico, idEspecialidad);
         }
+
+        public async Task<RespuestaBD> RegistrarCita(RegistrarCitaWeb solicitud)
+        {
+            return await _repositorio.RegitrarCita(solicitud);
+        }
     }
 }
