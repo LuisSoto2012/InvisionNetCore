@@ -99,5 +99,12 @@ namespace Ino_InvisionCore.Presentation.Controllers
         {
             return await _servicio.ListarFechasProgramacion(idMedico, idEspecialidad);
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> RegistrarCita (RegistrarCitaWeb solicitud)
+        {
+            var respuesta = await _servicio.RegistrarCita(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
     }
 }

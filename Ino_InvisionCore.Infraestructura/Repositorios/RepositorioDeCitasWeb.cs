@@ -305,6 +305,30 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             return cuposSql.ToArray();
         }
 
+        public async Task<RespuestaBD> RegitrarCita(RegistrarCitaWeb solicitud)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+
+            try
+            {
+                await _galenosContext.Database.ExecuteSqlCommandAsync("dbo.Invision_CitasWeb_RegistrarCita @IdProgramacion,@IdPaciente,@HoraInicio,@HoraFin",
+                    new SqlParameter("IdProgramacion", solicitud.IdProgramacion),
+                    new SqlParameter("IdPaciente", solicitud.IdPaciente),
+                    new SqlParameter("HoraInicio", solicitud.HoraInicio),
+                    new SqlParameter("HoraFin", solicitud.HoraFin));
+
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Se ha registrado la cita correctamente.";
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+
+            return respuesta;
+        }
+
         private PacienteCitaWebLogin ObtenerMenu(PacienteCitaWebLogin usuarioLogin)
         {
             List<SubModuloMenu> subModulos = (from e in _inoContext.Roles
