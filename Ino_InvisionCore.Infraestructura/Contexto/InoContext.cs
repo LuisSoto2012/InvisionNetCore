@@ -92,6 +92,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
 
         public DbSet<NervioOptico> NerviosOpticos { get; set; }
         public DbSet<PacienteCitaWeb> PacientesCitaWeb { get; set; }
+        public DbSet<CitaWeb> CitasWeb { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 
