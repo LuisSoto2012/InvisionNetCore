@@ -161,15 +161,15 @@ namespace Ino_InvisionCore.Presentation.Controllers
         }
         
         [HttpPost]
-        public IActionResult EliminarVocuher([FromBody]EliminarVoucherDto archivoEliminado)
+        public async Task<IActionResult> EliminarVocuher([FromBody]EliminarVoucherDto archivoEliminado)
         {
             RespuestaBD respuesta = new RespuestaBD();
-            string rutaCompleta = _servicio.EliminarVoucher(archivoEliminado.IdCita);
-            if (archivo != "")
+            string rutaCompleta = await _servicio.EliminarVoucher(archivoEliminado.IdCita);
+            if (!string.IsNullOrEmpty(rutaCompleta))
             {
                 System.IO.File.Delete(rutaCompleta);
                 respuesta.Id = 1;
-                respuesta.Mensaje = "El archivo fue eliminado del repositorio correctamente.";
+                respuesta.Mensaje = "El archivo fue eliminado correctamente.";
                 return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
             }
             else

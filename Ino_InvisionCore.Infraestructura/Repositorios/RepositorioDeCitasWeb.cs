@@ -372,6 +372,19 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             return respuesta;
         }
 
+        public async Task<string> EliminarVoucher(int idCita)
+        {
+            // Obtener Cita
+            CitaWeb cita = await _inoContext.CitasWeb.FirstOrDefaultAsync(x => x.IdCita == idCita);
+
+            if (cita == null)
+                return null;
+            else
+            {
+                return cita.ImagenVoucher;
+            }
+        }
+
         private PacienteCitaWebLogin ObtenerMenu(PacienteCitaWebLogin usuarioLogin)
         {
             List<SubModuloMenu> subModulos = (from e in _inoContext.Roles
