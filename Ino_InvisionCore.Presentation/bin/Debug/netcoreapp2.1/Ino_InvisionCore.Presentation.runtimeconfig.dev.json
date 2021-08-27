@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/Users/macbookpro/.dotnet/store/|arch|/|tfm|",
-      "/Users/macbookpro/.nuget/packages"
+      "/Users/lsotofdev/.dotnet/store/|arch|/|tfm|",
+      "/Users/lsotofdev/.nuget/packages"
     ]
   }
 }

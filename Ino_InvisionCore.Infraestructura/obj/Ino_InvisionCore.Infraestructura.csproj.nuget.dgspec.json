@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj": {}
+    "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj": {}
   },
   "projects": {
-    "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj": {
+    "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj",
+        "projectUniqueName": "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj",
         "projectName": "Ino_InvisionCore.Dominio",
-        "projectPath": "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj",
-        "packagesPath": "/Users/macbookpro/.nuget/packages/",
-        "outputPath": "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/obj/",
+        "projectPath": "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj",
+        "packagesPath": "/Users/lsotofdev/.nuget/packages/",
+        "outputPath": "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/macbookpro/.config/NuGet/NuGet.Config"
+          "/Users/lsotofdev/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -83,21 +83,21 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj": {
+    "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj",
+        "projectUniqueName": "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj",
         "projectName": "Ino_InvisionCore.Infraestructura",
-        "projectPath": "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj",
-        "packagesPath": "/Users/macbookpro/.nuget/packages/",
-        "outputPath": "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/obj/",
+        "projectPath": "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/Ino_InvisionCore.Infraestructura.csproj",
+        "packagesPath": "/Users/lsotofdev/.nuget/packages/",
+        "outputPath": "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Infraestructura/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/macbookpro/.config/NuGet/NuGet.Config"
+          "/Users/lsotofdev/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -109,8 +109,8 @@
           "netcoreapp2.1": {
             "targetAlias": "netcoreapp2.1",
             "projectReferences": {
-              "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj": {
-                "projectPath": "/Users/macbookpro/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj"
+              "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj": {
+                "projectPath": "/Users/lsotofdev/Documents/Projects/INO/InvisionNetCore/Ino_InvisionCore.Dominio/Ino_InvisionCore.Dominio.csproj"
               }
             }
           }
@@ -190,7 +190,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     }
