@@ -17,5 +17,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.CitasWeb
         Task<IEnumerable<CuposProgramacionDto>> ListarCuposProgramacion(DateTime fecha, int idEspecialidad);
         Task<string[]> ListarFechasProgramacion(int idMedico, int idEspecialidad);
         Task<RespuestaBD> RegitrarCita(RegistrarCitaWeb solicitud);
+        Task<IEnumerable<CitaWebDto>> ListarCitasdWebPorPaciente(int idPaciente);
+        Task<RespuestaBD> SubirVouchersACita(SubirVoucherDto solicitud);
     }
 }

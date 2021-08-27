@@ -14,5 +14,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers
         public string Authorization { get; set; }
         public string UrlRegistro { get; set; }
         public string RutaDeRepositorio { get; set; }
+        public string RepositorioVouchers { get; set; }
     }
 }

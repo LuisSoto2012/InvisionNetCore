@@ -77,41 +77,6 @@ namespace Ino_InvisionCore.Presentacion.Controllers
                 respuesta.Mensaje = "No se seleccionaron archivos para subir.";
             }
 
-            //if (httpRequest.Form.Files.Count > 0)
-            //{
-            //    for (int i=0; i < httpRequest.Form.Files.Count; i++)
-            //    {
-            //        IFormFile postedFile = httpRequest.Form.Files[i];
-            //        string rutaDeRepositorio = string.Concat(_appSettings.RutaDeRepositorio, httpRequest.Query["HistoriaClinica"].ToString(), "\\");
-            //        if (!Directory.Exists(rutaDeRepositorio)) Directory.CreateDirectory(rutaDeRepositorio);
-            //        string rutaCompleta = string.Concat(rutaDeRepositorio, postedFile.FileName);
-            //        using (var fileStream = new FileStream(rutaCompleta, FileMode.Create))
-            //        {
-            //            postedFile.CopyToAsync(fileStream);
-            //        }
-
-            //        NuevoArchivo nuevoArchivo = new NuevoArchivo
-            //        {
-            //            TipoArchivo = httpRequest.Query["TipoArchivo"].ToString(),
-            //            IdEspecialidad = int.Parse(httpRequest.Query["IdEspecialidad"].ToString()),
-            //            IdServicio = int.Parse(httpRequest.Query["IdServicio"].ToString()),
-            //            HistoriaClinica = httpRequest.Query["HistoriaClinica"].ToString(),
-            //            Ruta = rutaDeRepositorio,
-            //            NombreArchivo = postedFile.FileName,
-            //            RutaCompleta = rutaCompleta,
-            //            IdUsuarioCreacion = int.Parse(httpRequest.Query["IdUsuarioCreacion"].ToString())
-            //        };
-
-            //        respuesta = _servicioDeArchivos.Agregar(nuevoArchivo);
-            //    }
-            //}
-            //else
-            //{
-            //    // NO SE ENCONTRARON ARCHIVOS
-            //    respuesta.Id = 0;
-            //    respuesta.Mensaje = "No se seleccionaron archivos para subir.";
-            //}
-
             if (respuesta.Id == 0)
                 return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
             else

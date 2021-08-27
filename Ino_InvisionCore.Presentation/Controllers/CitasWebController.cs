@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Archivo.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
 using Ino_InvisionCore.Presentacion.Models;
+using Ino_InvisionCore.Presentation.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
@@ -105,6 +109,55 @@ namespace Ino_InvisionCore.Presentation.Controllers
         {
             var respuesta = await _servicio.RegistrarCita(solicitud);
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorPaciente([FromQuery] int idPaciente)
+        {
+            return await _servicio.ListarCitasWebPorPaciente(idPaciente);
+        }
+        
+        [HttpPost]
+        [RequestSizeLimit(100_000_000)]
+        //[DisableFormValueModelBinding]
+        public async Task<IActionResult> SubirVouchers([FromForm]VoucherFileFormData formData)
+        {
+            HttpRequest httpRequest = HttpContext.Request;
+            RespuestaBD respuesta = new RespuestaBD();
+
+            if (formData.Imagen.Count > 0)
+            {
+                for (int i = 0; i < formData.Imagen.Count; i++)
+                {
+                    IFormFile postedFile = formData.Imagen[i];
+                    string rutaDeRepositorio = string.Concat(_appSettings.RepositorioVouchers, "\\", formData.NumeroDocumento, "\\");
+                    if (!Directory.Exists(rutaDeRepositorio)) Directory.CreateDirectory(rutaDeRepositorio);
+                    string rutaCompleta = string.Concat(rutaDeRepositorio, postedFile.FileName);
+                    using (var fileStream = new FileStream(rutaCompleta, FileMode.Create))
+                    {
+                        postedFile.CopyTo(fileStream);
+                    }
+
+                    SubirVoucherDto dto = new SubirVoucherDto
+                    {
+                        IdCita = formData.IdCita,
+                        NumeroDocumento = formData.NumeroDocumento,
+                        RutaCompleta = rutaCompleta,
+                        Voucher = formData.Voucher
+                    };
+
+                    respuesta = await _servicio.SubirVouchersACita(dto);
+                }
+            }
+            else
+            {
+                // NO SE ENCONTRARON ARCHIVOS
+                respuesta.Id = 0;
+                respuesta.Mensaje = "No se seleccionaron archivos para subir.";
+            }
+
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+
         }
     }
 }

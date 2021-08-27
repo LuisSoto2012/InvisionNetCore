@@ -101,6 +101,8 @@ using Ino_InvisionCore.Infraestructura.Models;
 using System;
 using System.Globalization;
 using System.Linq;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
+using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 
 namespace Ino_InvisionCore.Infraestructura.Mapping
 {
@@ -586,6 +588,10 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<NervioOptico, NervioOpticoDto>()
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.ToString("dd/MM/yyyy")))
                             .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy") : ""));
+            
+            //Citas Web
+            CreateMap<CitaWeb, CitaWebDto>()
+                .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

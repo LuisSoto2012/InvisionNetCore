@@ -14,6 +14,7 @@ using Ino_InvisionCore.Infraestructura.Contexto;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http;
 using System.Net.Mail;
+using AutoMapper;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Modulo.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Seguridad.Rol.Respuestas;
@@ -326,6 +327,47 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 respuesta.Mensaje = "Error en el servidor";
             }
 
+            return respuesta;
+        }
+
+        public async Task<IEnumerable<CitaWebDto>> ListarCitasdWebPorPaciente(int idPaciente)
+        {
+            return await _inoContext.CitasWeb.Where(x => x.IdPaciente == idPaciente)
+                                            .Select(x => Mapper.Map<CitaWebDto>(x))
+                                            .ToListAsync();
+        }
+
+        public async Task<RespuestaBD> SubirVouchersACita(SubirVoucherDto solicitud)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+
+            try
+            {
+                //1. Buscar Cita
+                CitaWeb citaWeb = await _inoContext.CitasWeb.FirstOrDefaultAsync(x => x.IdCita == solicitud.IdCita);
+
+                if (citaWeb == null)
+                {
+                    respuesta.Id = 0;
+                    respuesta.Mensaje = "No se ha encontrado la cita.";
+                    return respuesta;
+                }
+                else
+                {
+                    //2. Actualizar Cita
+                    citaWeb.Voucher = solicitud.Voucher;
+                    citaWeb.ImagenVoucher = solicitud.RutaCompleta;
+                    await _inoContext.SaveChangesAsync();
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Se ha subido el voucher correctamente!";
+                }
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor.";
+                return respuesta;
+            }
             return respuesta;
         }
 

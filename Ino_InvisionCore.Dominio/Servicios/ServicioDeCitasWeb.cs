@@ -49,5 +49,15 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.RegitrarCita(solicitud);
         }
+
+        public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorPaciente(int idPaciente)
+        {
+            return await _repositorio.ListarCitasdWebPorPaciente(idPaciente);
+        }
+
+        public async Task<RespuestaBD> SubirVouchersACita(SubirVoucherDto solicitud)
+        {
+            return await _repositorio.SubirVouchersACita(solicitud);
+        }
     }
 }

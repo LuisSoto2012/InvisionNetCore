@@ -7,21 +7,6 @@ namespace Ino_InvisionCore.Dominio.Entidades.CitasWeb
 {
     public class CitaWeb
     {
-        // [IdCita] [int] IDENTITY(1,1) NOT NULL,
-        // [Fecha] [datetime] NOT NULL,
-        // [HoraInicio] [char](5) NOT NULL,
-        // [HoraFin] [char](5) NOT NULL,
-        // [IdPaciente] [int] NOT NULL,
-        // [IdEstadoCita] [int] NOT NULL,
-        // [IdAtencion] [int] NOT NULL,
-        // [IdMedico] [int] NOT NULL,
-        // [IdEspecialidad] [int] NOT NULL,
-        // [IdServicio] [int] NOT NULL,
-        // [IdProgramacion] [int] NOT NULL,
-        // [IdProducto] [int] NULL,
-        // [FechaSolicitud] [datetime] NOT NULL,
-        // [HoraSolicitud] [char](5) NOT NULL,
-        // [EsCitaAdicional] [bit] NULL
         [Key]
         public int IdCita { get; set; }
         public DateTime Fecha { get; set; }
@@ -48,5 +33,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.CitasWeb
         public DateTime FechaSolicitud { get; set; }
         public string HoraSolicitud { get; set; }
         public bool? EsCitaAdicional { get; set; }
+        public string Voucher { get; set; }
+        public string ImagenVoucher { get; set; }
     }
 }
