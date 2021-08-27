@@ -161,7 +161,7 @@ namespace Ino_InvisionCore.Presentation.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> EliminarVocuher([FromBody]EliminarVoucherDto archivoEliminado)
+        public async Task<IActionResult> EliminarVoucher([FromBody]EliminarVoucherDto archivoEliminado)
         {
             RespuestaBD respuesta = new RespuestaBD();
             string rutaCompleta = await _servicio.EliminarVoucher(archivoEliminado.IdCita);
