@@ -184,6 +184,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                             ApellidoPaterno = x.ApellidoPaterno,
                                             Nombres = x.Nombres,
                                             Usuario = x.Usuario,
+                                            NumeroDocumento = x.NumeroDocumento,
                                             FechaNacimiento = x.FechaNacimiento.ToString("yyyy-MM-dd"),
                                             Roles = new List<RolGeneral>{new RolGeneral{IdRol = x.Rol.IdRol, Nombre = x.Rol.Nombre, EsActivo = x.Rol.EsActivo}},
                                         })
