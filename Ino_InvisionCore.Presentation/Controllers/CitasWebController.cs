@@ -159,5 +159,25 @@ namespace Ino_InvisionCore.Presentation.Controllers
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
 
         }
+        
+        [HttpPost]
+        public IActionResult EliminarVocuher([FromBody]EliminarVoucherDto archivoEliminado)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+            string rutaCompleta = _servicio.EliminarVoucher(archivoEliminado.IdCita);
+            if (archivo != "")
+            {
+                System.IO.File.Delete(rutaCompleta);
+                respuesta.Id = 1;
+                respuesta.Mensaje = "El archivo fue eliminado del repositorio correctamente.";
+                return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+            }
+            else
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "No se envontró ningún archivo para eliminar.";
+                return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+            }
+        }
     }
 }

@@ -19,5 +19,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb
         Task<RespuestaBD> RegistrarCita(RegistrarCitaWeb solicitud);
         Task<IEnumerable<CitaWebDto>> ListarCitasWebPorPaciente(int idPaciente);
         Task<RespuestaBD> SubirVouchersACita(SubirVoucherDto solicitud);
+        Task<string> EliminarVoucher(int idCita);
     }
 }

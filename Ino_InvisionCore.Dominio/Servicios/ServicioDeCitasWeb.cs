@@ -59,5 +59,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.SubirVouchersACita(solicitud);
         }
+
+        public async Task<string> EliminarVoucher(int idCita)
+        {
+            return await _repositorio.EliminarVoucher(idCita);
+        }
     }
 }
