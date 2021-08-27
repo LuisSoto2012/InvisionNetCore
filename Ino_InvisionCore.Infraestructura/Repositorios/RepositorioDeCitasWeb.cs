@@ -382,9 +382,10 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             else
             {
                 // Nullear campos de Cita
+                var ruta = cita.ImagenVoucher;
                 cita.ImagenVoucher = null;
                 await _inoContext.SaveChangesAsync();
-                return cita.ImagenVoucher;
+                return ruta;
             }
         }
 
