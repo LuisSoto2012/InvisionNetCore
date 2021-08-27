@@ -12,6 +12,5 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas
         public string FechaCita { get; set; }
         public string Voucher { get; set; }
         public string ImagenVoucher { get; set; }
-        public string ArchiboBinario { get; set; }
     }
 }
