@@ -4,14 +4,16 @@ using Ino_InvisionCore.Infraestructura.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ino_InvisionCore.Infraestructura.Migrations
 {
     [DbContext(typeof(InoContext))]
-    partial class InoContextModelSnapshot : ModelSnapshot
+    [Migration("20210827003945_AgergarTabla_CitaWeb2")]
+    partial class AgergarTabla_CitaWeb2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

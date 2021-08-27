@@ -4,14 +4,16 @@ using Ino_InvisionCore.Infraestructura.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ino_InvisionCore.Infraestructura.Migrations
 {
     [DbContext(typeof(InoContext))]
-    partial class InoContextModelSnapshot : ModelSnapshot
+    [Migration("20210827003728_AgergarTabla_CitaWeb")]
+    partial class AgergarTabla_CitaWeb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -785,59 +787,6 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.HasKey("IdAuditoria");
 
                     b.ToTable("Auditoria");
-                });
-
-            modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.CitasWeb.CitaWeb", b =>
-                {
-                    b.Property<int>("IdCita")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool?>("EsCitaAdicional");
-
-                    b.Property<string>("Especialidad")
-                        .IsRequired();
-
-                    b.Property<DateTime>("Fecha");
-
-                    b.Property<DateTime>("FechaSolicitud");
-
-                    b.Property<string>("HoraFin")
-                        .IsRequired();
-
-                    b.Property<string>("HoraInicio")
-                        .IsRequired();
-
-                    b.Property<string>("HoraSolicitud");
-
-                    b.Property<int>("IdAtencionGalenos");
-
-                    b.Property<int>("IdEspecialidad");
-
-                    b.Property<int>("IdEstadoCita");
-
-                    b.Property<int>("IdMedico");
-
-                    b.Property<int>("IdPaciente");
-
-                    b.Property<int?>("IdProducto");
-
-                    b.Property<int>("IdProgramacion");
-
-                    b.Property<int>("IdServicio");
-
-                    b.Property<string>("Medico")
-                        .IsRequired();
-
-                    b.Property<string>("Paciente")
-                        .IsRequired();
-
-                    b.Property<string>("Servicio")
-                        .IsRequired();
-
-                    b.HasKey("IdCita");
-
-                    b.ToTable("CitaWeb");
                 });
 
             modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.CitasWeb.PacienteCitaWeb", b =>
