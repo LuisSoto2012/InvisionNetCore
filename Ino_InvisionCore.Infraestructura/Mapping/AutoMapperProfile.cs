@@ -100,6 +100,7 @@ using Ino_InvisionCore.Infraestructura.Extensions;
 using Ino_InvisionCore.Infraestructura.Models;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
@@ -591,7 +592,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             
             //Citas Web
             CreateMap<CitaWeb, CitaWebDto>()
-                .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")));
+                .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
+                .ForMember(r => r.ArchiboBinario, x => x.MapFrom(p => (string.IsNullOrEmpty(p.ImagenVoucher)) ? string.Empty : Convert.ToBase64String(File.ReadAllBytes(p.ImagenVoucher))));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)
