@@ -392,8 +392,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta)
         {
             return await _inoContext.CitasWeb.Where(x => x.Fecha.Date >= FechaDesde.Date && x.Fecha.Date <= FechaHasta.Date
-                                                    && !string.IsNullOrEmpty(x.Voucher) && !x.VoucherValido.HasValue
-                                                    && x.VoucherValido.HasValue && x.VoucherValido.Value)
+                                                    && !string.IsNullOrEmpty(x.ImagenVoucher) && !x.VoucherValido.HasValue
+                                                    && x.IdEstado == 1)
                 .Select(x => Mapper.Map<CitaWebDto>(x))
                 .ToListAsync();
         }
