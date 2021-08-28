@@ -64,5 +64,15 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.EliminarVoucher(idCita);
         }
+
+        public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta)
+        {
+            return await _repositorio.ListarCitasWebPorFecha(FechaDesde, FechaHasta);
+        }
+
+        public async Task<RespuestaBD> ValidarVoucher(ValidarVoucherDto solicitud)
+        {
+            return await _repositorio.ValidarVoucher(solicitud);
+        }
     }
 }

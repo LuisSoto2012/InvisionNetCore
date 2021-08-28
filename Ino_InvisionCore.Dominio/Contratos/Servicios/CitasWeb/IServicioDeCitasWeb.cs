@@ -20,5 +20,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb
         Task<IEnumerable<CitaWebDto>> ListarCitasWebPorPaciente(int idPaciente);
         Task<RespuestaBD> SubirVouchersACita(SubirVoucherDto solicitud);
         Task<string> EliminarVoucher(int idCita);
+        Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta);
+        Task<RespuestaBD> ValidarVoucher(ValidarVoucherDto solicitud);
     }
 }

@@ -179,5 +179,18 @@ namespace Ino_InvisionCore.Presentation.Controllers
                 return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
             }
         }
+        
+        [HttpGet]
+        public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha([FromQuery] DateTime fechaDesde, [FromQuery] DateTime fechaHasta)
+        {
+            return await _servicio.ListarCitasWebPorFecha(fechaDesde, fechaHasta);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ValidarVoucher (ValidarVoucherDto solicitud)
+        {
+            var respuesta = await _servicio.ValidarVoucher(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
     }
 }

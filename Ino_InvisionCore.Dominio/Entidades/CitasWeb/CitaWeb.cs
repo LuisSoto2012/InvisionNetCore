@@ -35,5 +35,8 @@ namespace Ino_InvisionCore.Dominio.Entidades.CitasWeb
         public bool? EsCitaAdicional { get; set; }
         public string Voucher { get; set; }
         public string ImagenVoucher { get; set; }
+        public bool? VoucherValido { get; set; }
+        public int? IdUsuarioValidaVoucher { get; set; }
+        public DateTime? FechaValidacionVoucher { get; set; }
     }
 }

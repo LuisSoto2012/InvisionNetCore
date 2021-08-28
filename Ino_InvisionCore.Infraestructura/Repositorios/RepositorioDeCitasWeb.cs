@@ -389,6 +389,48 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
         }
 
+        public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta)
+        {
+            return await _inoContext.CitasWeb.Where(x => x.Fecha.Date >= FechaDesde.Date && x.Fecha.Date <= FechaHasta.Date
+                                                    && !string.IsNullOrEmpty(x.Voucher) && !x.VoucherValido.HasValue)
+                .Select(x => Mapper.Map<CitaWebDto>(x))
+                .ToListAsync();
+        }
+
+        public async Task<RespuestaBD> ValidarVoucher(ValidarVoucherDto solicitud)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+
+            try
+            {
+                //1. Obtener CitaWeb
+                CitaWeb cita = await _inoContext.CitasWeb.FirstOrDefaultAsync(x => x.IdCita == solicitud.IdCita);
+
+                if (cita == null)
+                {
+                    respuesta.Id = 0;
+                    respuesta.Mensaje = "No se ha encontrado la cita.";
+                }
+                else
+                {
+                    //2. Actualizar Datos CitaWeb
+                    cita.VoucherValido = true;
+                    cita.FechaValidacionVoucher = DateTime.Now;
+                    cita.IdUsuarioValidaVoucher = solicitud.IdUsuario;
+                    
+                    //3. Persistencia
+                    await _inoContext.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+
+            return respuesta;
+        }
+
         private PacienteCitaWebLogin ObtenerMenu(PacienteCitaWebLogin usuarioLogin)
         {
             List<SubModuloMenu> subModulos = (from e in _inoContext.Roles
