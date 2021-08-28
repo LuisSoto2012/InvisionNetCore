@@ -23,5 +23,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.CitasWeb
         Task<string> EliminarVoucher(int idCita);
         Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta);
         Task<RespuestaBD> ValidarVoucher(ValidarVoucherDto solicitud);
+        Task<RespuestaBD> EliminarCita(EliminarCitaDto solicitud);
     }
 }

@@ -392,7 +392,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta)
         {
             return await _inoContext.CitasWeb.Where(x => x.Fecha.Date >= FechaDesde.Date && x.Fecha.Date <= FechaHasta.Date
-                                                    && !string.IsNullOrEmpty(x.Voucher) && !x.VoucherValido.HasValue)
+                                                    && !string.IsNullOrEmpty(x.Voucher) && !x.VoucherValido.HasValue
+                                                    && x.VoucherValido.HasValue && x.VoucherValido.Value)
                 .Select(x => Mapper.Map<CitaWebDto>(x))
                 .ToListAsync();
         }
@@ -420,6 +421,44 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     
                     //3. Persistencia
                     await _inoContext.SaveChangesAsync();
+                    
+                    //4. Mensage
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Voucher validado correctamente!";
+                }
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+
+            return respuesta;
+        }
+
+        public async Task<RespuestaBD> EliminarCita(EliminarCitaDto solicitud)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+
+            try
+            {
+                //1. Obtener cita
+                CitaWeb cita = await _inoContext.CitasWeb.FirstOrDefaultAsync(x => x.IdCita == solicitud.IdCita);
+
+                if (cita == null)
+                {
+                    respuesta.Id = 0;
+                    respuesta.Mensaje = "No se ha encontrado la cita";
+                }
+                else
+                {
+                    //2. Actualizar estado cita
+                    cita.IdEstado = 0;
+                    cita.IdUsuarioElimina = solicitud.IdUsuario;
+                    cita.FechaEliminacionCita = DateTime.Now;
+                    await _inoContext.SaveChangesAsync();
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Cita eliminada correctamente!";
                 }
             }
             catch (Exception e)
