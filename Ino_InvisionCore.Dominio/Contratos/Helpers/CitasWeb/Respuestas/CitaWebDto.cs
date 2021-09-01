@@ -14,5 +14,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas
         public string ImagenVoucher { get; set; }
         public int IdPaciente { get; set; }
         public string Paciente { get; set; }
+        public int Aprobado { get; set; }
     }
 }

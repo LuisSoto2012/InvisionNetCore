@@ -593,7 +593,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             //Citas Web
             CreateMap<CitaWeb, CitaWebDto>()
                 .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
-                .ForMember(r => r.ImagenVoucher, x => x.MapFrom(p => (string.IsNullOrEmpty(p.ImagenVoucher)) ? string.Empty : Convert.ToBase64String(File.ReadAllBytes(p.ImagenVoucher))));
+                .ForMember(r => r.ImagenVoucher, x => x.MapFrom(p => (string.IsNullOrEmpty(p.ImagenVoucher)) ? string.Empty : Convert.ToBase64String(File.ReadAllBytes(p.ImagenVoucher))))
+                .ForMember(r => r.Aprobado, x => x.MapFrom(p => p.VoucherValido.HasValue && p.VoucherValido.Value ? 1 : 0));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)
