@@ -447,11 +447,16 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             });
             
             //Empleado CondicionTrabajo (Relacion de uno a uno - transaccional-maestra)
+            //modelBuilder.Entity<PacienteCitaWeb>()
+            //    .HasOne(w => w.Rol)
+            //    .WithOne(ct => ct.PacienteCitaWeb)
+            //    .HasForeignKey<PacienteCitaWeb>(m => m.IdRol)
+            //    .IsRequired();
+
             modelBuilder.Entity<PacienteCitaWeb>()
-                .HasOne(w => w.Rol)
-                .WithOne(ct => ct.PacienteCitaWeb)
-                .HasForeignKey<PacienteCitaWeb>(m => m.IdRol)
-                .IsRequired();
+                .HasOne(s => s.Rol)
+                .WithMany(m => m.PacientesCitaWeb)
+                .HasForeignKey(s => s.IdRol);
         }
 
     }

@@ -119,20 +119,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     //    respuesta.Mensaje = "Registro sin éxito. El paciente ya existe.";
                     //    return respuesta;
                     //}
-                
-                    //Correo
-                    MailMessage mailMessage = new MailMessage();
 
-                    string body =
-                        $"Sus credenciales de Accesso son -> Usuario: {solicitud.CorreoElectronico} Constraseña: {solicitud.NumeroDocumento}";
-                    mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
-                    mailMessage.To.Add(solicitud.CorreoElectronico);
-                    mailMessage.Subject = "INO CITAS WEB - Registro Paciente";
-                    mailMessage.Body = body;
-                    client.Send(mailMessage);
-                    
-                    
-                    
                     //Registrar Paciente en Invision
                     PacienteCitaWeb pacienteCitaWeb = new PacienteCitaWeb
                     {
@@ -155,6 +142,17 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                     _inoContext.PacientesCitaWeb.Add(pacienteCitaWeb);
                     await _inoContext.SaveChangesAsync();
+
+                    //Correo
+                    MailMessage mailMessage = new MailMessage();
+
+                    string body =
+                        $"Sus credenciales de Accesso son -> Usuario: {solicitud.CorreoElectronico} Constraseña: {solicitud.NumeroDocumento}";
+                    mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
+                    mailMessage.To.Add(solicitud.CorreoElectronico);
+                    mailMessage.Subject = "INO CITAS WEB - Registro Paciente";
+                    mailMessage.Body = body;
+                    client.Send(mailMessage);
                     
                     respuesta.Id = 1;
                     respuesta.Mensaje = "Registro exitoso! Se le enviará un correo con sus credenciales de acceso.";
@@ -476,7 +474,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                               join rsm in _inoContext.RolSubModulo on e.IdRol equals rsm.IdRol
                                               join sm in _inoContext.SubModulo on rsm.IdSubModulo equals sm.IdSubModulo
                                               //where e.Empleado.Any(x => x.IdEmpleado == usuarioLogin.IdEmpleado)
-                                              where e.PacienteCitaWeb.Id == usuarioLogin.IdPacienteInvision
+                                              where e.PacientesCitaWeb.Any(p => p.Id == usuarioLogin.IdPacienteInvision)
                                               && rsm.EsActivo == true
                                               orderby sm.Orden ascending
                                               select new SubModuloMenu
@@ -497,7 +495,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                         join sm in _inoContext.SubModulo on rsm.IdSubModulo equals sm.IdSubModulo
                                         join m in _inoContext.Modulo on sm.IdModulo equals m.IdModulo
                                         //where e.Empleado.Any(x => x.IdEmpleado == usuarioLogin.IdEmpleado)
-                                        where e.PacienteCitaWeb.Id == usuarioLogin.IdPacienteInvision
+                                        where e.PacientesCitaWeb.Any(p => p.Id == usuarioLogin.IdPacienteInvision)
                                               && rsm.EsActivo == true
                                         select new ModuloMenu
                                         {

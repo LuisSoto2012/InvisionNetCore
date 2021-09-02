@@ -24,7 +24,7 @@ namespace Ino_InvisionCore.Dominio.Entidades
         [JsonIgnore]
         public virtual IList<RolSubModulo> RolSubModulos { get; set; }
         [JsonIgnore]
-        public virtual PacienteCitaWeb PacienteCitaWeb { get; set; }
+        public virtual ICollection<PacienteCitaWeb> PacientesCitaWeb { get; set; }
         public Rol()
         {
             //this.Empleado = new HashSet<Empleado>();
