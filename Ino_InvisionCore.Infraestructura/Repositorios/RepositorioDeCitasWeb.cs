@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using Ino_InvisionCore.Infraestructura.Contexto;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Net.Mime;
 using AutoMapper;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Modulo.Respuestas;
@@ -144,15 +146,43 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     await _inoContext.SaveChangesAsync();
 
                     //Correo
-                    MailMessage mailMessage = new MailMessage();
+                    using (StreamReader SourceReader = System.IO.File.OpenText("msg_reg_paciente.html"))
+                    {
+                        MailMessage mailMessage = new MailMessage();
 
-                    string body =
-                        $"Sus credenciales de Accesso son -> Usuario: {solicitud.CorreoElectronico} Constraseña: {solicitud.NumeroDocumento}";
-                    mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
-                    mailMessage.To.Add(solicitud.CorreoElectronico);
-                    mailMessage.Subject = "INO CITAS WEB - Registro Paciente";
-                    mailMessage.Body = body;
-                    client.Send(mailMessage);
+                        string body = (SourceReader.ReadToEnd()).Replace("PacienteStr", $"{solicitud.Nombres} {solicitud.ApellidoPaterno} {solicitud.ApellidoMaterno}");
+                        body = body.Replace("UsuarioStr", pacienteCitaWeb.Usuario);
+                        body = body.Replace("ContrasenaStr", pacienteCitaWeb.Contrasena);
+
+                        AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
+
+                        byte[] reader = File.ReadAllBytes("banner_cita_rapida.jpg");
+                        MemoryStream image1 = new MemoryStream(reader);
+
+                        LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                        headerImage.ContentId = "logoCitaWeb";
+                        headerImage.ContentType = new ContentType("image/jpg");
+                        av.LinkedResources.Add(headerImage);
+
+                        byte[] reader2 = File.ReadAllBytes("medico.jpg");
+                        MemoryStream image2 = new MemoryStream(reader2);
+
+                        LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                        headerImage2.ContentId = "medicoCitaWeb";
+                        headerImage2.ContentType = new ContentType("image/jpg");
+                        av.LinkedResources.Add(headerImage2);
+
+                        mailMessage.AlternateViews.Add(av);
+                        mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
+                        mailMessage.To.Add(solicitud.CorreoElectronico);
+                        mailMessage.Subject = "INO CITAS EN LÍNEA - REGISTRO PACIENTE";
+                        mailMessage.IsBodyHtml = true;
+                        ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+                        AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
+                        mailMessage.AlternateViews.Add(alternate);
+
+                        client.Send(mailMessage);
+                    }
                     
                     respuesta.Id = 1;
                     respuesta.Mensaje = "Registro exitoso! Se le enviará un correo con sus credenciales de acceso.";
@@ -197,65 +227,76 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         public async Task<RespuestaBD> RegistrarConsultaRapida(RegistrarConsultaRapida solicitud)
         {
             RespuestaBD respuesta = new RespuestaBD();
-
-            try
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("noreply.inoinvision@gmail.com", "P@sw0rd00!");
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryFormat = SmtpDeliveryFormat.International;
+            client.Port = 587;
+            client.Timeout = 20000;
+            
+            using (var httpClient = new HttpClient())
             {
-                var pacienteGalenos = await _galenosContext.Query<PacienteCitaWebView>().FromSql(
-                    "dbo.Invision_CitasWeb_ObtenerDatosPaciente @IdPacienteGalenos",
-                    new SqlParameter("IdPacienteGalenos", solicitud.IdPacienteGalenos)
-                ).FirstOrDefaultAsync();
-
-                if (pacienteGalenos != null)
+                try
                 {
-                    var solicitudDia =
-                        await _inoContext.SolicitudesConsultaRapida.FirstOrDefaultAsync(x =>
-                            x.NumeroDocumento == pacienteGalenos.NumeroDocumento);
+                    var pacienteGalenos = await _galenosContext.Query<PacienteCitaWebView>().FromSql(
+                        "dbo.Invision_CitasWeb_ObtenerDatosPaciente @IdPacienteGalenos",
+                        new SqlParameter("IdPacienteGalenos", solicitud.IdPacienteGalenos)
+                    ).FirstOrDefaultAsync();
 
-                    if (solicitudDia != null)
+                    if (pacienteGalenos != null)
                     {
-                        respuesta.Id = 0;
-                        respuesta.Mensaje =
-                            "Registro sin éxito. El paciente ya tiene registrado una solicitud para el día de hoy.";
-                        return respuesta;
+                        var solicitudDia =
+                            await _inoContext.SolicitudesConsultaRapida.FirstOrDefaultAsync(x =>
+                                x.NumeroDocumento == pacienteGalenos.NumeroDocumento);
+
+                        if (solicitudDia != null)
+                        {
+                            respuesta.Id = 0;
+                            respuesta.Mensaje =
+                                "Registro sin éxito. El paciente ya tiene registrado una solicitud para el día de hoy.";
+                            return respuesta;
+                        }
+                        
+                        SolicitudConsultaRapida solicitudConsultaRapida = new SolicitudConsultaRapida
+                        {
+                            ApellidoPaterno = pacienteGalenos.ApellidoPaterno,
+                            ApellidoMaterno = pacienteGalenos.ApellidoMaterno,
+                            Nombres = pacienteGalenos.Nombres,
+                            IdTipoDocumento = pacienteGalenos.IdTipoDocumento,
+                            NumeroDocumento = pacienteGalenos.NumeroDocumento,
+                            CorreoElectronico = pacienteGalenos.CorreoElectronico,
+                            TelefonoMovil = pacienteGalenos.TelefonoMovil,
+                            IdEstadoCivil = pacienteGalenos.IdEstadoCivil,
+                            FechaNacimiento = pacienteGalenos.FechaNacimiento,
+                            IdSexo = pacienteGalenos.IdSexo,
+                            IdDepartamento = pacienteGalenos.IdDepartamento,
+                            IdProvincia = pacienteGalenos.IdProvincia,
+                            IdDistrito = pacienteGalenos.IdDepartamento,
+                            Direccion = pacienteGalenos.Direccion,
+                            MotivoConsulta = solicitud.MotivoConsulta,
+                            NumeroReferencia = solicitud.NumeroReferencia,
+                            IdEstado = 0,
+                            FechaCreacion = DateTime.Now,
+                            IdUsuarioCreacion = solicitud.IdUsuarioCreacion,
+                            OrigenPaciente = "CITA WEB"
+                        };
+
+                        _inoContext.SolicitudesConsultaRapida.Add(solicitudConsultaRapida);
+                        await _inoContext.SaveChangesAsync();
+
+                        
+                        respuesta.Id = 1;
+                        respuesta.Mensaje = "Su registro se ha registrado con éxito. El personal del instituto se comunicará a la brevedad para la validación de su hoja de referencia";
                     }
-                    
-                    SolicitudConsultaRapida solicitudConsultaRapida = new SolicitudConsultaRapida
-                    {
-                        ApellidoPaterno = pacienteGalenos.ApellidoPaterno,
-                        ApellidoMaterno = pacienteGalenos.ApellidoMaterno,
-                        Nombres = pacienteGalenos.Nombres,
-                        IdTipoDocumento = pacienteGalenos.IdTipoDocumento,
-                        NumeroDocumento = pacienteGalenos.NumeroDocumento,
-                        CorreoElectronico = pacienteGalenos.CorreoElectronico,
-                        TelefonoMovil = pacienteGalenos.TelefonoMovil,
-                        IdEstadoCivil = pacienteGalenos.IdEstadoCivil,
-                        FechaNacimiento = pacienteGalenos.FechaNacimiento,
-                        IdSexo = pacienteGalenos.IdSexo,
-                        IdDepartamento = pacienteGalenos.IdDepartamento,
-                        IdProvincia = pacienteGalenos.IdProvincia,
-                        IdDistrito = pacienteGalenos.IdDepartamento,
-                        Direccion = pacienteGalenos.Direccion,
-                        MotivoConsulta = solicitud.MotivoConsulta,
-                        NumeroReferencia = solicitud.NumeroReferencia,
-                        IdEstado = 0,
-                        FechaCreacion = DateTime.Now,
-                        IdUsuarioCreacion = solicitud.IdUsuarioCreacion,
-                        OrigenPaciente = "CITA WEB"
-                    };
-
-                    _inoContext.SolicitudesConsultaRapida.Add(solicitudConsultaRapida);
-                    await _inoContext.SaveChangesAsync();
-
-                    respuesta.Id = 1;
-                    respuesta.Mensaje = "Su registro se ha registrado con éxito. El personal del instituto se comunicará a la brevedad para la validación de su hoja de referencia";
+                }
+                catch (Exception e)
+                {
+                    respuesta.Id = 0;
+                    respuesta.Mensaje = "Error en el servidor";
                 }
             }
-            catch (Exception e)
-            {
-                respuesta.Id = 0;
-                respuesta.Mensaje = "Error en el servidor";
-            }
-
             return respuesta;
         }
 
@@ -308,7 +349,15 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         public async Task<RespuestaBD> RegitrarCita(RegistrarCitaWeb solicitud)
         {
             RespuestaBD respuesta = new RespuestaBD();
-
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("noreply.inoinvision@gmail.com", "P@sw0rd00!");
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryFormat = SmtpDeliveryFormat.International;
+            client.Port = 587;
+            client.Timeout = 20000;
+            
             try
             {
                 await _galenosContext.Database.ExecuteSqlCommandAsync("dbo.Invision_CitasWeb_RegistrarCita @IdProgramacion,@IdPaciente,@HoraInicio,@HoraFin",
@@ -316,9 +365,65 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     new SqlParameter("IdPaciente", solicitud.IdPaciente),
                     new SqlParameter("HoraInicio", solicitud.HoraInicio),
                     new SqlParameter("HoraFin", solicitud.HoraFin));
+                    
+                //Obtener CitaWeb Invision
+                CitaWeb citaWeb = await _inoContext.CitasWeb.FirstOrDefaultAsync(x => x.IdPaciente == solicitud.IdPaciente &&
+                                                                                    x.IdProgramacion == solicitud.IdProgramacion
+                                                                                    && x.HoraInicio == solicitud.HoraInicio
+                                                                                    && x.HoraFin == solicitud.HoraFin);
+                using (var httpClient = new HttpClient())
+                {
+                    if (citaWeb != null)
+                    {
+                        //Obtener Paciente
+                        PacienteCitaWeb pacienteCitaWeb =
+                            await _inoContext.PacientesCitaWeb.FirstOrDefaultAsync(x => x.Id == citaWeb.IdPaciente);
+                        
+                        //Correo
+                        using (StreamReader SourceReader = System.IO.File.OpenText("msg_reg_cita_pagantes.html"))
+                        {
+                            MailMessage mailMessage = new MailMessage();
 
-                    respuesta.Id = 1;
-                    respuesta.Mensaje = "Se ha registrado la cita correctamente.";
+                            string body = (SourceReader.ReadToEnd()).Replace("PacienteStr", $"{citaWeb.Paciente}");
+                            body = body.Replace("FechaCitaStr", citaWeb.Fecha.ToString("dd/MM/yyyy"));
+                            body = body.Replace("HoraCitaStr", citaWeb.HoraInicio);
+                            body = body.Replace("EspecialidadStr", citaWeb.Especialidad);
+                            body = body.Replace("FechaLimiteStr", citaWeb.Fecha.AddDays(2).ToString("dd/MM/yyyy"));
+                            
+                            AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
+
+                            byte[] reader = File.ReadAllBytes("banner_cita_rapida.jpg");
+                            MemoryStream image1 = new MemoryStream(reader);
+
+                            LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                            headerImage.ContentId = "logoCitaWeb";
+                            headerImage.ContentType = new ContentType("image/jpg");
+                            av.LinkedResources.Add(headerImage);
+
+                            byte[] reader2 = File.ReadAllBytes("medico.jpg");
+                            MemoryStream image2 = new MemoryStream(reader2);
+
+                            LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                            headerImage2.ContentId = "medicoCitaWeb";
+                            headerImage2.ContentType = new ContentType("image/jpg");
+                            av.LinkedResources.Add(headerImage2);
+
+                            mailMessage.AlternateViews.Add(av);
+                            mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
+                            mailMessage.To.Add(pacienteCitaWeb.CorreoElectronico);
+                            mailMessage.Subject = "INO CITAS EN LÍNEA - REGISTRO CITA PAGANTE";
+                            mailMessage.IsBodyHtml = true;
+                            ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+                            AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
+                            mailMessage.AlternateViews.Add(alternate);
+
+                            client.Send(mailMessage);
+                        }
+                    
+                        respuesta.Id = 1;
+                        respuesta.Mensaje = "Se ha registrado la cita correctamente.";
+                    }
+                }
             }
             catch (Exception e)
             {

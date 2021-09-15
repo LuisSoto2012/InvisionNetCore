@@ -1676,46 +1676,38 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                 respuesta.Id = 1;
                                 respuesta.Mensaje = "El correo de su consulta presencial ha sido enviado con éxito!";
 
-                                using (StreamReader SourceReader = System.IO.File.OpenText("consultaexterna_presencial.html"))
+                                //Correo
+                                using (StreamReader SourceReader = System.IO.File.OpenText("msg_reg_cita_sis.html"))
                                 {
                                     MailMessage mailMessage = new MailMessage();
 
-                                    string body = (SourceReader.ReadToEnd()).Replace("NombresPaciente", $"{solicitud.Nombres}");
-                                    body = body.Replace("FechaAtencion", solicitud.FechaCita.ToString("dd/MM/yyyy"));
-                                    body = body.Replace("HoraAtencion", solicitud.HoraCita.Descripcion);
-                                    body = body.Replace("NombreEspecialidad", solicitud.Especialidad.Descripcion);
+                                    string body = (SourceReader.ReadToEnd()).Replace("PacienteStr", $"{solicitudConsultaRapida.Nombres} {solicitudConsultaRapida.ApellidoPaterno}");
+                                    body = body.Replace("FechaCitaStr", solicitudConsultaRapida.FechaCita.Value.ToString("dd/MM/yyyy"));
+                                    body = body.Replace("HoraCitaStr", solicitudConsultaRapida.HoraCita);
+                                    body = body.Replace("EspecialidadStr", solicitudConsultaRapida.NombreEspecialidad);
 
                                     AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
 
-                                    byte[] reader = File.ReadAllBytes("logo_ino.jpg");
+                                    byte[] reader = File.ReadAllBytes("banner_cita_rapida.jpg");
                                     MemoryStream image1 = new MemoryStream(reader);
 
                                     LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                                    headerImage.ContentId = "logoIno";
+                                    headerImage.ContentId = "logoCitaWeb";
                                     headerImage.ContentType = new ContentType("image/jpg");
                                     av.LinkedResources.Add(headerImage);
 
-                                    byte[] reader2 = File.ReadAllBytes("logo_invision.jpg");
+                                    byte[] reader2 = File.ReadAllBytes("medico.jpg");
                                     MemoryStream image2 = new MemoryStream(reader2);
 
                                     LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                                    headerImage2.ContentId = "logoInvision";
+                                    headerImage2.ContentId = "medicoCitaWeb";
                                     headerImage2.ContentType = new ContentType("image/jpg");
                                     av.LinkedResources.Add(headerImage2);
-
-                                    byte[] reader3 = File.ReadAllBytes("banner_consultarapida.jpg");
-                                    MemoryStream image3 = new MemoryStream(reader3);
-
-                                    LinkedResource headerImage3 = new LinkedResource(image3, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                                    headerImage3.ContentId = "bannerConsultaRapida";
-                                    headerImage3.ContentType = new ContentType("image/jpg");
-                                    av.LinkedResources.Add(headerImage3);
-
 
                                     mailMessage.AlternateViews.Add(av);
                                     mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
                                     mailMessage.To.Add(solicitud.CorreoElectronico);
-                                    mailMessage.Subject = "INO CONSULTA PRESENCIAL - CONSULTA RÁPIDA";
+                                    mailMessage.Subject = "INO CITAS EN LÍNEA - CONSULTA RAPIDA";
                                     mailMessage.IsBodyHtml = true;
                                     ContentType mimeType = new System.Net.Mime.ContentType("text/html");
                                     AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
