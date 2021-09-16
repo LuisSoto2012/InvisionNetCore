@@ -14,6 +14,7 @@ using Ino_InvisionCore.Dominio.Contratos.Repositorios.Comunes;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Congreso;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.ConsultaWeb;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.COVID19;
+using Ino_InvisionCore.Dominio.Contratos.Repositorios.Evaluacion;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Laboratorio;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Medico;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Modulo;
@@ -41,6 +42,7 @@ using Ino_InvisionCore.Dominio.Contratos.Servicios.Congreso;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultaWeb;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.COVID19;
+using Ino_InvisionCore.Dominio.Contratos.Servicios.Evaluacion;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Laboratorio;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Medico;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Modulo;
@@ -102,6 +104,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<RepositorioDeAnestesias>().As<IRepositorioDeAnestesias>();
             builder.RegisterType<RepositorioDeNervioOptico>().As<IRepositorioDeNervioOptico>();
             builder.RegisterType<RepositorioDeCitasWeb>().As<IRepositorioDeCitasWeb>();
+            builder.RegisterType<RepositorioDeEvaluaciones>().As<IRepositorioDeEvaluaciones>();
 
             // Services
             builder.RegisterType<ServicioDeAdicionales>().As<IServicioDeAdicionales>();
@@ -136,6 +139,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<ServicioDeAnestesias>().As<IServicioDeAnestesias>();
             builder.RegisterType<ServicioDeNervioOptico>().As<IServicioDeNervioOptico>();
             builder.RegisterType<ServicioDeCitasWeb>().As<IServicioDeCitasWeb>();
+            builder.RegisterType<ServicioDeEvaluaciones>().As<IServicioDeEvaluaciones>();
         }
     }
 }

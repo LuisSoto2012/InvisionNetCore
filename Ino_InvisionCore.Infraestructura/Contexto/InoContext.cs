@@ -6,6 +6,7 @@ using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Comunes;
 using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb;
 using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb_ConsultaRapida;
+using Ino_InvisionCore.Dominio.Entidades.Evaluacion;
 using Ino_InvisionCore.Dominio.Entidades.EvaluacionesExamenes;
 using Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico;
 using Ino_InvisionCore.Dominio.Entidades.MuchosAMuchos;
@@ -93,6 +94,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public DbSet<NervioOptico> NerviosOpticos { get; set; }
         public DbSet<PacienteCitaWeb> PacientesCitaWeb { get; set; }
         public DbSet<CitaWeb> CitasWeb { get; set; }
+        public DbSet<EvaluacionPregunta> EvaluacionPreguntas { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 

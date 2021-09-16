@@ -99,11 +99,15 @@ using Ino_InvisionCore.Infraestructura.Contexto.ClassViews;
 using Ino_InvisionCore.Infraestructura.Extensions;
 using Ino_InvisionCore.Infraestructura.Models;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones;
 using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
+using Ino_InvisionCore.Dominio.Entidades.Evaluacion;
+using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
 
 namespace Ino_InvisionCore.Infraestructura.Mapping
 {
@@ -595,6 +599,18 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
                 .ForMember(r => r.ImagenVoucher, x => x.MapFrom(p => (string.IsNullOrEmpty(p.ImagenVoucher)) ? string.Empty : Convert.ToBase64String(File.ReadAllBytes(p.ImagenVoucher))))
                 .ForMember(r => r.Aprobado, x => x.MapFrom(p => p.VoucherValido.HasValue && p.VoucherValido.Value ? 1 : 0));
+            
+            //Evaluaciones
+            CreateMap<RegistrarPreguntaRespuestaDto, EvaluacionPregunta>()
+                .ForMember(r => r.IdUsuarioCreacion, x => x.MapFrom(p => p.IdUsuario))
+                .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now))
+                .ForMember(r => r.Activo, x => x.MapFrom(p => false))
+                .ForMember(r => r.Respuestas, x => x.MapFrom(p => ParseEvalRespuestas(p.Respuestas)));
+            CreateMap<ModificarPreguntaRespuestaDto, EvaluacionPregunta>()
+                .ForMember(r => r.IdUsuarioModificacion, x => x.MapFrom(p => p.IdUsuario))
+                .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now))
+                .ForMember(r => r.Activo, x => x.MapFrom(p => p.Activo == 1 ? true : false))
+                .ForMember(r => r.Respuestas, x => x.MapFrom(p => ParseEvalRespuestas(p.Respuestas)));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)
@@ -618,6 +634,22 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             else
                 return string.Concat(age, RemainginYears, " años ", RemainingMonths, " meses ", RemainingDays, " días");
 
+        }
+
+        private string ParseEvalRespuestas(List<EvalRespuestaDto> respuestas)
+        {
+            string respuestasStr = "";
+            List<String> listaStr = new List<String>();
+
+            foreach (var r in respuestas)
+            {
+                string str = string.Concat(r.Id, "^", r.EsCorrecto ? "RESP_CORRECTA" : "RESP_INCORRECTA");
+                listaStr.Add(str);
+            }
+
+            if (listaStr.Count > 0)
+                respuestasStr = string.Join('|', listaStr.ToArray());
+            return respuestasStr;
         }
     }
 }
