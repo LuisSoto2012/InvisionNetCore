@@ -244,6 +244,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             foreach (var e in listaDb)
             {
                 EvalPreguntaActivaDto dto = new EvalPreguntaActivaDto();
+                dto.Id = e.Id;
                 dto.Pregunta = e.Pregunta;
                 string[] respuestasDb = e.Respuestas.Split("|");
                 dto.Respuestas = new string[respuestasDb.Length];
