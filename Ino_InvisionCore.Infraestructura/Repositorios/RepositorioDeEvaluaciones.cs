@@ -33,7 +33,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 EvaluacionPregunta evaluacionPregunta = Mapper.Map<EvaluacionPregunta>(solicitud);
                 _inoContext.EvaluacionPreguntas.Add(evaluacionPregunta);
                 await _inoContext.SaveChangesAsync();
-                respuesta.Id = 0;
+                respuesta.Id = 1;
                 respuesta.Mensaje = "Pregunta registrada satisfactoriamente!";
             }
             catch (Exception e)
