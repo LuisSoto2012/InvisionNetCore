@@ -6,5 +6,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones
     {
         public int Id { get; set; }
         public int IdUsuario { get; set; }
+        public bool Activar { get; set; }
     }
 }

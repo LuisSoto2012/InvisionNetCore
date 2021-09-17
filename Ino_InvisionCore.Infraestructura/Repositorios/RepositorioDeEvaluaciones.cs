@@ -95,11 +95,12 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 else
                 {
                     //2. Actualizar en DB
-                    eval.Activo = true;
+                    eval.Activo = solicitud.Activar;
                     eval.IdUsuarioModificacion = solicitud.IdUsuario;
                     eval.FechaModificacion = DateTime.Today;
+                    await _inoContext.SaveChangesAsync();
                     respuesta.Id = 1;
-                    respuesta.Mensaje = "Se ha activado la pregunta correctamente!";
+                    respuesta.Mensaje = $"Se ha {(solicitud.Activar ? "activado" : "desactivado")} la pregunta correctamente!";
                 }
             }
             catch (Exception e)
