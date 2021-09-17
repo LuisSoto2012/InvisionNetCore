@@ -50,5 +50,43 @@ namespace Ino_InvisionCore.Presentation.Controllers
             var respuesta = await _servicio.ModificarPreguntaYRespuestas(solicitud);
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
+        
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> RegistrarParticipante([FromBody] RegistrarParticipanteDto solicitud)
+        {
+            var respuesta = await _servicio.RegistrarParticipante(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+        
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<EvalParticipanteDto> ObtenerDatosParticipantePor([FromQuery] string numeroDocumento, 
+            [FromQuery] string correoElectronico)
+        {
+            return await _servicio.ObtenerDatosParticipantePor(numeroDocumento, correoElectronico);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas([FromQuery] string modulo)
+        {
+            return await _servicio.ListarPreguntasActivas(modulo);
+        }
+        
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> AgregarRespuestaAPregunta([FromBody] AgregarRespuestaPreguntaDto solicitud)
+        {
+            var respuesta = await _servicio.AgregarRespuestaAPregunta(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+        
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IEnumerable<EvalResultadoDto>> ListarResultados([FromQuery]int idParticipante, [FromQuery] string modulo)
+        {
+            return await _servicio.ListarResultados(idParticipante, modulo);
+        }
     }
 }

@@ -105,6 +105,7 @@ using System.IO;
 using System.Linq;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Respuestas;
 using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Evaluacion;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
@@ -611,6 +612,12 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now))
                 .ForMember(r => r.Activo, x => x.MapFrom(p => p.Activo == 1 ? true : false))
                 .ForMember(r => r.Respuestas, x => x.MapFrom(p => ParseEvalRespuestas(p.Respuestas)));
+            CreateMap<RegistrarParticipanteDto, EvaluacionParticipante>()
+                .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now))
+                .ForMember(r => r.IdEstado, x => x.MapFrom(p => 1));
+            CreateMap<EvaluacionParticipante, EvalParticipanteDto>()
+                .ForMember(r => r.FechaEmision, x => x.MapFrom(p => p.FechaEmision.ToString("dd/MM/yyyy")))
+                .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.ToString("dd/MM/yyyy")));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

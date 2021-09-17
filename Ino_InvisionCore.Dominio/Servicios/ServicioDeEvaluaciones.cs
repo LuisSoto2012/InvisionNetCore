@@ -38,5 +38,30 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.ModificarPreguntaYRespuestas(solicitud);
         }
+
+        public async Task<RespuestaBD> RegistrarParticipante(RegistrarParticipanteDto solicitud)
+        {
+            return await _repositorio.RegistrarParticipante(solicitud);
+        }
+
+        public async Task<EvalParticipanteDto> ObtenerDatosParticipantePor(string numeroDocumento, string correoElectronico)
+        {
+            return await _repositorio.ObtenerDatosParticipantePor(numeroDocumento, correoElectronico);
+        }
+
+        public async Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo)
+        {
+            return await _repositorio.ListarPreguntasActivas(modulo);
+        }
+
+        public async Task<RespuestaBD> AgregarRespuestaAPregunta(AgregarRespuestaPreguntaDto solicitud)
+        {
+            return await _repositorio.AgregarRespuestaAPregunta(solicitud);
+        }
+
+        public async Task<IEnumerable<EvalResultadoDto>> ListarResultados(int idParticipante, string modulo)
+        {
+            return await _repositorio.ListarResultados(idParticipante, modulo);
+        }
     }
 }

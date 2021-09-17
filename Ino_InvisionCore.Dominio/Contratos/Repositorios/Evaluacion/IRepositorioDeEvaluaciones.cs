@@ -14,5 +14,10 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Evaluacion
         Task<IEnumerable<EvalPreguntaDto>> ListarPreguntas(string modulo);
         Task<RespuestaBD> ActivarPregunta(ActivarPreguntaDto solicitud);
         Task<RespuestaBD> ModificarPreguntaYRespuestas(ModificarPreguntaRespuestaDto solicitud);
+        Task<RespuestaBD> RegistrarParticipante(RegistrarParticipanteDto solicitud);
+        Task<EvalParticipanteDto> ObtenerDatosParticipantePor(string numeroDocumento, string correoElectronico);
+        Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo);
+        Task<RespuestaBD> AgregarRespuestaAPregunta(AgregarRespuestaPreguntaDto solicitud);
+        Task<IEnumerable<EvalResultadoDto>> ListarResultados(int idParticipante, string modulo);
     }
 }

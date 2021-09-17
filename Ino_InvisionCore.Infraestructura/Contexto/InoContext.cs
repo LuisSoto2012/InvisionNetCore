@@ -95,6 +95,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public DbSet<PacienteCitaWeb> PacientesCitaWeb { get; set; }
         public DbSet<CitaWeb> CitasWeb { get; set; }
         public DbSet<EvaluacionPregunta> EvaluacionPreguntas { get; set; }
+        public DbSet<EvaluacionParticipante> EvaluacionParticipantes { get; set; }
+        public DbSet<EvaluacionResultado> EvaluacionResultados { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 
