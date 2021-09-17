@@ -643,7 +643,7 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
 
             foreach (var r in respuestas)
             {
-                string str = string.Concat(r.Id, "^", r.EsCorrecto ? "RESP_CORRECTA" : "RESP_INCORRECTA");
+                string str = string.Concat(r.Id, "^", r.Texto, "^", r.EsCorrecto ? "RESP_CORRECTA" : "RESP_INCORRECTA");
                 listaStr.Add(str);
             }
 
