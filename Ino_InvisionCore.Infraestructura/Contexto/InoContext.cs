@@ -97,6 +97,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public DbSet<EvaluacionPregunta> EvaluacionPreguntas { get; set; }
         public DbSet<EvaluacionParticipante> EvaluacionParticipantes { get; set; }
         public DbSet<EvaluacionResultado> EvaluacionResultados { get; set; }
+        public DbSet<EvaluacionParticipanteCertificado> EvaluacionParticipantseCertificados { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 
@@ -110,6 +111,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
 
             //Repositorio de Archivos
             modelBuilder.Query<ArchivoPorFechaYUsuarioView>();
+
+            modelBuilder.Query<EvalParticipanteNumPregView>();
 
             //Entity
 

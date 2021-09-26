@@ -303,6 +303,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                       TipoOrdenMedica = x.TipoOrdenMedica,
                                       IdAtencion = x.IdAtencion,
                                       TiempoCita = x.TiempoCita,
+                                      Medico = x.Medico,
                                       OrdenesMedicasCodigos = ordenesMedicasCodigos
                                                                     .Where(om => x.OrdenesMedicasCodigos.Select(y => y.IdOrdenesMedicasCodigos).Contains(om.IdOrdenesMedicasCodigos))
                                                                     .ToList()

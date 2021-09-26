@@ -1532,6 +1532,31 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.ToTable("EvaluacionParticipante");
                 });
 
+            modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.Evaluacion.EvaluacionParticipanteCertificado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CorreoElectronico");
+
+                    b.Property<DateTime>("FechaCertificado");
+
+                    b.Property<DateTime>("FechaEnvio");
+
+                    b.Property<int>("IdParticipante");
+
+                    b.Property<string>("Modulo");
+
+                    b.Property<string>("NumeroDocumento");
+
+                    b.Property<string>("Participante");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EvaluacionParticipanteCertificado");
+                });
+
             modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.Evaluacion.EvaluacionPregunta", b =>
                 {
                     b.Property<int>("Id")

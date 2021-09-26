@@ -1,5 +1,6 @@
 // IRepositorioDeEvaluaciones.cs22:2622:26
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones;
@@ -16,8 +17,10 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Evaluacion
         Task<RespuestaBD> ModificarPreguntaYRespuestas(ModificarPreguntaRespuestaDto solicitud);
         Task<RespuestaBD> RegistrarParticipante(RegistrarParticipanteDto solicitud);
         Task<EvalParticipanteDto> ObtenerDatosParticipantePor(string numeroDocumento, string correoElectronico);
-        Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo);
+        Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo, int idParticipante);
         Task<RespuestaBD> AgregarRespuestaAPregunta(AgregarRespuestaPreguntaDto solicitud);
         Task<IEnumerable<EvalResultadoDto>> ListarResultados(int idParticipante, string modulo);
+        Task<IEnumerable<EvalParticipanteNumPregDto>> ListarParticipantesPorNumeroPreguntas(string modulo, DateTime fecha, int numPreg);
+        Task<RespuestaBD> EnviarCertificados(EnviarCertificadosDto solicitud);
     }
 }

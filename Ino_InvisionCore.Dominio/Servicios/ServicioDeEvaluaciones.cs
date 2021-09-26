@@ -1,5 +1,6 @@
 // ServicioDeEvaluaciones.cs22:4322:43
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones;
@@ -49,9 +50,9 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return await _repositorio.ObtenerDatosParticipantePor(numeroDocumento, correoElectronico);
         }
 
-        public async Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo)
+        public async Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo, int idParticipante)
         {
-            return await _repositorio.ListarPreguntasActivas(modulo);
+            return await _repositorio.ListarPreguntasActivas(modulo, idParticipante);
         }
 
         public async Task<RespuestaBD> AgregarRespuestaAPregunta(AgregarRespuestaPreguntaDto solicitud)
@@ -62,6 +63,16 @@ namespace Ino_InvisionCore.Dominio.Servicios
         public async Task<IEnumerable<EvalResultadoDto>> ListarResultados(int idParticipante, string modulo)
         {
             return await _repositorio.ListarResultados(idParticipante, modulo);
+        }
+
+        public async Task<IEnumerable<EvalParticipanteNumPregDto>> ListarParticipantesPorNumeroPreguntas(string modulo, DateTime fecha, int numPreg)
+        {
+            return await _repositorio.ListarParticipantesPorNumeroPreguntas(modulo, fecha, numPreg);
+        }
+
+        public async Task<RespuestaBD> EnviarCertificados(EnviarCertificadosDto solicitud)
+        {
+            return await _repositorio.EnviarCertificados(solicitud);
         }
     }
 }

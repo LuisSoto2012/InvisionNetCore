@@ -618,6 +618,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<EvaluacionParticipante, EvalParticipanteDto>()
                 .ForMember(r => r.FechaEmision, x => x.MapFrom(p => p.FechaEmision.ToString("dd/MM/yyyy")))
                 .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.ToString("dd/MM/yyyy")));
+
+            CreateMap<EvalParticipanteNumPregView, EvalParticipanteNumPregDto>();
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

@@ -2,6 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,6 +19,7 @@ using Ino_InvisionCore.Dominio.Contratos.Repositorios.Evaluacion;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
 using Ino_InvisionCore.Dominio.Entidades.Evaluacion;
 using Ino_InvisionCore.Infraestructura.Contexto;
+using Ino_InvisionCore.Infraestructura.Contexto.ClassViews;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ino_InvisionCore.Infraestructura.Repositorios
@@ -153,6 +157,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         public async Task<RespuestaBD> RegistrarParticipante(RegistrarParticipanteDto solicitud)
         {
             RespuestaBD respuesta = new RespuestaBD();
+
             SmtpClient client = new SmtpClient("smtp.gmail.com");
             client.UseDefaultCredentials = false;
             client.Credentials = new NetworkCredential("noreply.inoinvision@gmail.com", "P@sw0rd00!");
@@ -163,6 +168,17 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             client.Timeout = 20000;
             try
             {
+                //Validar si existe participante
+
+                var participanteDb = await _inoContext.EvaluacionParticipantes.FirstOrDefaultAsync(x => x.NumeroDocumento == solicitud.NumeroDocumento);
+
+                if (participanteDb != null)
+                {
+                    respuesta.Id = 0;
+                    respuesta.Mensaje = $"Ya existe un participante registrado con el documento {participanteDb.NumeroDocumento}";
+                    return respuesta;
+                }
+                
                 using (var httpClient = new HttpClient())
                 {
                     EvaluacionParticipante evaluacionParticipante = Mapper.Map<EvaluacionParticipante>(solicitud);
@@ -233,12 +249,17 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             return participante == null ? null : Mapper.Map<EvalParticipanteDto>(participante);
         }
 
-        public async Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo)
+        public async Task<IEnumerable<EvalPreguntaActivaDto>> ListarPreguntasActivas(string modulo, int idParticipante)
         {
             IList<EvalPreguntaActivaDto> preguntas = new List<EvalPreguntaActivaDto>();
-            
-            //1. Obtener por DB
-            var listaDb = await _inoContext.EvaluacionPreguntas.Where(x => x.Activo && x.Modulo == modulo)
+
+            //1. Obtener preguntas respondidas por participante
+            var listaPPDb = await _inoContext.EvaluacionResultados.Where(x => x.Modulo == modulo && x.IdParticipante == idParticipante)
+                                        .ToListAsync();
+
+            //2. Obtener por DB
+            var listaDb = await _inoContext.EvaluacionPreguntas.Where(x => x.Activo && x.Modulo == modulo &&
+                                    !listaPPDb.Select(p => p.IdPregunta).Contains(x.Id))
                 .ToListAsync();
 
             foreach (var e in listaDb)
@@ -331,6 +352,134 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
             
             return resultados;
+        }
+
+        public async Task<IEnumerable<EvalParticipanteNumPregDto>> ListarParticipantesPorNumeroPreguntas(string modulo, DateTime fecha, int numPreg)
+        {
+            var listaDb = await _inoContext.Query<EvalParticipanteNumPregView>().FromSql("dbo.Invision_ListarParticipantesPorAciertos @Modulo, @Fecha, @NumPreg",
+                                new SqlParameter("Modulo", modulo),
+                                new SqlParameter("Fecha", fecha.Date),
+                                new SqlParameter("NumPreg", numPreg))
+                    .ToListAsync();
+
+             return listaDb.Select(x => Mapper.Map<EvalParticipanteNumPregDto>(x)).ToList();
+        }
+
+        public async Task<RespuestaBD> EnviarCertificados(EnviarCertificadosDto solicitud)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("noreply.inoinvision@gmail.com", "P@sw0rd00!");
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryFormat = SmtpDeliveryFormat.International;
+            client.Port = 587;
+            client.Timeout = 20000;
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    foreach (var p in solicitud.Participantes)
+                    {
+                        MailMessage mailMessage = new MailMessage();
+
+
+                        mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
+                        mailMessage.To.Add(p.CorreoElectronico);
+                        mailMessage.Subject = "INO CONGRESO - CERTIFICADO DE ASISTENCIA";
+                        mailMessage.Body = $"Se adjunta CERTIFICADO DE ASISTENCIA de {solicitud.Modulo} del día {solicitud.Fecha.ToString("dd/MM/yyyy")}";
+
+                        //Creacion Certificado
+                        string pathTempCert = "";
+                        string pathCert = "";
+
+                        if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-20")
+                        {
+                            pathTempCert = "cert1.jpg";
+                            pathCert = $"certificados\\20.09\\cert1_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                        }
+                        else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-21")
+                        {
+                            pathTempCert = "cert2.jpg";
+                            pathCert = $"certificados\\21.09\\cert2_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                        }
+                        else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-22")
+                        {
+                            pathTempCert = "cert3.jpg";
+                            pathCert = $"certificados\\22.09\\cert3_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                        }
+                        else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-23")
+                        {
+                            pathTempCert = "cert4.jpg";
+                            pathCert = $"certificados\\23.09\\cert4_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                        }
+                        else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-24")
+                        {
+                            pathTempCert = "cert5.jpg";
+                            pathCert = $"certificados\\24.09\\cert5_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                        }
+
+                        //PointF firstLocation = new PointF(292f, 190f);
+                        PointF firstLocation = new PointF(421f, 200f);
+
+                        string imageFilePath = pathTempCert;
+                        Bitmap bitmap = (Bitmap)Image.FromFile(imageFilePath);//load the image file
+
+                        using (Graphics graphics = Graphics.FromImage(bitmap))
+                        {
+                            using (var sf = new StringFormat()
+                            {
+                                Alignment = StringAlignment.Center,
+                                LineAlignment = StringAlignment.Center,
+                            })
+                            using (Font textFont = new Font("Arial Black", 27, FontStyle.Bold | FontStyle.Italic))
+                            {
+                                graphics.DrawString(p.Participante, textFont, Brushes.Black, firstLocation, sf);
+                                // graphics.DrawString(secondText, arialFont, Brushes.Red, secondLocation);
+                            }
+                        }
+                        using (MemoryStream memory = new MemoryStream())
+                        {
+                            using (FileStream fs = new FileStream(pathCert, FileMode.Create, FileAccess.ReadWrite))
+                            {
+                                bitmap.Save(memory, ImageFormat.Jpeg);//save the image file
+                                byte[] bytes = memory.ToArray();
+                                fs.Write(bytes, 0, bytes.Length);
+                            }
+                        }
+
+                        mailMessage.Attachments.Add(new Attachment(pathCert));
+
+                        await client.SendMailAsync(mailMessage);
+
+                        //Insert Tabla
+                        EvaluacionParticipanteCertificado eval = new EvaluacionParticipanteCertificado
+                        {
+                            IdParticipante = p.IdParticipante,
+                            Participante = p.Participante,
+                            NumeroDocumento = p.NumeroDocumento,
+                            CorreoElectronico = p.CorreoElectronico,
+                            Modulo = solicitud.Modulo,
+                            FechaCertificado = solicitud.Fecha.Date,
+                            FechaEnvio = DateTime.Now
+                        };
+
+                        _inoContext.EvaluacionParticipantseCertificados.Add(eval);
+                        await _inoContext.SaveChangesAsync();
+                    }
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Certificados enviados correctamente!";
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+
+            return respuesta;
         }
     }
 }
