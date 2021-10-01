@@ -79,5 +79,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.ListarParticipantesConCertificado(modulo);
         }
+
+        public async Task<RespuestaBD> ReenviarCertificados(IEnumerable<EvalPartCertDto> participantes)
+        {
+            return await _repositorio.ReenviarCertificados(participantes);
+        }
     }
 }

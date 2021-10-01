@@ -394,31 +394,41 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         //Creacion Certificado
                         string pathTempCert = "";
                         string pathCert = "";
+                        bool Cert1 = false;
+                        bool Cert2 = false;
+                        bool Cert3 = false;
+                        bool Cert4 = false;
+                        bool Cert5 = false;
 
                         if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-20")
                         {
                             pathTempCert = "cert1.jpg";
                             pathCert = $"certificados\\20.09\\cert1_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert1 = true;
                         }
                         else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-21")
                         {
                             pathTempCert = "cert2.jpg";
                             pathCert = $"certificados\\21.09\\cert2_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert2 = true;
                         }
                         else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-22")
                         {
                             pathTempCert = "cert3.jpg";
                             pathCert = $"certificados\\22.09\\cert3_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert3 = true;
                         }
                         else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-23")
                         {
                             pathTempCert = "cert4.jpg";
                             pathCert = $"certificados\\23.09\\cert4_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert4 = true;
                         }
                         else if (solicitud.Fecha.ToString("yyyy-MM-dd") == "2021-09-24")
                         {
                             pathTempCert = "cert5.jpg";
                             pathCert = $"certificados\\24.09\\cert5_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert5 = true;
                         }
 
                         //PointF firstLocation = new PointF(292f, 190f);
@@ -463,7 +473,12 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                             CorreoElectronico = p.CorreoElectronico,
                             Modulo = solicitud.Modulo,
                             FechaCertificado = solicitud.Fecha.Date,
-                            FechaEnvio = DateTime.Now
+                            FechaEnvio = DateTime.Now,
+                            Certificado1 = Cert1,
+                            Certificado2 = Cert2,
+                            Certificado3 = Cert3,
+                            Certificado4 = Cert4,
+                            Certificado5 = Cert5
                         };
 
                         _inoContext.EvaluacionParticipantseCertificados.Add(eval);
@@ -490,6 +505,143 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 .ToListAsync();
 
             return listaDb;
+        }
+
+        public async Task<RespuestaBD> ReenviarCertificados(IEnumerable<EvalPartCertDto> participantes)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("noreply.inoinvision@gmail.com", "P@sw0rd00!");
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryFormat = SmtpDeliveryFormat.International;
+            client.Port = 587;
+            client.Timeout = 20000;
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    foreach (var p in participantes)
+                    {
+                        IList<EvalCertFlagDto> listaCert = p.Certificados.Where(x => x.Enviado).ToList();
+                        foreach (var cert in listaCert)
+                        {
+                            MailMessage mailMessage = new MailMessage();
+
+
+                        mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
+                        mailMessage.To.Add(p.CorreoElectronico);
+                        mailMessage.Subject = "INO CONGRESO - CERTIFICADO DE ASISTENCIA";
+                        mailMessage.Body = $"Se adjunta CERTIFICADO DE ASISTENCIA de {p.Modulo} del d�a {cert.Fecha.ToString("dd/MM/yyyy")}";
+
+                        //Creacion Certificado
+                        string pathTempCert = "";
+                        string pathCert = "";
+                        bool Cert1 = false;
+                        bool Cert2 = false;
+                        bool Cert3 = false;
+                        bool Cert4 = false;
+                        bool Cert5 = false;
+
+                        if (cert.Fecha.ToString("yyyy-MM-dd") == "2021-09-20")
+                        {
+                            pathTempCert = "cert1.jpg";
+                            pathCert = $"certificados\\20.09\\cert1_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert1 = true;
+                        }
+                        else if (cert.Fecha.ToString("yyyy-MM-dd") == "2021-09-21")
+                        {
+                            pathTempCert = "cert2.jpg";
+                            pathCert = $"certificados\\21.09\\cert2_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert2 = true;
+                        }
+                        else if (cert.Fecha.ToString("yyyy-MM-dd") == "2021-09-22")
+                        {
+                            pathTempCert = "cert3.jpg";
+                            pathCert = $"certificados\\22.09\\cert3_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert3 = true;
+                        }
+                        else if (cert.Fecha.ToString("yyyy-MM-dd") == "2021-09-23")
+                        {
+                            pathTempCert = "cert4.jpg";
+                            pathCert = $"certificados\\23.09\\cert4_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert4 = true;
+                        }
+                        else if (cert.Fecha.ToString("yyyy-MM-dd") == "2021-09-24")
+                        {
+                            pathTempCert = "cert5.jpg";
+                            pathCert = $"certificados\\24.09\\cert5_{p.NumeroDocumento}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                            Cert5 = true;
+                        }
+
+                        //PointF firstLocation = new PointF(292f, 190f);
+                        PointF firstLocation = new PointF(421f, 200f);
+
+                        string imageFilePath = pathTempCert;
+                        Bitmap bitmap = (Bitmap)Image.FromFile(imageFilePath);//load the image file
+
+                        using (Graphics graphics = Graphics.FromImage(bitmap))
+                        {
+                            using (var sf = new StringFormat()
+                            {
+                                Alignment = StringAlignment.Center,
+                                LineAlignment = StringAlignment.Center,
+                            })
+                            using (Font textFont = new Font("Arial Black", 27, FontStyle.Bold | FontStyle.Italic))
+                            {
+                                graphics.DrawString($"{p.Nombres} {p.ApellidoPaterno} {p.ApellidoMaterno}", textFont, Brushes.Black, firstLocation, sf);
+                                // graphics.DrawString(secondText, arialFont, Brushes.Red, secondLocation);
+                            }
+                        }
+                        using (MemoryStream memory = new MemoryStream())
+                        {
+                            using (FileStream fs = new FileStream(pathCert, FileMode.Create, FileAccess.ReadWrite))
+                            {
+                                bitmap.Save(memory, ImageFormat.Jpeg);//save the image file
+                                byte[] bytes = memory.ToArray();
+                                fs.Write(bytes, 0, bytes.Length);
+                            }
+                        }
+
+                        mailMessage.Attachments.Add(new Attachment(pathCert));
+
+                        await client.SendMailAsync(mailMessage);
+
+                        //Insert Tabla
+                        EvaluacionParticipanteCertificado eval = new EvaluacionParticipanteCertificado
+                        {
+                            IdParticipante = p.Id,
+                            Participante = $"{p.Nombres} {p.ApellidoPaterno} {p.ApellidoMaterno}",
+                            NumeroDocumento = p.NumeroDocumento,
+                            CorreoElectronico = p.CorreoElectronico,
+                            Modulo = p.Modulo,
+                            FechaCertificado = cert.Fecha.Date,
+                            FechaEnvio = DateTime.Now,
+                            Certificado1 = Cert1,
+                            Certificado2 = Cert2,
+                            Certificado3 = Cert3,
+                            Certificado4 = Cert4,
+                            Certificado5 = Cert5
+                        };
+
+                        _inoContext.EvaluacionParticipantseCertificados.Add(eval);
+                        await _inoContext.SaveChangesAsync();
+                        }
+                    }
+
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Certificados enviados correctamente!";
+                }
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+
+            return respuesta;
         }
     }
 }

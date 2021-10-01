@@ -21,5 +21,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Respuestas
         public string Sector { get; set; }
         public string NivelAtencion { get; set; }
         public List<EvalCertFlagDto> Certificados { get; set; }
+        public string Modulo { get; set; }
     }
 }

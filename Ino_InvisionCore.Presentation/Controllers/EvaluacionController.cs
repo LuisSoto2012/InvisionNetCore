@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Evaluacion;
-using Ino_InvisionCore.Infraestructura.Migrations;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -157,6 +154,13 @@ namespace Ino_InvisionCore.Presentation.Controllers
         public async Task<IEnumerable<EvalPartCertDto>> ListarParticipantesConCertificado([FromQuery]string modulo)
         {
             return await _servicio.ListarParticipantesConCertificado(modulo);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReenviarCertificados([FromBody] ReenviarCertificadoDto solicitud)
+        {
+            var respuesta = await _servicio.ReenviarCertificados(solicitud.participantes);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
     }
 }

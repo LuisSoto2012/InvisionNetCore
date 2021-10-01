@@ -655,27 +655,32 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             EvalCertFlagDto dto1 = new EvalCertFlagDto
             {
                 Id = 1,
-                Enviado = eval.Certificado1 == 1 ? true : false
+                Enviado = eval.Certificado1 == 1 ? true : false,
+                Fecha = eval.FechaCertificado1
             };
             EvalCertFlagDto dto2 = new EvalCertFlagDto
             {
                 Id = 2,
-                Enviado = eval.Certificado2 == 1 ? true : false
+                Enviado = eval.Certificado2 == 1 ? true : false,
+                Fecha = eval.FechaCertificado2
             };
             EvalCertFlagDto dto3 = new EvalCertFlagDto
             {
                 Id = 3,
-                Enviado = eval.Certificado3 == 1 ? true : false
+                Enviado = eval.Certificado3 == 1 ? true : false,
+                Fecha = eval.FechaCertificado3
             };
             EvalCertFlagDto dto4 = new EvalCertFlagDto
             {
                 Id = 4,
-                Enviado = eval.Certificado4 == 1 ? true : false
+                Enviado = eval.Certificado4 == 1 ? true : false,
+                Fecha = eval.FechaCertificado4
             };
             EvalCertFlagDto dto5 = new EvalCertFlagDto
             {
                 Id = 5,
-                Enviado = eval.Certificado5 == 1 ? true : false
+                Enviado = eval.Certificado5 == 1 ? true : false,
+                Fecha = eval.FechaCertificado5
             };
             lista.Add(dto1);
             lista.Add(dto2);

@@ -113,7 +113,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             modelBuilder.Query<ArchivoPorFechaYUsuarioView>();
 
             modelBuilder.Query<EvalParticipanteNumPregView>();
-
+            modelBuilder.Query<EvalPartCertView>();
             //Entity
 
             //TipoOrdenMedica_Procedimiento

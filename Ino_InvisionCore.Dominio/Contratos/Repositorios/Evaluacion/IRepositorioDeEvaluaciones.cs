@@ -23,5 +23,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Evaluacion
         Task<IEnumerable<EvalParticipanteNumPregDto>> ListarParticipantesPorNumeroPreguntas(string modulo, DateTime fecha, int numPreg);
         Task<RespuestaBD> EnviarCertificados(EnviarCertificadosDto solicitud);
         Task<IEnumerable<EvalPartCertDto>>ListarParticipantesConCertificado(string modulo);
+        Task<RespuestaBD> ReenviarCertificados(IEnumerable<EvalPartCertDto> participantes);
     }
 }

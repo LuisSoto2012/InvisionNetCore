@@ -26,5 +26,11 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public int Certificado3 { get; set; }
         public int Certificado4 { get; set; }
         public int Certificado5 { get; set; }
+        public DateTime FechaCertificado1 { get; set; }
+        public DateTime FechaCertificado2 { get; set; }
+        public DateTime FechaCertificado3 { get; set; }
+        public DateTime FechaCertificado4 { get; set; }
+        public DateTime FechaCertificado5 { get; set; }
+        public string Modulo { get; set; }
     }
 }

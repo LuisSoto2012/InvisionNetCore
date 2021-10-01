@@ -73,5 +73,7 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return RepositorioDeRoles.Listar(Id);
         }
+        
+        
     }
 }
