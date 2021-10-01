@@ -620,6 +620,10 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.ToString("dd/MM/yyyy")));
 
             CreateMap<EvalParticipanteNumPregView, EvalParticipanteNumPregDto>();
+
+            CreateMap<EvalPartCertView, EvalPartCertDto>()
+                .ForMember(r => r.FechaEmision, x => x.MapFrom(p => p.FechaEmision.ToString("dd/MM/yyyy")))
+                .ForMember(r => r.Certificados, x => x.MapFrom(p => MapCertificates(p)));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)
@@ -643,6 +647,43 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             else
                 return string.Concat(age, RemainginYears, " años ", RemainingMonths, " meses ", RemainingDays, " días");
 
+        }
+
+        private List<EvalCertFlagDto> MapCertificates(EvalPartCertView eval)
+        {
+            List<EvalCertFlagDto> lista = new List<EvalCertFlagDto>();
+            EvalCertFlagDto dto1 = new EvalCertFlagDto
+            {
+                Id = 1,
+                Enviado = eval.Certificado1 == 1 ? true : false
+            };
+            EvalCertFlagDto dto2 = new EvalCertFlagDto
+            {
+                Id = 2,
+                Enviado = eval.Certificado2 == 1 ? true : false
+            };
+            EvalCertFlagDto dto3 = new EvalCertFlagDto
+            {
+                Id = 3,
+                Enviado = eval.Certificado3 == 1 ? true : false
+            };
+            EvalCertFlagDto dto4 = new EvalCertFlagDto
+            {
+                Id = 4,
+                Enviado = eval.Certificado4 == 1 ? true : false
+            };
+            EvalCertFlagDto dto5 = new EvalCertFlagDto
+            {
+                Id = 5,
+                Enviado = eval.Certificado5 == 1 ? true : false
+            };
+            lista.Add(dto1);
+            lista.Add(dto2);
+            lista.Add(dto3);
+            lista.Add(dto4);
+            lista.Add(dto5);
+
+            return lista;
         }
 
         private string ParseEvalRespuestas(List<EvalRespuestaDto> respuestas)

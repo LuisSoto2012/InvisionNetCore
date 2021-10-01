@@ -389,7 +389,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
                         mailMessage.To.Add(p.CorreoElectronico);
                         mailMessage.Subject = "INO CONGRESO - CERTIFICADO DE ASISTENCIA";
-                        mailMessage.Body = $"Se adjunta CERTIFICADO DE ASISTENCIA de {solicitud.Modulo} del día {solicitud.Fecha.ToString("dd/MM/yyyy")}";
+                        mailMessage.Body = $"Se adjunta CERTIFICADO DE ASISTENCIA de {solicitud.Modulo} del dï¿½a {solicitud.Fecha.ToString("dd/MM/yyyy")}";
 
                         //Creacion Certificado
                         string pathTempCert = "";
@@ -480,6 +480,16 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
 
             return respuesta;
+        }
+
+        public async Task<IEnumerable<EvalPartCertDto>> ListarParticipantesConCertificado(string modulo)
+        {
+            var listaDb = await _inoContext.Query<EvalPartCertView>().FromSql("dbo.Invision_ListarParticipantesConCertificado @Modulo",
+                    new SqlParameter("Modulo", modulo))
+                .Select(x => Mapper.Map<EvalPartCertDto>(x))
+                .ToListAsync();
+
+            return listaDb;
         }
     }
 }

@@ -152,5 +152,11 @@ namespace Ino_InvisionCore.Presentation.Controllers
             var respuesta = await _servicio.EnviarCertificados(solicitud);
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
+
+        [HttpGet]
+        public async Task<IEnumerable<EvalPartCertDto>> ListarParticipantesConCertificado([FromQuery]string modulo)
+        {
+            return await _servicio.ListarParticipantesConCertificado(modulo);
+        }
     }
 }

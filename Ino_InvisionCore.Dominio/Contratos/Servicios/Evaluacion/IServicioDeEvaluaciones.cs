@@ -22,5 +22,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.Evaluacion
         Task<IEnumerable<EvalResultadoDto>> ListarResultados(int idParticipante, string modulo);
         Task<IEnumerable<EvalParticipanteNumPregDto>> ListarParticipantesPorNumeroPreguntas(string modulo, DateTime fecha, int numPreg);
         Task<RespuestaBD> EnviarCertificados(EnviarCertificadosDto solicitud);
+        Task<IEnumerable<EvalPartCertDto>> ListarParticipantesConCertificado(string modulo);
     }
 }
