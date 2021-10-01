@@ -377,7 +377,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     {
                         //Obtener Paciente
                         PacienteCitaWeb pacienteCitaWeb =
-                            await _inoContext.PacientesCitaWeb.FirstOrDefaultAsync(x => x.Id == citaWeb.IdPaciente);
+                            await _inoContext.PacientesCitaWeb.FirstOrDefaultAsync(x => x.IdPacienteGalenos == citaWeb.IdPaciente);
                         
                         //Correo
                         using (StreamReader SourceReader = System.IO.File.OpenText("msg_reg_cita_pagantes.html"))

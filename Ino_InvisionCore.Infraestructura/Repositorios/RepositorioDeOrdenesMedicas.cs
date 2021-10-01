@@ -304,6 +304,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                       IdAtencion = x.IdAtencion,
                                       TiempoCita = x.TiempoCita,
                                       Medico = x.Medico,
+                                      Cmp = x.Cmp,
+                                      Rne = x.Rne,
                                       OrdenesMedicasCodigos = ordenesMedicasCodigos
                                                                     .Where(om => x.OrdenesMedicasCodigos.Select(y => y.IdOrdenesMedicasCodigos).Contains(om.IdOrdenesMedicasCodigos))
                                                                     .ToList()
@@ -378,6 +380,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                       IdTipoUsuario = x.IdTipoUsuario,
                                       FechaRegistro = x.FechaCreacion.ToString("dd/MM/yyyy HH:mm"),
                                       Medico = x.Medico,
+                                      Cmp = x.Cmp,
+                                      Rne = x.Rne,
                                       NombreEspecialidad = x.NombreEspecialidad,
                                       TipoOrdenMedica = x.TipoOrdenMedica,
                                       IdAtencion = x.IdAtencion,

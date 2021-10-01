@@ -1538,6 +1538,16 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Certificado1");
+
+                    b.Property<bool>("Certificado2");
+
+                    b.Property<bool>("Certificado3");
+
+                    b.Property<bool>("Certificado4");
+
+                    b.Property<bool>("Certificado5");
+
                     b.Property<string>("CorreoElectronico");
 
                     b.Property<DateTime>("FechaCertificado");
@@ -2699,6 +2709,9 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Cmp")
+                        .HasMaxLength(20);
+
                     b.Property<bool>("EsActivo");
 
                     b.Property<DateTime>("Fecha");
@@ -2738,6 +2751,9 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<string>("Paciente")
                         .IsRequired()
                         .HasMaxLength(500);
+
+                    b.Property<string>("Rne")
+                        .HasMaxLength(20);
 
                     b.Property<string>("TiempoCita")
                         .HasMaxLength(20);

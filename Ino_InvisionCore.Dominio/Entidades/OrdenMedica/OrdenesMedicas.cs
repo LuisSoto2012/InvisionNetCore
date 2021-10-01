@@ -36,6 +36,10 @@ namespace Ino_InvisionCore.Dominio.Entidades.OrdenMedica
         [StringLength(100)]
         public string Medico { get; set; }
         [StringLength(20)]
+        public string Cmp { get; set; }
+        [StringLength(20)]
+        public string Rne { get; set; }
+        [StringLength(20)]
         public string TiempoCita { get; set; }
         [JsonIgnore]
         public virtual TipoOrdenMedica TipoOrdenMedica { get; set; }

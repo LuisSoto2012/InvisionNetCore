@@ -16,5 +16,10 @@ namespace Ino_InvisionCore.Dominio.Entidades.Evaluacion
         public string Modulo { get; set; }
         public DateTime FechaCertificado { get; set; }
         public DateTime FechaEnvio { get; set; }
+        public bool Certificado1 { get; set; }
+        public bool Certificado2 { get; set; }
+        public bool Certificado3 { get; set; }
+        public bool Certificado4 { get; set; }
+        public bool Certificado5 { get; set; }
     }
 }
