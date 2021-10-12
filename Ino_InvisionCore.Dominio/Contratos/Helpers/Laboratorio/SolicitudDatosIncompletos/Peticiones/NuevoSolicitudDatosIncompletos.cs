@@ -14,5 +14,8 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.SolicitudDatosI
         public bool SinMovimiento { get; set; }
         public bool MovimientoIncorrecto { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string DatoPacienteIncompleto { get; set; }
+        public string DatoMuestraIncompleto { get; set; }
+        public string DatoMedicoSolicitanteIncompleto { get; set; }
     }
 }

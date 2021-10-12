@@ -22,6 +22,10 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public int NumeroMes { get; set; }
         [Required]
         public int Total { get; set; }
+        public bool LaminaCuaderno { get; set; }
+        public bool CuadernoPaciente { get; set; }
+        public bool CuadernoSistema { get; set; }
+        public bool SistemaCuaderno { get; set; }
         [JsonIgnore]
         public virtual AreaLaboratorio AreaLaboratorio { get; set; }
 

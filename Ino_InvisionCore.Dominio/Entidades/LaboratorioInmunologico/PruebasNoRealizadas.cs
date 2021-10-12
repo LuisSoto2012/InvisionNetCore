@@ -36,5 +36,14 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public string Comentario { get; set; }
         [Required]
         public DateTime FechaOcurrencia { get; set; }
+        public bool GramPP { get; set; }
+        public bool PasPP { get; set; }
+        public bool GiemsaPP { get; set; }
+        public bool Kinyoun { get; set; }
+        public bool BacterianoAntibiogramaPP { get; set; }
+        public bool MicoticoPP { get; set; }
+        public bool Amebas { get; set; }
+        public bool Chlamydia { get; set; }
+        public bool Pestana { get; set; }
     }
 }

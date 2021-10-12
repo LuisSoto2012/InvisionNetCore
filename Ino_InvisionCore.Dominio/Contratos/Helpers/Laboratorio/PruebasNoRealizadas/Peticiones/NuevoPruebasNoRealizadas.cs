@@ -27,5 +27,14 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PruebasNoRealiz
         public string Comentario { get; set; }
         public DateTime FechaOcurrencia { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public bool GramPP { get; set; }
+        public bool PasPP { get; set; }
+        public bool GiemsaPP { get; set; }
+        public bool Kinyoun { get; set; }
+        public bool BacterianoAntibiogramaPP { get; set; }
+        public bool MicoticoPP { get; set; }
+        public bool Amebas { get; set; }
+        public bool Chlamydia { get; set; }
+        public bool Pestana { get; set; }
     }
 }

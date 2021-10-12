@@ -24,5 +24,10 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public bool ToxoplasmaIggIgm { get; set; }
         [Required]
         public DateTime FechaOcurrencia { get; set; }
+        public bool BacterianoAntibiograma { get; set; }
+        public bool Giemsa { get; set; }
+        public bool Gram { get; set; }
+        public bool Micotico { get; set; }
+        public bool Pas { get; set; }
     }
 }

@@ -16,5 +16,9 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PocoFrecuente.R
         public string AreaLaboratorio { get; set; }
         public string NombreMes { get; set; }
         public string FechaCreacion { get; set; }
+        public bool LaminaCuaderno { get; set; }
+        public bool CuadernoPaciente { get; set; }
+        public bool CuadernoSistema { get; set; }
+        public bool SistemaCuaderno { get; set; }
     }
 }

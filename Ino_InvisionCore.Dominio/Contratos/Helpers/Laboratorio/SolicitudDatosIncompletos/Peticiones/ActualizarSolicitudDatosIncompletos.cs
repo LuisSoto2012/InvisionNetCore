@@ -17,5 +17,8 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.SolicitudDatosI
         public bool EsActivo { get; set; }
         public int IdUsuarioModificacion { get; set; }
         public DateTime FechaModificacion { get; set; } = DateTime.Now;
+        public string DatoPacienteIncompleto { get; set; }
+        public string DatoMuestraIncompleto { get; set; }
+        public string DatoMedicoSolicitanteIncompleto { get; set; }
     }
 }

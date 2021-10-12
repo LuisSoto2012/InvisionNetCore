@@ -15,5 +15,9 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PocoFrecuente.P
         public bool EsActivo { get; set; }
         public int IdUsuarioModificacion { get; set; }
         public DateTime FechaModificacion { get; set; } = DateTime.Now;
+        public bool LaminaCuaderno { get; set; }
+        public bool CuadernoPaciente { get; set; }
+        public bool CuadernoSistema { get; set; }
+        public bool SistemaCuaderno { get; set; }
     }
 }

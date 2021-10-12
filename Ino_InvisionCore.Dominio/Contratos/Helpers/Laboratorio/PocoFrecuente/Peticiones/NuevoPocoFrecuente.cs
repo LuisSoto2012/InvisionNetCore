@@ -12,5 +12,9 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PocoFrecuente.P
         public int NumeroMes { get; set; }
         public int Total { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public bool LaminaCuaderno { get; set; }
+        public bool CuadernoPaciente { get; set; }
+        public bool CuadernoSistema { get; set; }
+        public bool SistemaCuaderno { get; set; }
     }
 }

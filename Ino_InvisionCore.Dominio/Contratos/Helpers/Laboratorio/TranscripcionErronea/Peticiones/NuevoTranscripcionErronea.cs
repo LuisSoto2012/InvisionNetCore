@@ -15,5 +15,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.TranscripcionEr
         public bool SinMovimiento { get; set; }
         public bool MovimientoIncorrecto { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string ErrorDatoPaciente { get; set; }
+        public string ErrorDatoMuestra { get; set; }
     }
 }

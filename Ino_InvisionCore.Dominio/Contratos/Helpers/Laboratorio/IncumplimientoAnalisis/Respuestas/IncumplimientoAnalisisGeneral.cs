@@ -17,5 +17,10 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.IncumplimientoA
         public string FechaOcurrencia { get; set; }
         public bool EsActivo { get; set; }
         public string FechaCreacion { get; set; }
+        public bool BacterianoAntibiograma { get; set; }
+        public bool Giemsa { get; set; }
+        public bool Gram { get; set; }
+        public bool Micotico { get; set; }
+        public bool Pas { get; set; }
     }
 }

@@ -26,5 +26,8 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public bool SinMovimiento { get; set; }
         [Required]
         public bool MovimientoIncorrecto { get; set; }
+        public string DatoPacienteIncompleto { get; set; }
+        public string DatoMuestraIncompleto { get; set; }
+        public string DatoMedicoSolicitanteIncompleto { get; set; }
     }
 }
