@@ -30,5 +30,6 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public bool ResultadoNoRegistrado { get; set; }
         [Required]
         public bool ResultadoNoImpreso { get; set; }
+        public string Origen { get; set; }
     }
 }

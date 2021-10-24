@@ -33,6 +33,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public string Comentario { get; set; }
         [Required]
         public int IdAreaLaboratorio { get; set; }
+        public string Origen { get; set; }
         [JsonIgnore]
         public virtual AreaLaboratorio AreaLaboratorio { get; set; }
     }

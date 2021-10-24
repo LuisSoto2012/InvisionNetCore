@@ -15,5 +15,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.SueroMalReferen
         public string AreaLaboratorio { get; set; }
         public bool EsActivo { get; set; }
         public string FechaCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

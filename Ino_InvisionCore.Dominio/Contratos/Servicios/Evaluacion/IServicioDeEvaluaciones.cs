@@ -24,5 +24,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.Evaluacion
         Task<RespuestaBD> EnviarCertificados(EnviarCertificadosDto solicitud);
         Task<IEnumerable<EvalPartCertDto>> ListarParticipantesConCertificado(string modulo);
         Task<RespuestaBD> ReenviarCertificados(IEnumerable<EvalPartCertDto> participantes);
+        Task EnviarLista();
     }
 }

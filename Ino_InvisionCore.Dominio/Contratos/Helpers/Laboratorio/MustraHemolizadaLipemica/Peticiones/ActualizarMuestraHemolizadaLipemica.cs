@@ -16,5 +16,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.MustraHemolizad
         public bool EsActivo { get; set; }
         public int IdUsuarioModificacion { get; set; }
         public DateTime FechaModificacion { get; set; } = DateTime.Now;
+        public string Origen { get; set; }
     }
 }

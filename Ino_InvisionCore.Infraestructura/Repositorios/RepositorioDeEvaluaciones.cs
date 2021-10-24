@@ -154,6 +154,85 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             return respuesta;
         }
 
+        public async Task EnviarLista()
+        {
+            string[] arrMail = new string[3] { "noreply.inoinvision@gmail.com", "noreply2.inoinvision@gmail.com", "noreply3.inoinvision@gmail.com" };
+            string mailPassword = "P@sw0rd00!";
+
+            int intento = 0;
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryFormat = SmtpDeliveryFormat.International;
+            client.Port = 587;
+            client.Timeout = 20000;
+
+            var participantesDb = await _inoContext.EvaluacionParticipantes.Where(x => x.Id > 1090).ToListAsync();
+
+            foreach (var p in participantesDb)
+            {
+                try
+                {
+
+                    using (StreamReader SourceReader = System.IO.File.OpenText("msg_reg_asistentes.html"))
+                    {
+                        MailMessage mailMessage = new MailMessage();
+
+                        string body = (SourceReader.ReadToEnd()).Replace("asistNombreApellido", $"{p.Nombres} {p.ApellidoPaterno}");
+                        body = body.Replace("asistNumeroDocumento", p.NumeroDocumento);
+                        body = body.Replace("asistCorreoElectronico", p.CorreoElectronico);
+
+                        AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
+
+                        byte[] reader = File.ReadAllBytes("bannerForo.jpg");
+                        MemoryStream image1 = new MemoryStream(reader);
+
+                        LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                        headerImage.ContentId = "banCongreso";
+                        headerImage.ContentType = new ContentType("image/jpg");
+                        av.LinkedResources.Add(headerImage);
+
+                        byte[] reader2 = File.ReadAllBytes("medico.jpg");
+                        MemoryStream image2 = new MemoryStream(reader2);
+
+                        LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                        headerImage2.ContentId = "medicoCongreso";
+                        headerImage2.ContentType = new ContentType("image/jpg");
+                        av.LinkedResources.Add(headerImage2);
+
+                        mailMessage.AlternateViews.Add(av);
+                        mailMessage.From = new MailAddress(arrMail[intento]);
+                        mailMessage.To.Add(p.CorreoElectronico);
+                        mailMessage.Subject = "INO CONGRESO - REGISTRO DE ASISTENTE";
+                        mailMessage.IsBodyHtml = true;
+                        ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+                        AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
+                        mailMessage.AlternateViews.Add(alternate);
+
+                        client.Send(mailMessage);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    //throw ex;
+                    intento++;
+                    client = new SmtpClient("smtp.gmail.com");
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.DeliveryFormat = SmtpDeliveryFormat.International;
+                    client.Port = 587;
+                    client.Timeout = 20000;
+                }
+            }
+        }
+
         public async Task<RespuestaBD> RegistrarParticipante(RegistrarParticipanteDto solicitud)
         {
             RespuestaBD respuesta = new RespuestaBD();
@@ -197,7 +276,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                             AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
 
-                            byte[] reader = File.ReadAllBytes("ban_congreso.jpg");
+                            byte[] reader = File.ReadAllBytes("bannerForo.jpg");
                             MemoryStream image1 = new MemoryStream(reader);
 
                             LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);

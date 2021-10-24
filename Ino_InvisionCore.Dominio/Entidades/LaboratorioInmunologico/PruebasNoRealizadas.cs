@@ -45,5 +45,6 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public bool Amebas { get; set; }
         public bool Chlamydia { get; set; }
         public bool Pestana { get; set; }
+        public string Origen { get; set; }
     }
 }

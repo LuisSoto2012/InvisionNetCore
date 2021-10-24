@@ -14,5 +14,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PacienteSinResu
         public bool ResultadoNoIngresado { get; set; }
         public bool PruebaNoRegistrada { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

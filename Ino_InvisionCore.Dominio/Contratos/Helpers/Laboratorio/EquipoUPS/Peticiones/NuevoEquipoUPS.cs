@@ -11,5 +11,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EquipoUPS.Petic
         public int NumeroMes { get; set; }
         public string Observaciones { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

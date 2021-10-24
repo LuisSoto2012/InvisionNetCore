@@ -24,5 +24,6 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         [Required]
         public DateTime FechaOcurrencia { get; set; }
         public string Comentario { get; set; }
+        public string Origen { get; set; }
     }
 }

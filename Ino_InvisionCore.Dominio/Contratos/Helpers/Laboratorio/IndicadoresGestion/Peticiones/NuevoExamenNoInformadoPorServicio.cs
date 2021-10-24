@@ -11,5 +11,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.IndicadoresGest
         public string Especialidad { get; set; }
         public int TotalPacientes { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

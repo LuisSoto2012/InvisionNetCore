@@ -29,5 +29,6 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public bool Gram { get; set; }
         public bool Micotico { get; set; }
         public bool Pas { get; set; }
+        public string Origen { get; set; }
     }
 }

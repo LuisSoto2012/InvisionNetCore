@@ -19,6 +19,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         [StringLength(500)]
         public string Paciente { get; set; }
         public string Incidentes { get; set; }
+        public string Origen { get; set; }
         [Required]
         public DateTime FechaOcurrencia { get; set; }
     }

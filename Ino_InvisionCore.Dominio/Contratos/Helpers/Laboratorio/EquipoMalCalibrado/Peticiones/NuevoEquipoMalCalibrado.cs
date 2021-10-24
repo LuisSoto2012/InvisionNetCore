@@ -11,5 +11,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.EquipoMalCalibr
         public int NumeroMes { get; set; }
         public int Inadecuados { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

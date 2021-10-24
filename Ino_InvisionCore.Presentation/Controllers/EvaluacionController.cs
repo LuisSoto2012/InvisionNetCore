@@ -162,5 +162,12 @@ namespace Ino_InvisionCore.Presentation.Controllers
             var respuesta = await _servicio.ReenviarCertificados(solicitud.participantes);
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
+        
+        [AllowAnonymous]
+        public async Task<IActionResult> EnviarLista()
+        {
+            await _servicio.EnviarLista();
+            return new OkObjectResult(new { Id = 1, Mensaje = "Exito" });
+        }
     }
 }

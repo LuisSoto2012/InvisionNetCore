@@ -26,6 +26,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public bool CuadernoPaciente { get; set; }
         public bool CuadernoSistema { get; set; }
         public bool SistemaCuaderno { get; set; }
+        public string Origen { get; set; }
         [JsonIgnore]
         public virtual AreaLaboratorio AreaLaboratorio { get; set; }
 

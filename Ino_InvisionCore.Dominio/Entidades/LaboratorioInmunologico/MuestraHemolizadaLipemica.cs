@@ -26,6 +26,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public string Paciente { get; set; }
         [Required]
         public int NumeroMes { get; set; }
+        public string Origen { get; set; }
         [JsonIgnore]
         public virtual AreaLaboratorio AreaLaboratorio { get; set; }
     }

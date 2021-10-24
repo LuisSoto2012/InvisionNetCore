@@ -23,6 +23,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.LaboratorioInmunologico
         public int Inoperativo { get; set; }
         [Required]
         public int Total { get; set; }
+        public string Origen { get; set; }
         [JsonIgnore]
         public virtual AreaLaboratorio AreaLaboratorio { get; set; }
     }

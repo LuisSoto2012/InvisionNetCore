@@ -13,5 +13,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.MaterialNoCalib
         public int Inoperativo { get; set; }
         public int Total { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

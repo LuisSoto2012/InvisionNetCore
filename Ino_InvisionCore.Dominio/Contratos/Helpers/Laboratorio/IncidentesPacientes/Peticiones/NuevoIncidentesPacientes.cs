@@ -12,5 +12,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.IncidentesPacie
         public string Incidentes { get; set; }
         public DateTime FechaOcurrencia { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

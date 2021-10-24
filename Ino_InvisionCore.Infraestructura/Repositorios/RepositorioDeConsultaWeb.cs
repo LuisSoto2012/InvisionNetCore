@@ -210,9 +210,15 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         {
             RespuestaBD respuesta = new RespuestaBD();
 
+            string[] arrMail = new string[6] { "noreply.inoinvision@gmail.com", "noreply2.inoinvision@gmail.com", "noreply3.inoinvision@gmail.com",
+                                                    "noreply4.inoinvision@gmail.com", "noreply5.inoinvision@gmail.com", "noreply6.inoinvision@gmail.com"};
+
+            int intento = 0;
+            bool exito = false;
+
             SmtpClient client = new SmtpClient("smtp.gmail.com");
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("noreply.inoinvision@gmail.com", "P@sw0rd00!");
+            client.Credentials = new NetworkCredential(arrMail[0], "P@sw0rd00!");
             client.EnableSsl = true;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.DeliveryFormat = SmtpDeliveryFormat.International;
@@ -273,59 +279,70 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         respuesta.Id = 1;
                         respuesta.Mensaje = "La solicitud ha sido aceptada";
 
+                        while (!exito)
+                        {
+                            try
+                            {
+                                MailMessage mailMessage = new MailMessage();
 
-                        //MailMessage mailMessage = new MailMessage();
+                                string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", solicitud.PrimerNombre + " " + solicitud.ApellidoPaterno);
+                                body = body.Replace("FechaCita", operacionCita.FechaCita.ToString("dd/MM/yyyy"));
+                                body = body.Replace("HoraCita", operacionCita.HoraCita);
+                                body = body.Replace("UrlCita", operacionCita.UrlCita);
+                                AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
 
-                        //mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
-                        //mailMessage.To.Add(operacionCita.CorreoElectronico);
-                        //mailMessage.Subject = "INO CONSULTAS WEB - Respuesta Solicitud Cita";
-                        //mailMessage.Body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", solicitud.PrimerNombre + " "+ solicitud.ApellidoPaterno).Replace("FechaCita", operacionCita.FechaCita.ToString("yyyy-MM-dd")).Replace("HoraCita", operacionCita.HoraCita).Replace("MedicoCita", operacionCita.Medicos.Descripcion);
-                        //mailMessage.IsBodyHtml = true;
-                        //client.Send(mailMessage);
+                                byte[] reader = File.ReadAllBytes("logo_ino.jpg");
+                                MemoryStream image1 = new MemoryStream(reader);
 
-                        MailMessage mailMessage = new MailMessage();
+                                LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                                headerImage.ContentId = "logoIno";
+                                headerImage.ContentType = new ContentType("image/jpg");
+                                av.LinkedResources.Add(headerImage);
 
-                        string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", solicitud.PrimerNombre + " " + solicitud.ApellidoPaterno);
-                        body = body.Replace("FechaCita", operacionCita.FechaCita.ToString("dd/MM/yyyy"));
-                        body = body.Replace("HoraCita", operacionCita.HoraCita);
-                        body = body.Replace("UrlCita", operacionCita.UrlCita);
-                        AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
+                                byte[] reader2 = File.ReadAllBytes("logo_invision.jpg");
+                                MemoryStream image2 = new MemoryStream(reader2);
 
-                        byte[] reader = File.ReadAllBytes("logo_ino.jpg");
-                        MemoryStream image1 = new MemoryStream(reader);
+                                LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                                headerImage2.ContentId = "logoInvision";
+                                headerImage2.ContentType = new ContentType("image/jpg");
+                                av.LinkedResources.Add(headerImage2);
 
-                        LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                        headerImage.ContentId = "logoIno";
-                        headerImage.ContentType = new ContentType("image/jpg");
-                        av.LinkedResources.Add(headerImage);
+                                byte[] reader3 = File.ReadAllBytes("slogan_telesalud.jpg");
+                                MemoryStream image3 = new MemoryStream(reader3);
 
-                        byte[] reader2 = File.ReadAllBytes("logo_invision.jpg");
-                        MemoryStream image2 = new MemoryStream(reader2);
-
-                        LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                        headerImage2.ContentId = "logoInvision";
-                        headerImage2.ContentType = new ContentType("image/jpg");
-                        av.LinkedResources.Add(headerImage2);
-
-                        byte[] reader3 = File.ReadAllBytes("slogan_telesalud.jpg");
-                        MemoryStream image3 = new MemoryStream(reader3);
-
-                        LinkedResource headerImage3 = new LinkedResource(image3, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                        headerImage3.ContentId = "sloganTelesalud";
-                        headerImage3.ContentType = new ContentType("image/jpg");
-                        av.LinkedResources.Add(headerImage3);
+                                LinkedResource headerImage3 = new LinkedResource(image3, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                                headerImage3.ContentId = "sloganTelesalud";
+                                headerImage3.ContentType = new ContentType("image/jpg");
+                                av.LinkedResources.Add(headerImage3);
 
 
-                        mailMessage.AlternateViews.Add(av);
-                        mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
-                        mailMessage.To.Add(operacionCita.CorreoElectronico);
-                        mailMessage.Subject = "INO CONSULTAS WEB - Respuesta Solicitud Cita";
-                        mailMessage.IsBodyHtml = true;
-                        ContentType mimeType = new System.Net.Mime.ContentType("text/html");
-                        AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
-                        mailMessage.AlternateViews.Add(alternate);
-                        
-                        client.Send(mailMessage);
+                                mailMessage.AlternateViews.Add(av);
+                                mailMessage.From = new MailAddress(arrMail[intento]);
+                                mailMessage.To.Add(operacionCita.CorreoElectronico);
+                                mailMessage.Subject = "INO CONSULTAS WEB - Respuesta Solicitud Cita";
+                                mailMessage.IsBodyHtml = true;
+                                ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+                                AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
+                                mailMessage.AlternateViews.Add(alternate);
+
+                                client.Send(mailMessage);
+
+                                exito = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                intento++;
+                                new SmtpClient("smtp.gmail.com");
+                                client.UseDefaultCredentials = false;
+                                client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+                                client.EnableSsl = true;
+                                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                client.DeliveryFormat = SmtpDeliveryFormat.International;
+                                client.Port = 587;
+                                client.Timeout = 20000;
+                            }
+                        }
+                    
                     }
                     
                 }
@@ -333,53 +350,73 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 {
                     using (StreamReader SourceReader = System.IO.File.OpenText("respuestaNO.html"))
                     {
-                        solicitud.IdEstado = 2;
-                        solicitud.IdUsuarioRechaza = operacionCita.IdUsuario;
-                        solicitud.FechaRechaza = DateTime.Now;
-                        solicitud.MotivoRechazo = operacionCita.MotivoRechazo;
-                        respuesta.Id = 2;
-                        respuesta.Mensaje = "La solicitud ha sido rechazada";
+                        while (!exito)
+                        {
+                            try
+                            {
+                                solicitud.IdEstado = 2;
+                                solicitud.IdUsuarioRechaza = operacionCita.IdUsuario;
+                                solicitud.FechaRechaza = DateTime.Now;
+                                solicitud.MotivoRechazo = operacionCita.MotivoRechazo;
+                                respuesta.Id = 2;
+                                respuesta.Mensaje = "La solicitud ha sido rechazada";
 
-                        MailMessage mailMessage = new MailMessage();
+                                MailMessage mailMessage = new MailMessage();
 
-                        string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", solicitud.PrimerNombre + " " + solicitud.ApellidoPaterno);
-                        body = body.Replace("MotivoRechazo", operacionCita.MotivoRechazo);
-                        AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
+                                string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", solicitud.PrimerNombre + " " + solicitud.ApellidoPaterno);
+                                body = body.Replace("MotivoRechazo", operacionCita.MotivoRechazo);
+                                AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
 
-                        byte[] reader = File.ReadAllBytes("logo_ino.jpg");
-                        MemoryStream image1 = new MemoryStream(reader);
+                                byte[] reader = File.ReadAllBytes("logo_ino.jpg");
+                                MemoryStream image1 = new MemoryStream(reader);
 
-                        LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                        headerImage.ContentId = "logoIno";
-                        headerImage.ContentType = new ContentType("image/jpg");
-                        av.LinkedResources.Add(headerImage);
+                                LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                                headerImage.ContentId = "logoIno";
+                                headerImage.ContentType = new ContentType("image/jpg");
+                                av.LinkedResources.Add(headerImage);
 
-                        byte[] reader2 = File.ReadAllBytes("logo_invision.jpg");
-                        MemoryStream image2 = new MemoryStream(reader2);
+                                byte[] reader2 = File.ReadAllBytes("logo_invision.jpg");
+                                MemoryStream image2 = new MemoryStream(reader2);
 
-                        LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                        headerImage2.ContentId = "logoInvision";
-                        headerImage2.ContentType = new ContentType("image/jpg");
-                        av.LinkedResources.Add(headerImage2);
+                                LinkedResource headerImage2 = new LinkedResource(image2, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                                headerImage2.ContentId = "logoInvision";
+                                headerImage2.ContentType = new ContentType("image/jpg");
+                                av.LinkedResources.Add(headerImage2);
 
-                        byte[] reader3 = File.ReadAllBytes("slogan_telesalud.jpg");
-                        MemoryStream image3 = new MemoryStream(reader3);
+                                byte[] reader3 = File.ReadAllBytes("slogan_telesalud.jpg");
+                                MemoryStream image3 = new MemoryStream(reader3);
 
-                        LinkedResource headerImage3 = new LinkedResource(image3, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                        headerImage3.ContentId = "sloganTelesalud";
-                        headerImage3.ContentType = new ContentType("image/jpg");
-                        av.LinkedResources.Add(headerImage3);
+                                LinkedResource headerImage3 = new LinkedResource(image3, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                                headerImage3.ContentId = "sloganTelesalud";
+                                headerImage3.ContentType = new ContentType("image/jpg");
+                                av.LinkedResources.Add(headerImage3);
 
 
-                        mailMessage.AlternateViews.Add(av);
-                        mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
-                        mailMessage.To.Add(operacionCita.CorreoElectronico);
-                        mailMessage.Subject = "INO CONSULTAS WEB - Respuesta Solicitud Cita";
-                        mailMessage.IsBodyHtml = true;
-                        ContentType mimeType = new System.Net.Mime.ContentType("text/html");
-                        AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
-                        mailMessage.AlternateViews.Add(alternate);
-                        client.Send(mailMessage);
+                                mailMessage.AlternateViews.Add(av);
+                                mailMessage.From = new MailAddress(arrMail[0]);
+                                mailMessage.To.Add(operacionCita.CorreoElectronico);
+                                mailMessage.Subject = "INO CONSULTAS WEB - Respuesta Solicitud Cita";
+                                mailMessage.IsBodyHtml = true;
+                                ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+                                AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
+                                mailMessage.AlternateViews.Add(alternate);
+                                client.Send(mailMessage);
+                                exito = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                intento++;
+                                new SmtpClient("smtp.gmail.com");
+                                client.UseDefaultCredentials = false;
+                                client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+                                client.EnableSsl = true;
+                                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                client.DeliveryFormat = SmtpDeliveryFormat.International;
+                                client.Port = 587;
+                                client.Timeout = 20000;
+                            }
+                        }
+                        
                     }
 
                     
@@ -1278,12 +1315,18 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
             else
             {
-                
+
                 // Correo Electronico - Envio de confirmacion reprogramacion online
 
+
+                string[] arrMail = new string[6] { "noreply.inoinvision@gmail.com", "noreply2.inoinvision@gmail.com", "noreply3.inoinvision@gmail.com",
+                                                    "noreply4.inoinvision@gmail.com", "noreply5.inoinvision@gmail.com", "noreply6.inoinvision@gmail.com"};
+
+                int intento = 0;
+                bool exito = false;
                 SmtpClient client = new SmtpClient("smtp.gmail.com");
                 client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("noreply.inoinvision@gmail.com", "P@sw0rd00!");
+                client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.DeliveryFormat = SmtpDeliveryFormat.International;
@@ -1292,37 +1335,59 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                 using (StreamReader SourceReader = System.IO.File.OpenText("confirmacionReprogramacion.html"))
                 {
-                    MailMessage mailMessage = new MailMessage();
+                    while (!exito)
+                    {
+                        try
+                        {
+                            MailMessage mailMessage = new MailMessage();
 
-                    string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", solicitudDb.Paciente);
-                    body = body.Replace("fechaCita", solicitudDb.FechaCita.ToString("dd/MM/yyyy"));
-                    body = body.Replace("horaCita", solicitud.NuevoHoraCita);
-                    body = body.Replace("nombreEspecialidad", solicitud.Especialidad);
-                    body = body.Replace("dniPaciente", solicitudDb.NroDocumento);
-                    body = body.Replace("nombreMedico", solicitudDb.Medico);
-                    body = body.Replace("nroCuenta", solicitudDb.IdCuentaAtencion.ToString());
-                    body = body.Replace("nombreTurno", solicitudDb.Turno);
-                    body = body.Replace("fteFto", solicitudDb.FteFto);
-                    body = body.Replace("urlConsultorio", solicitud.Url);
-                    AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
+                            string body = (SourceReader.ReadToEnd()).Replace("(Nombre1 + Apellidopaterno)", solicitudDb.Paciente);
+                            body = body.Replace("fechaCita", solicitudDb.FechaCita.ToString("dd/MM/yyyy"));
+                            body = body.Replace("horaCita", solicitud.NuevoHoraCita);
+                            body = body.Replace("nombreEspecialidad", solicitud.Especialidad);
+                            body = body.Replace("dniPaciente", solicitudDb.NroDocumento);
+                            body = body.Replace("nombreMedico", solicitudDb.Medico);
+                            body = body.Replace("nroCuenta", solicitudDb.IdCuentaAtencion.ToString());
+                            body = body.Replace("nombreTurno", solicitudDb.Turno);
+                            body = body.Replace("fteFto", solicitudDb.FteFto);
+                            body = body.Replace("urlConsultorio", solicitud.Url);
+                            AlternateView av = AlternateView.CreateAlternateViewFromString(body, null, System.Net.Mime.MediaTypeNames.Text.Html);
 
-                    byte[] reader = File.ReadAllBytes("slogan_telesalud.jpg");
-                    MemoryStream image1 = new MemoryStream(reader);
+                            byte[] reader = File.ReadAllBytes("slogan_telesalud.jpg");
+                            MemoryStream image1 = new MemoryStream(reader);
 
-                    LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
-                    headerImage.ContentId = "logoIno";
-                    headerImage.ContentType = new ContentType("image/jpg");
-                    av.LinkedResources.Add(headerImage);
+                            LinkedResource headerImage = new LinkedResource(image1, System.Net.Mime.MediaTypeNames.Image.Jpeg);
+                            headerImage.ContentId = "logoIno";
+                            headerImage.ContentType = new ContentType("image/jpg");
+                            av.LinkedResources.Add(headerImage);
 
-                    mailMessage.AlternateViews.Add(av);
-                    mailMessage.From = new MailAddress("noreply.inoinvision@gmail.com");
-                    mailMessage.To.Add(solicitud.CorreoElectronico);
-                    mailMessage.Subject = "INO TELECONSULTA - Confirmación de Reprogramación Online";
-                    mailMessage.IsBodyHtml = true;
-                    ContentType mimeType = new System.Net.Mime.ContentType("text/html");
-                    AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
-                    mailMessage.AlternateViews.Add(alternate);
-                    client.Send(mailMessage);
+                            mailMessage.AlternateViews.Add(av);
+                            mailMessage.From = new MailAddress(arrMail[intento]);
+                            mailMessage.To.Add(solicitud.CorreoElectronico);
+                            mailMessage.Subject = "INO TELECONSULTA - Confirmación de Reprogramación Online";
+                            mailMessage.IsBodyHtml = true;
+                            ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+                            AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
+                            mailMessage.AlternateViews.Add(alternate);
+                            client.Send(mailMessage);
+                            exito = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            intento++;
+                            client = new SmtpClient("smtp.gmail.com");
+                            client.UseDefaultCredentials = false;
+                            client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+                            client.EnableSsl = true;
+                            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                            client.DeliveryFormat = SmtpDeliveryFormat.International;
+                            client.Port = 587;
+                            client.Timeout = 20000;
+                        }
+                    }
+                    
+
+                    
                 }
 
                 // Ejecutar SP

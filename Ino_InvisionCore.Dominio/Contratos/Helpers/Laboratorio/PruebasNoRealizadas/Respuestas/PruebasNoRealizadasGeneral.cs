@@ -38,5 +38,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PruebasNoRealiz
         public bool Amebas { get; set; }
         public bool Chlamydia { get; set; }
         public bool Pestana { get; set; }
+        public string Origen { get; set; }
     }
 }

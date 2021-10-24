@@ -17,5 +17,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.TranscripcionEr
         public string Comentario { get; set; }
         public int IdAreaLaboratorio { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string Origen { get; set; }
     }
 }

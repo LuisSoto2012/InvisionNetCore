@@ -19,5 +19,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PocoFrecuente.P
         public bool CuadernoPaciente { get; set; }
         public bool CuadernoSistema { get; set; }
         public bool SistemaCuaderno { get; set; }
+        public string Origen { get; set; }
     }
 }

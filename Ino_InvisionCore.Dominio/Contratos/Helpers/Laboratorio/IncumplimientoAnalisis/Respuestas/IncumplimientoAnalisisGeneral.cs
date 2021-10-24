@@ -22,5 +22,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.IncumplimientoA
         public bool Gram { get; set; }
         public bool Micotico { get; set; }
         public bool Pas { get; set; }
+        public string Origen { get; set; }
     }
 }

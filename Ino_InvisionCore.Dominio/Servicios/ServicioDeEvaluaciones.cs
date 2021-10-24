@@ -84,5 +84,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await _repositorio.ReenviarCertificados(participantes);
         }
+
+        public async Task EnviarLista()
+        {
+            await _repositorio.EnviarLista();
+        }
     }
 }
