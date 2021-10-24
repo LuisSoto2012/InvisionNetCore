@@ -169,5 +169,12 @@ namespace Ino_InvisionCore.Presentation.Controllers
             await _servicio.EnviarLista();
             return new OkObjectResult(new { Id = 1, Mensaje = "Exito" });
         }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> EnviarCorreos()
+        {
+            await _servicio.EnviarCorreos();
+            return new OkObjectResult(new { Id = 1, Mensaje = "Exito" });
+        }
     }
 }

@@ -89,5 +89,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             await _repositorio.EnviarLista();
         }
+
+        public async Task EnviarCorreos()
+        {
+            await _repositorio.EnviarCorreos();
+        }
     }
 }

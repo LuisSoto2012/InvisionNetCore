@@ -156,8 +156,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
         public async Task EnviarLista()
         {
-            string[] arrMail = new string[3] { "noreply.inoinvision@gmail.com", "noreply2.inoinvision@gmail.com", "noreply3.inoinvision@gmail.com" };
-            string mailPassword = "P@sw0rd00!";
+            string[] arrMail = new string[6] { "noreply.inoinvision@gmail.com", "noreply2.inoinvision@gmail.com", "noreply3.inoinvision@gmail.com",
+                                                    "noreply4.inoinvision@gmail.com", "noreply5.inoinvision@gmail.com", "noreply6.inoinvision@gmail.com"};
 
             int intento = 0;
 
@@ -213,6 +213,71 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         mailMessage.AlternateViews.Add(alternate);
 
                         client.Send(mailMessage);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    //throw ex;
+                    intento++;
+                    client = new SmtpClient("smtp.gmail.com");
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.DeliveryFormat = SmtpDeliveryFormat.International;
+                    client.Port = 587;
+                    client.Timeout = 20000;
+                }
+            }
+        }
+
+        public async Task EnviarCorreos()
+        {
+            string[] arrMail = new string[6] { "noreply.inoinvision@gmail.com", "noreply2.inoinvision@gmail.com", "noreply3.inoinvision@gmail.com",
+                                                    "noreply4.inoinvision@gmail.com", "noreply5.inoinvision@gmail.com", "noreply6.inoinvision@gmail.com"};
+
+            int intento = 0;
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryFormat = SmtpDeliveryFormat.International;
+            client.Port = 587;
+            client.Timeout = 20000;
+            DateTime dt1 = DateTime.Parse("2021-09-01");
+            DateTime dt2 = DateTime.Parse("2021-10-01");
+            var participantesDb = await _inoContext.EvaluacionParticipantes.Where(x => x.FechaCreacion.Date >= dt1 && x.FechaCreacion.Date < dt2).ToListAsync();
+
+            foreach (var p in participantesDb)
+            {
+                try
+                {
+
+                    using (StreamReader SourceReader = System.IO.File.OpenText("msg_reg_asistentes.html"))
+                    {
+                        MailMessage mailMessage = new MailMessage();
+
+                        var text = @"
+                                    Estimados participantes. -
+                                    El examen del X Curso internacional de salud ocular comunitaria y desarrollo de servicios oftalmológicos 2021, organizado por el Instituto Nacional de Oftalmología “Dr. Francisco Contreras Campos” – INO, se rendirá el próximo martes 26 de octubre de 2021. 
+                                    El examen tendrá 20 preguntas de opción múltiple y solo una de las 5 opciones será la correcta. Cada respuesta correcta tendrá un puntaje de 1 punto. Una vez iniciado el examen tendrás 40 minutos para terminarlo y podrás ver tu calificación inmediatamente. Recuerda que la calificación aprobatoria es de 14.
+                                    El examen estará a tu disposición durante 24 horas. Solo tienes que acceder a este link para rendir tu examen desde el martes 26 a las 12:01 pm hasta el miércoles 27 a las 11: 59 am:
+                                    http://evaluacionescrita.ino.gob.pe
+                                    Por último, les recuerdo que según Resolución del SISTCERE del Colegio Médico del Perú N°0397-21-SISTCERE/CMP, el certificado otorga 3.0 puntos válidos para la recertificación médica. Los profesionales no médicos y los técnicos tendrán un certificado con el auspicio de la Sociedad Peruana de Oftalmología (SPO) y del INO.
+                                    Saludos cordiales
+                                    La comisión organizadora
+                                    ";
+
+                        mailMessage.From = new MailAddress(arrMail[intento]);
+                        mailMessage.To.Add(p.CorreoElectronico);
+                        mailMessage.Subject = "INO CONGRESO - EVALUACION ESCRITA";
+                        mailMessage.Body = text;
+
+                        await client.SendMailAsync(mailMessage);
                     }
 
                 }
