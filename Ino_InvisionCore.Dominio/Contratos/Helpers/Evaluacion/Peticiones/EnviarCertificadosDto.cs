@@ -10,5 +10,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones
         public List<EvalParticipanteNumPregDto> Participantes { get; set; }
         public DateTime Fecha { get; set; }
         public string Modulo { get; set; }
+        public int IdUser { get; set; }
     }
 }

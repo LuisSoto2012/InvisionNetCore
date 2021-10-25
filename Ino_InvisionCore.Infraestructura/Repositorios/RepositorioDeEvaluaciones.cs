@@ -27,10 +27,12 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
     public class RepositorioDeEvaluaciones : IRepositorioDeEvaluaciones
     {
         private readonly InoContext _inoContext;
+        private readonly EvaluacionEscritaContext _evalContext;
 
-        public RepositorioDeEvaluaciones(InoContext inoContext)
+        public RepositorioDeEvaluaciones(InoContext inoContext, EvaluacionEscritaContext evalContext)
         {
             _inoContext = inoContext;
+            _evalContext = evalContext;
         }
         
         public async Task<RespuestaBD> RegistrarPreguntaYRespuestas(RegistrarPreguntaRespuestaDto solicitud)
@@ -633,6 +635,161 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 respuesta.Id = 0;
                 respuesta.Mensaje = "Error en el servidor";
             }
+
+            return respuesta;
+        }
+
+        public async Task<RespuestaBD> EnviarCertificadoEvaluacionEscrita(EnviarCertificadosDto solicitud)
+        {
+            RespuestaBD respuesta = new RespuestaBD();
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+
+            string[] arrMail = new string[6] { "noreply.inoinvision@gmail.com", "noreply2.inoinvision@gmail.com", "noreply3.inoinvision@gmail.com",
+                                                    "noreply4.inoinvision@gmail.com", "noreply5.inoinvision@gmail.com", "noreply6.inoinvision@gmail.com"};
+
+            int intento = 0;
+
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(arrMail[0], "P@sw0rd00!");
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.DeliveryFormat = SmtpDeliveryFormat.International;
+            client.Port = 587;
+            client.Timeout = 20000;
+
+            bool exito = false;
+
+            //1. Obtener Participante
+
+            var participante = await _evalContext.Users.FirstOrDefaultAsync(x => x.Id == solicitud.IdUser);
+            var nota = "";
+            if (participante == null)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor. No se ha encontrado el usuario en la db.";
+                return respuesta;
+            }
+            else
+            {
+                //2. Obtener nota
+                var resultado = await _evalContext.TestResults.FirstOrDefaultAsync(x => x.Id == solicitud.IdUser);
+                nota = resultado.TotalScore.ToString();
+            }
+
+            while (!exito)
+            {
+                try
+                {
+                    using (var httpClient = new HttpClient())
+                    {
+                        MailMessage mailMessage = new MailMessage();
+
+
+                        mailMessage.From = new MailAddress(arrMail[intento]);
+                        mailMessage.To.Add(participante.Username);
+                        mailMessage.Subject = "INO CONGRESO - CERTIFICADO DE ASISTENCIA";
+                        mailMessage.Body = $"Estimado participante {participante.Names} {participante.LastName} {participante.SecondLastName}. Se adjunta CERTIFICADO DE ASISTENCIA";
+
+                        //Creacion Certificado
+                        string pathTempCert = "";
+                        string pathCert = "";
+
+                        if (participante.UserType.Contains("MEDICO") || participante.UserType.Contains("MÉDICO"))
+                        {
+                            pathTempCert = "pers_medico.png";
+                            pathCert = $"certificados\\evalescrita\\cert_{participante.Code}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                        }
+                        else
+                        {
+                            pathTempCert = "pers_no_medico.png";
+                            pathCert = $"certificados\\evalescrita\\cert_{participante.Code}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.jpg";
+                        }
+
+                        //PointF firstLocation = new PointF(292f, 190f);
+                        PointF firstLocation = new PointF(600f, 255f);
+                        PointF secondLocation = new PointF(128f, 830f);
+                        string fullName = string.Concat(participante.Names, " ", participante.LastName, " ", participante.SecondLastName);
+                        string imageFilePath = pathTempCert;
+                        Bitmap bitmap = (Bitmap)Image.FromFile(imageFilePath);//load the image file
+
+                        using (Graphics graphics = Graphics.FromImage(bitmap))
+                        {
+                            using (var sf = new StringFormat()
+                            {
+                                Alignment = StringAlignment.Center,
+                                LineAlignment = StringAlignment.Center,
+                            })
+                            using (Font textFont = new Font("Arial Black", 27, FontStyle.Bold | FontStyle.Italic))
+                            {
+                                graphics.DrawString(fullName, textFont, Brushes.Black, firstLocation, sf);
+                                // graphics.DrawString(secondText, arialFont, Brushes.Red, secondLocation);
+                            }
+                            using (var sf2 = new StringFormat()
+                            {
+                                Alignment = StringAlignment.Center,
+                                LineAlignment = StringAlignment.Center,
+                            })
+                            using (Font textFont2 = new Font("Arial", 14, FontStyle.Bold))
+                            {
+                                graphics.DrawString(nota, textFont2, Brushes.White, secondLocation, sf2);
+                                // graphics.DrawString(secondText, arialFont, Brushes.Red, secondLocation);
+                            }
+                        }
+                        using (MemoryStream memory = new MemoryStream())
+                        {
+                            using (FileStream fs = new FileStream(pathCert, FileMode.Create, FileAccess.ReadWrite))
+                            {
+                                bitmap.Save(memory, ImageFormat.Jpeg);//save the image file
+                                byte[] bytes = memory.ToArray();
+                                fs.Write(bytes, 0, bytes.Length);
+                            }
+                        }
+
+                        mailMessage.Attachments.Add(new Attachment(pathCert));
+
+                        await client.SendMailAsync(mailMessage);
+                        //Obtener Id Participante
+                        var inoParticipante = await _inoContext.EvaluacionParticipantes.FirstAsync(x => x.NumeroDocumento == participante.Code);
+                        //Insert Tabla
+                        EvaluacionParticipanteCertificado eval = new EvaluacionParticipanteCertificado
+                        {
+                            IdParticipante = inoParticipante.Id,
+                            Participante = fullName,
+                            NumeroDocumento = inoParticipante.NumeroDocumento,
+                            CorreoElectronico = inoParticipante.CorreoElectronico,
+                            Modulo = solicitud.Modulo,
+                            FechaCertificado = DateTime.Now,
+                            FechaEnvio = DateTime.Now,
+                            Certificado1 = true
+                        };
+
+                        _inoContext.EvaluacionParticipantseCertificados.Add(eval);
+                        await _inoContext.SaveChangesAsync();
+                        respuesta.Id = 1;
+                        respuesta.Mensaje = "Certificado enviado correctamente!";
+                        exito = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    intento++;
+                    client = new SmtpClient("smtp.gmail.com");
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(arrMail[intento], "P@sw0rd00!");
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.DeliveryFormat = SmtpDeliveryFormat.International;
+                    client.Port = 587;
+                    client.Timeout = 20000;
+                    if (intento > 5)
+                    {
+                        respuesta.Id = 0;
+                        respuesta.Mensaje = "Error en el servidor";
+                        return respuesta;
+                    }
+                }
+            }
+            
 
             return respuesta;
         }

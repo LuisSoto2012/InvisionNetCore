@@ -150,6 +150,14 @@ namespace Ino_InvisionCore.Presentation.Controllers
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> EnviarCertificadoEvaluacionEscrita([FromBody]EnviarCertificadosDto solicitud)
+        {
+            var respuesta = await _servicio.EnviarCertificadoEvaluacionEscrita(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+
         [HttpGet]
         public async Task<IEnumerable<EvalPartCertDto>> ListarParticipantesConCertificado([FromQuery]string modulo)
         {

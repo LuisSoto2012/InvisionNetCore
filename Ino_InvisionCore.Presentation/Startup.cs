@@ -67,6 +67,8 @@ namespace Ino_InvisionCore.Presentacion
             options.UseSqlServer(Configuration.GetConnectionString("GalenPlusDB")));
             services.AddDbContext<InoContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("InoDB")));
+            services.AddDbContext<EvaluacionEscritaContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("EvaluacionDB")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper(typeof(AutoMapperProfile));
 

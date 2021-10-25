@@ -70,6 +70,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
 
             builder.RegisterType<InoContext>().As<InoContext>();
             builder.RegisterType<GalenPlusContext>().As<GalenPlusContext>();
+            builder.RegisterType<EvaluacionEscritaContext>().As<EvaluacionEscritaContext>();
 
             // Repositories
             builder.RegisterType<RepositorioDeAdicionales>().As<IRepositorioDeAdicionales>();

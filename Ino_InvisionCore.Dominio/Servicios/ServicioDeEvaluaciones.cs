@@ -75,6 +75,11 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return await _repositorio.EnviarCertificados(solicitud);
         }
 
+        public async Task<RespuestaBD> EnviarCertificadoEvaluacionEscrita(EnviarCertificadosDto solicitud)
+        {
+            return await _repositorio.EnviarCertificadoEvaluacionEscrita(solicitud);
+        }
+
         public async Task<IEnumerable<EvalPartCertDto>> ListarParticipantesConCertificado(string modulo)
         {
             return await _repositorio.ListarParticipantesConCertificado(modulo);
