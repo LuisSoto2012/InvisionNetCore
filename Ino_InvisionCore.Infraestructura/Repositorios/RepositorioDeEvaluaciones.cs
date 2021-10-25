@@ -256,12 +256,9 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             {
                 try
                 {
+                    MailMessage mailMessage = new MailMessage();
 
-                    using (StreamReader SourceReader = System.IO.File.OpenText("msg_reg_asistentes.html"))
-                    {
-                        MailMessage mailMessage = new MailMessage();
-
-                        var text = @"
+                    var text = @"
                                     Estimados participantes. -
                                     El examen del X Curso internacional de salud ocular comunitaria y desarrollo de servicios oftalmológicos 2021, organizado por el Instituto Nacional de Oftalmología “Dr. Francisco Contreras Campos” – INO, se rendirá el próximo martes 26 de octubre de 2021. 
                                     El examen tendrá 20 preguntas de opción múltiple y solo una de las 5 opciones será la correcta. Cada respuesta correcta tendrá un puntaje de 1 punto. Una vez iniciado el examen tendrás 40 minutos para terminarlo y podrás ver tu calificación inmediatamente. Recuerda que la calificación aprobatoria es de 14.
@@ -272,13 +269,12 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                     La comisión organizadora
                                     ";
 
-                        mailMessage.From = new MailAddress(arrMail[intento]);
-                        mailMessage.To.Add(p.CorreoElectronico);
-                        mailMessage.Subject = "INO CONGRESO - EVALUACION ESCRITA";
-                        mailMessage.Body = text;
+                    mailMessage.From = new MailAddress(arrMail[intento]);
+                    mailMessage.To.Add(p.CorreoElectronico);
+                    mailMessage.Subject = "INO CONGRESO - EVALUACION ESCRITA";
+                    mailMessage.Body = text;
 
-                        await client.SendMailAsync(mailMessage);
-                    }
+                    await client.SendMailAsync(mailMessage);
 
                 }
                 catch (Exception ex)
