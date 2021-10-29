@@ -672,7 +672,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             else
             {
                 //2. Obtener nota
-                var resultado = await _evalContext.TestResults.FirstOrDefaultAsync(x => x.Id == solicitud.IdUser);
+                var resultado = await _evalContext.TestResults.FirstOrDefaultAsync(x => x.UserId == solicitud.IdUser);
                 nota = resultado.TotalScore.ToString();
             }
 
@@ -707,7 +707,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                         //PointF firstLocation = new PointF(292f, 190f);
                         PointF firstLocation = new PointF(600f, 255f);
-                        PointF secondLocation = new PointF(128f, 830f);
+                        PointF secondLocation = participante.UserType.Contains("MEDICO") || participante.UserType.Contains("MÉDICO") ? 
+                                                new PointF(128f, 830f) : new PointF(110f, 830f) ;
                         string fullName = string.Concat(participante.Names, " ", participante.LastName, " ", participante.SecondLastName);
                         string imageFilePath = pathTempCert;
                         Bitmap bitmap = (Bitmap)Image.FromFile(imageFilePath);//load the image file
