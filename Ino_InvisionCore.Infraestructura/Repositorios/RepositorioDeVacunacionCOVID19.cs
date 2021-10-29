@@ -74,7 +74,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     dto.Edad = e.FechaNacimiento.HasValue ? CalculateAge(e.FechaNacimiento.Value) : 0;
                     dto.FechaRegistroCI = e.FechaRegistro.ToString("yyyy-MM-dd");
                     dto.IdUsuarioRegistroCI = e.IdUsuarioRegistro;
-                    dto.IdDosis = 0;
+                    dto.IdDosis = 2;
                     dto.IdUsuarioRegistroCI = 0;
                     dto.FechaConsentimiento = e.FechaRegistro.ToString("dd/MM/yyyy HH:mm");
                     dto.NumeroDosis = e.DetPrevInm_P9.HasValue ? (e.DetPrevInm_P9.Value ? 2 : 1) : 0;
@@ -109,19 +109,34 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         //dto.RA2D_Diagnosticos = vacCOVID19.RA2D_Diagnosticos;
                         dto.RA2D_Observaciones = vacCOVID19.RA2D_Observaciones;
                         dto.RA2D_ListaDx = ParseStrToListDx(vacCOVID19.RA2D_Diagnosticos);
+                        
+                        dto.IdDosis = vacCOVID19.TerceraDosisFecha.HasValue ? 3 : dto.IdDosis;
+                        dto.TerceraDosisFecha = vacCOVID19.TerceraDosisFecha.HasValue ? vacCOVID19.TerceraDosisFecha.Value.ToString("dd/MM/yyyy HH:mm") : "";
+                        //dto.SegundaDosisReaccionesAdversas = vacCOVID19.SegundaDosisReaccionesAdversas ?? "";
+                        dto.RA3D_Pulso = vacCOVID19.RA3D_Pulso;
+                        dto.RA3D_Saturacion = vacCOVID19.RA3D_Saturacion;
+                        dto.RA3D_PresionArterial = vacCOVID19.RA3D_PresionArterial;
+                        //dto.RA3D_Diagnosticos = vacCOVID19.RA3D_Diagnosticos;
+                        dto.RA3D_Observaciones = vacCOVID19.RA3D_Observaciones;
+                        dto.RA3D_ListaDx = ParseStrToListDx(vacCOVID19.RA3D_Diagnosticos);
 
                         dto.IdReaccionAdversa = vacCOVID19.FechaRegistroPrimeraDosisReaccionesAdversas.HasValue ? 1 : dto.IdReaccionAdversa;
                         dto.IdReaccionAdversa = vacCOVID19.FechaRegistroSegundaDosisReaccionesAdversas.HasValue ? 2 : dto.IdReaccionAdversa;
+                        dto.IdReaccionAdversa = vacCOVID19.FechaRegistroTerceraDosisReaccionesAdversas.HasValue ? 3 : dto.IdReaccionAdversa;
 
                         dto.FechaRegistroPrimeraDosisReaccionesAdversas = vacCOVID19.FechaRegistroPrimeraDosisReaccionesAdversas.HasValue ? vacCOVID19.FechaRegistroPrimeraDosisReaccionesAdversas.Value.ToString("dd/MM/yyyy HH:mm") : "";
                         dto.FechaRegistroSegundaDosisReaccionesAdversas = vacCOVID19.FechaRegistroSegundaDosisReaccionesAdversas.HasValue ? vacCOVID19.FechaRegistroSegundaDosisReaccionesAdversas.Value.ToString("dd/MM/yyyy HH:mm") : "";
+                        dto.FechaRegistroTerceraDosisReaccionesAdversas = vacCOVID19.FechaRegistroTerceraDosisReaccionesAdversas.HasValue ? vacCOVID19.FechaRegistroTerceraDosisReaccionesAdversas.Value.ToString("dd/MM/yyyy HH:mm") : "";
                         dto.FechaRA1 = vacCOVID19.FechaRegistroPrimeraDosisReaccionesAdversas.HasValue ? vacCOVID19.FechaRegistroPrimeraDosisReaccionesAdversas.Value.ToString("yyyy-MM-dd") : "";
                         dto.FechaRA2 = vacCOVID19.FechaRegistroSegundaDosisReaccionesAdversas.HasValue ? vacCOVID19.FechaRegistroSegundaDosisReaccionesAdversas.Value.ToString("yyyy-MM-dd") : "";
+                        dto.FechaRA3 = vacCOVID19.FechaRegistroTerceraDosisReaccionesAdversas.HasValue ? vacCOVID19.FechaRegistroTerceraDosisReaccionesAdversas.Value.ToString("yyyy-MM-dd") : "";
 
                         dto.IdUsuarioRegistroPrimeraDosis = vacCOVID19.IdUsuarioRegistroPrimeraDosis;
                         dto.IdUsuarioRegistroSegundaDosis = vacCOVID19.IdUsuarioRegistroSegundaDosis ?? 0;
+                        dto.IdUsuarioRegistroTerceraDosis = vacCOVID19.IdUsuarioRegistroTerceraDosis ?? 0;
                         dto.IdUsuarioRegistroPrimeraDosisReaccionesAdversas = vacCOVID19.IdUsuarioRegistroPrimeraDosisReaccionesAdversas ?? 0;
                         dto.IdUsuarioRegistroSegundaDosisReaccionesAdversas = vacCOVID19.IdUsuarioRegistroSegundaDosisReaccionesAdversas ?? 0;
+                        dto.IdUsuarioRegistroTerceraDosisReaccionesAdversas = vacCOVID19.IdUsuarioRegistroTerceraDosisReaccionesAdversas ?? 0;
                     }
                     dto.RevCI_P1 = e.RevCI_P1;
                     dto.RevCI_P2 = e.RevCI_P2;
@@ -210,6 +225,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 if (vac != null)
                 {
                     dto.FechaPrimeraDosis = vac.PrimeraDosisFecha.HasValue ? vac.PrimeraDosisFecha.Value.ToString("dd/MM/yyyy HH:mm") : "";
+                    dto.FechaSegundaDosis = vac.SegundaDosisFecha.HasValue ? vac.SegundaDosisFecha.Value.ToString("dd/MM/yyyy HH:mm") : "";
+                    dto.FechaTerceraDosis = vac.TerceraDosisFecha.HasValue ? vac.TerceraDosisFecha.Value.ToString("dd/MM/yyyy HH:mm") : "";
                 }
             }
 
@@ -270,6 +287,26 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         return respuesta;
                     }
                 }
+                else if (solicitud.IdDosis == 2 && string.IsNullOrEmpty(solicitud.RA2D_Observaciones))
+                {
+                    //Obtener primer consentimiento informado
+                    var listCI = await Context.ConsentimientosInformadosCOVID19.Where(x => x.NumeroDocumento == solicitud.NumeroDocumento).ToListAsync();
+
+                    if (listCI.Count() > 0)
+                    {
+                        VacunacionCOVID19 vacunacion = await Context.VacunacionesCOVID19.FirstOrDefaultAsync(x => x.NumeroDocumento == solicitud.NumeroDocumento);
+                        if (vacunacion != null)
+                        {
+                            vacunacion.TerceraDosisFecha = DateTime.Now;
+                            vacunacion.IdUsuarioRegistroTerceraDosis = solicitud.IdUsuarioRegistro;
+                            await Context.SaveChangesAsync();
+
+                            respuesta.Id = 1;
+                            respuesta.Mensaje = "Se ha registrado la 3da dosis de vacunación correctamente!";
+                            return respuesta;
+                        }
+                    }
+                }
 
 
                 if (!string.IsNullOrEmpty(solicitud.RA1D_Observaciones) || !string.IsNullOrEmpty(solicitud.RA2D_Observaciones))
@@ -279,6 +316,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     //Formateo de string lsita
                     solicitud.RA1D_Diagnosticos = "";
                     solicitud.RA2D_Diagnosticos = "";
+                    solicitud.RA3D_Diagnosticos = "";
 
                     for (int i=0; i<solicitud.RA1D_ListaDx.Count(); i++)
                     {
@@ -294,6 +332,14 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         solicitud.RA2D_Diagnosticos += str;
                         if (i != solicitud.RA2D_ListaDx.Count() - 1)
                             solicitud.RA2D_Diagnosticos += "|";
+                    }
+                    
+                    for (int i = 0; i < solicitud.RA3D_ListaDx.Count(); i++)
+                    {
+                        string str = solicitud.RA3D_ListaDx.ElementAt(i).Codigo + "-" + solicitud.RA3D_ListaDx.ElementAt(i).Descripcion;
+                        solicitud.RA3D_Diagnosticos += str;
+                        if (i != solicitud.RA3D_ListaDx.Count() - 1)
+                            solicitud.RA3D_Diagnosticos += "|";
                     }
 
                     if (vacunacion != null)
@@ -313,6 +359,14 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         vacunacion.RA2D_Saturacion = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 2) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 2) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 2) ? solicitud.RA2D_Saturacion : vacunacion.RA2D_Saturacion;
                         vacunacion.FechaRegistroSegundaDosisReaccionesAdversas = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 2) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 2) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 2) ? DateTime.Now : vacunacion.FechaRegistroSegundaDosisReaccionesAdversas;
                         vacunacion.IdUsuarioRegistroSegundaDosisReaccionesAdversas = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 2) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 2) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 2) ? solicitud.IdUsuarioRegistro : vacunacion.IdUsuarioRegistroSegundaDosisReaccionesAdversas;
+                        
+                        vacunacion.RA3D_Diagnosticos = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_Diagnosticos : vacunacion.RA3D_Diagnosticos;
+                        vacunacion.RA3D_Observaciones = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_Observaciones : vacunacion.RA3D_Observaciones;
+                        vacunacion.RA3D_PresionArterial = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_PresionArterial : vacunacion.RA3D_PresionArterial;
+                        vacunacion.RA3D_Pulso = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_Pulso : vacunacion.RA3D_Pulso;
+                        vacunacion.RA3D_Saturacion = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_Saturacion : vacunacion.RA3D_Saturacion;
+                        vacunacion.FechaRegistroSegundaDosisReaccionesAdversas = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? DateTime.Now : vacunacion.FechaRegistroTerceraDosisReaccionesAdversas;
+                        vacunacion.IdUsuarioRegistroTerceraDosisReaccionesAdversas = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.IdUsuarioRegistro : vacunacion.IdUsuarioRegistroTerceraDosisReaccionesAdversas;
 
                         await Context.SaveChangesAsync();
 

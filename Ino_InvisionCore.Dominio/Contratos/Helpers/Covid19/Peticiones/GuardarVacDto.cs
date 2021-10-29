@@ -29,6 +29,13 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Covid19.Peticiones
         public string RA2D_Diagnosticos { get; set; }
         public string RA2D_Observaciones { get; set; }
         public List<DxDto> RA2D_ListaDx { get; set; }
+        
+        public string RA3D_Pulso { get; set; }
+        public string RA3D_PresionArterial { get; set; }
+        public string RA3D_Saturacion { get; set; }
+        public string RA3D_Diagnosticos { get; set; }
+        public string RA3D_Observaciones { get; set; }
+        public List<DxDto> RA3D_ListaDx { get; set; }
 
         public int IdDosis { get; set; }
         public int IdReaccionAdversa { get; set; }

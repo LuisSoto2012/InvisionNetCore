@@ -30,6 +30,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.VacunacionCOVID19
         public string Telefono { get; set; }
         public DateTime? PrimeraDosisFecha { get; set; }
         public DateTime? SegundaDosisFecha { get; set; }
+        public DateTime? TerceraDosisFecha { get; set; }
         
         [StringLength(50)]
         public string RA1D_Pulso { get; set; }
@@ -52,13 +53,27 @@ namespace Ino_InvisionCore.Dominio.Entidades.VacunacionCOVID19
         public string RA2D_Diagnosticos { get; set; }
         [MaxLength]
         public string RA2D_Observaciones { get; set; }
+        
+        [StringLength(50)]
+        public string RA3D_Pulso { get; set; }
+        [StringLength(50)]
+        public string RA3D_PresionArterial { get; set; }
+        [StringLength(50)]
+        public string RA3D_Saturacion { get; set; }
+        [MaxLength]
+        public string RA3D_Diagnosticos { get; set; }
+        [MaxLength]
+        public string RA3D_Observaciones { get; set; }
 
         public DateTime? FechaRegistroPrimeraDosisReaccionesAdversas { get; set; }
         public DateTime? FechaRegistroSegundaDosisReaccionesAdversas { get; set; }
+        public DateTime? FechaRegistroTerceraDosisReaccionesAdversas { get; set; }
         public int IdUsuarioRegistroPrimeraDosis { get; set; }
         public int? IdUsuarioRegistroSegundaDosis { get; set; }
+        public int? IdUsuarioRegistroTerceraDosis { get; set; }
         public int? IdUsuarioRegistroPrimeraDosisReaccionesAdversas { get; set; }
         public int? IdUsuarioRegistroSegundaDosisReaccionesAdversas { get; set; }
+        public int? IdUsuarioRegistroTerceraDosisReaccionesAdversas { get; set; }
 
         public VacunacionCOVID19()
         {
