@@ -85,7 +85,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                     //Ver si tiene vacuacion
 
-                    VacunacionCOVID19 vacCOVID19 = await Context.VacunacionesCOVID19.FirstOrDefaultAsync(x => x.NumeroDocumento == e.NumeroDocumento);
+                    VacunacionCOVID19 vacCOVID19 = await Context.VacunacionesCOVID19.Where(x => x.NumeroDocumento == e.NumeroDocumento).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
 
                     if (vacCOVID19 != null)
                     {
@@ -294,17 +294,18 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                     if (listCI.Count() > 0)
                     {
-                        VacunacionCOVID19 vacunacion = await Context.VacunacionesCOVID19.FirstOrDefaultAsync(x => x.NumeroDocumento == solicitud.NumeroDocumento);
-                        if (vacunacion != null)
-                        {
-                            vacunacion.TerceraDosisFecha = DateTime.Now;
-                            vacunacion.IdUsuarioRegistroTerceraDosis = solicitud.IdUsuarioRegistro;
-                            await Context.SaveChangesAsync();
+                        //VacunacionCOVID19 vacunacion = await Context.VacunacionesCOVID19.FirstOrDefaultAsync(x => x.NumeroDocumento == solicitud.NumeroDocumento);
+                        //3ra Dosis
+                        VacunacionCOVID19 vacunacion = Mapper.Map<VacunacionCOVID19>(solicitud);
+                        vacunacion.TerceraDosisFecha = DateTime.Now;
+                        vacunacion.IdUsuarioRegistroTerceraDosis = solicitud.IdUsuarioRegistro;
+                        Context.VacunacionesCOVID19.Add(vacunacion);
+                        await Context.SaveChangesAsync();
+                        await Context.SaveChangesAsync();
 
-                            respuesta.Id = 1;
-                            respuesta.Mensaje = "Se ha registrado la 3da dosis de vacunación correctamente!";
-                            return respuesta;
-                        }
+                        respuesta.Id = 1;
+                        respuesta.Mensaje = "Se ha registrado la 3da dosis de vacunación correctamente!";
+                        return respuesta;
                     }
                 }
 
@@ -365,7 +366,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         vacunacion.RA3D_PresionArterial = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_PresionArterial : vacunacion.RA3D_PresionArterial;
                         vacunacion.RA3D_Pulso = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_Pulso : vacunacion.RA3D_Pulso;
                         vacunacion.RA3D_Saturacion = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.RA3D_Saturacion : vacunacion.RA3D_Saturacion;
-                        vacunacion.FechaRegistroSegundaDosisReaccionesAdversas = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? DateTime.Now : vacunacion.FechaRegistroTerceraDosisReaccionesAdversas;
+                        vacunacion.FechaRegistroTerceraDosisReaccionesAdversas = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? DateTime.Now : vacunacion.FechaRegistroTerceraDosisReaccionesAdversas;
                         vacunacion.IdUsuarioRegistroTerceraDosisReaccionesAdversas = (solicitud.IdReaccionAdversa == 0 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 1 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 2 && solicitud.IdDosis == 3) || (solicitud.IdReaccionAdversa == 3 && solicitud.IdDosis == 3) ? solicitud.IdUsuarioRegistro : vacunacion.IdUsuarioRegistroTerceraDosisReaccionesAdversas;
 
                         await Context.SaveChangesAsync();
