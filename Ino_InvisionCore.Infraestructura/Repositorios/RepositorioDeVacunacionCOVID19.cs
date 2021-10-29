@@ -187,7 +187,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         {
             ConsultaDataDto dto = new ConsultaDataDto();
 
-            PersonalINO personalINO = await Context.PersonalDelINO.FirstOrDefaultAsync(x => x.NumeroDocumento == numeroDocumento);
+            PersonalINO personalINO = await Context.PersonalDelINO.FirstOrDefaultAsync(x => x.NumeroDocumento == numeroDocumento && x.Estado);
 
             if (personalINO == null)
                 return null;

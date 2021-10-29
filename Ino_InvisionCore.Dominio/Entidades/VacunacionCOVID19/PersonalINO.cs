@@ -35,5 +35,6 @@ namespace Ino_InvisionCore.Dominio.Entidades.VacunacionCOVID19
         public string Tipo { get; set; }
         [StringLength(100)]
         public string Categoria { get; set; }
+        public bool Estado { get; set; }
     }
 }
