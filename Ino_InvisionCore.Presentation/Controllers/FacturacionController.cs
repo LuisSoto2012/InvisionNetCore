@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Servicios.Facturacion;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +20,13 @@ namespace Ino_InvisionCore.Presentation.Controllers
         public FacturacionController(IServicioDeFacturacion servicio)
         {
             _servicio = servicio;
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> RegistrarNotaCreditoDebito(RegistrarNotaCreditoDebitoDto solicitud)
+        {
+            var respuesta = await _servicio.RegistrarNotaCreditoDebito(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
     }
 }

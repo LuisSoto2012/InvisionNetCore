@@ -14,13 +14,13 @@ namespace Ino_InvisionCore.Dominio.Servicios
     public class ServicioDeConsultaWeb : IServicioDeConsultaWeb
     {
         public IRepositorioDeConsultaWeb _repositorio { get; set; }
-
-        #region Teleorientacion y teleconsulta
-
+        
         public ServicioDeConsultaWeb(IRepositorioDeConsultaWeb repositorio)
         {
             _repositorio = repositorio;
         }
+
+        #region Teleorientacion y teleconsulta
 
         public RespuestaBD CrearSolicitudCita(RegistroSolicitudCita solicitud)
         {

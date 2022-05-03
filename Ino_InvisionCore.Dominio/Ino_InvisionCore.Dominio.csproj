@@ -10,6 +10,7 @@
     <Folder Include="Contratos\Helpers\Compartido\Peticiones\" />
     <Folder Include="Contratos\Helpers\Compartido\Respuestas\" />
     <Folder Include="Contratos\Helpers\Comunes\Peticiones\" />
+    <Folder Include="Contratos\Helpers\Facturacion\Respuestas" />
     <Folder Include="Contratos\Helpers\Medico\Peticiones\" />
     <Folder Include="Contratos\Helpers\Reporte\Peticiones\" />
     <Folder Include="Contratos\Helpers\Servicios\Peticiones\" />

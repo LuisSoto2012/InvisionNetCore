@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+// IRepositorioDeFacturacion.cs18:1318:13
+
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
 
-namespace Ino_InvisionCore.Dominio.Contratos.Servicios.Facturacion
+namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Facturacion
 {
-    public interface IServicioDeFacturacion
+    public interface IRepositorioDeFacturacion
     {
         Task<RespuestaBD> RegistrarNotaCreditoDebito(RegistrarNotaCreditoDebitoDto solicitud);
     }

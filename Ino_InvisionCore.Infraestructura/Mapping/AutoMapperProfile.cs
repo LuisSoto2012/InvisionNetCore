@@ -112,6 +112,8 @@ using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CallCenter.Peticiones;
 using Ino_InvisionCore.Dominio.Entidades.CallCenter;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CallCenter.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
+using Ino_InvisionCore.Infraestructura.ModelContext;
 
 namespace Ino_InvisionCore.Infraestructura.Mapping
 {
@@ -695,6 +697,16 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<CitaCallCenter, CitaCallCenterDto>()
                 .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.FechaCita.HasValue ? p.FechaCita.Value.ToString("dd/MM/yyyy") : ""))
                 .ForMember(r => r.FechaLlamada, x => x.MapFrom(p => p.FechaLlamada.ToString("dd/MM/yyyy")));
+            
+            //Facturacion
+            CreateMap<RegistrarNotaCreditoDebitoDto, FactComprobantesPago>()
+                .ForMember(r => r.NroSerie, x => x.MapFrom(p => "B001"))
+                .ForMember(r => r.NroDocumento, x => x.MapFrom(p => "00000001"))
+                .ForMember(r => r.IgvCalc, x => x.MapFrom(p => 0))
+                .ForMember(r => r.Estado, x => x.MapFrom(p => 1))
+                .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now))
+                .ForMember(r => r.UsuarioCreacion,  x => x.MapFrom(p => p.Usuario))
+                ;
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

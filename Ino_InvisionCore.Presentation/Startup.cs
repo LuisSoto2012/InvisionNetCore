@@ -24,6 +24,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace Ino_InvisionCore.Presentacion
 {
@@ -73,7 +74,10 @@ namespace Ino_InvisionCore.Presentacion
             options.UseSqlServer(Configuration.GetConnectionString("FacturacionDB")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper(typeof(AutoMapperProfile));
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ino_InvisionCore.Presentation", Version = "v1" });
+            });
             // signalR
             //services.AddSignalRCore();
 
@@ -135,6 +139,12 @@ namespace Ino_InvisionCore.Presentacion
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ino_InvisionCore.Presentation v1"));
+            }
             app.UseExceptionHandler(builder =>
             {
                 builder.Run(
