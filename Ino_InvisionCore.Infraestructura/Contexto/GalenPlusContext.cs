@@ -27,6 +27,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             modelBuilder.Query<CitadosPorFechaView>();
             modelBuilder.Query<CitadosPorFechaMedicoEspecialidadView>();
             modelBuilder.Query<DiagnosticoView>();
+            modelBuilder.Query<CitaPorDiaView>();
+            modelBuilder.Query<CitaGalenosTicketView>();
 
             //Repositorio de Bono Desempeno
             modelBuilder.Query<DiferimientoCitasView>().ToView("VW_DIFERIMIENTO_CITAS_DIAS");
@@ -85,6 +87,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             modelBuilder.Query<PacienteCitaWebView>();
             modelBuilder.Query<CupoProgramacionView>();
             modelBuilder.Query<FechaProgramacionView>();
+
+            modelBuilder.Query<MedicoCitadosView>();
         }
     }
 }

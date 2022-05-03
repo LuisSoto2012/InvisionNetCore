@@ -7,7 +7,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Ticket.Peticiones
     public class NuevoTicketConsultaExterna
     {
         public int IdPaciente { get; set; }
-        public string HistoriaClinica { get; set; }
+        public int? HistoriaClinica { get; set; }
         public string NumeroDocumento { get; set; }
         public string Paciente { get; set; }
         public int IdImpresion { get; set; }

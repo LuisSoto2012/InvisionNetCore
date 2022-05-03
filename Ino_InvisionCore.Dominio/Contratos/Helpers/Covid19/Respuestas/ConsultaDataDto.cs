@@ -17,5 +17,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Covid19.Respuestas
         public string FechaPrimeraDosis { get; set; }
         public string FechaSegundaDosis { get; set; }
         public string FechaTerceraDosis { get; set; }
+        public bool TieneCI { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Paciente.Respuestas
         public bool Temporal { get; set; }
         public int? IdDepartamento { get; set; }
         public bool Anestesia { get; set; }
+        public bool EsRefraccion { get; set; }
     }
 }

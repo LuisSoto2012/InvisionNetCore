@@ -59,5 +59,12 @@ namespace Ino_InvisionCore.Dominio.Entidades.AtencionCE
         public int? IdUsuarioModificacion { get; set; }
         public DateTime FechaRegistro { get; set; }
         public DateTime? FechaModificacion { get; set; }
+
+        public string IrisOD { get; set; }
+        public string IrisOI { get; set; }
+        public string CamaraAnteriorOD { get; set; }
+        public string CamaraAnteriorOI { get; set; }
+        public string ViaLagrimalOD { get; set; }
+        public string ViaLagrimalOI { get; set; }
     }
 }

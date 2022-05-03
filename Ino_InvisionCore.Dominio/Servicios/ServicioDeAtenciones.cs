@@ -93,9 +93,9 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return respuestaBD;
         }
 
-        public async Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion(DateTime fecha)
+        public async Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion(DateTime fechaDesde, DateTime fechaHasta)
         {
-            return await RepositorioDeAtenciones.ListarRecetaRefraccion(fecha);
+            return await RepositorioDeAtenciones.ListarRecetaRefraccion(fechaDesde, fechaHasta);
         }
 
         public async Task<RespuestaBD> ImprimirRecetaRefraccion(ImprimirRecetaRefraccion parametros)
@@ -119,6 +119,52 @@ namespace Ino_InvisionCore.Dominio.Servicios
         public async Task<RespuestaBD> EliminarEvaluacionExamen(EliminarEvaluacionExamenDto solicitud)
         {
             return await RepositorioDeAtenciones.EliminarEvaluacionExamen(solicitud);
+        }
+
+        public async Task<IEnumerable<CitaPorDiaDto>> ListarCitasPorDia(int nroHistoria, string nroDocumento)
+        {
+            return await RepositorioDeAtenciones.ListarCitasPorDia(nroHistoria, nroDocumento);
+        }
+
+        public async Task<RespuestaBD> GuardarIngresoPaciente(GaurdarIngresoPacienteDto solicitud)
+        {
+            RespuestaBD respuestaBD = await RepositorioDeAtenciones.GuardarIngresoPaciente(solicitud);
+            return respuestaBD;
+        }
+
+        public async Task<int> ObtenerCantidadIngresosHoy()
+        {
+            return await RepositorioDeAtenciones.ObtenerCantidadIngresosHoy();
+        }
+
+        public async Task<IEnumerable<IngresoSalidaDto>> ListarIngresosSalidasHoy()
+        {
+            return await RepositorioDeAtenciones.ListarIngresosSalidasHoy();
+        }
+
+        public async Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosHoy()
+        {
+            return await RepositorioDeAtenciones.ListarMedicosProgramadosHoy();
+        }
+
+        public async Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosEspecialidadFecha(int idEspecialidad, DateTime fecha)
+        {
+            return await RepositorioDeAtenciones.ListarMedicosProgramadosEspecialidadFecha(idEspecialidad, fecha);
+        }
+
+        public async Task<RespuestaBD> ReprogramacionMedicaPorMedico(ReprogramacionMedicaPorMedicoDto solicitud)
+        {
+            return await RepositorioDeAtenciones.ReprogramacionMedicaPorMedico(solicitud);
+        }
+
+        public async Task<IEnumerable<ReprogramacionMedicaDto>> ListarReprogramacionesMedicas(DateTime fecha)
+        {
+            return await RepositorioDeAtenciones.ListarReprogramacionesMedicas(fecha);
+        }
+
+        public async Task<CitaGalenosTicketDto> ObtenerDatosCitaTicket(int numeroCuenta)
+        {
+            return await RepositorioDeAtenciones.ObtenerDatosCitaTicket(numeroCuenta);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.CitasWeb;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
@@ -65,14 +66,34 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return await _repositorio.EliminarVoucher(idCita);
         }
 
-        public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta)
+        public async Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime? fechaPagoDesde, DateTime? fechaPagoHasta, DateTime? fechaCitaDesde, DateTime? fechaCitaHasta)
         {
-            return await _repositorio.ListarCitasWebPorFecha(FechaDesde, FechaHasta);
+            return await _repositorio.ListarCitasWebPorFecha(fechaPagoDesde, fechaPagoHasta, fechaCitaDesde, fechaCitaHasta);
         }
 
         public async Task<RespuestaBD> ValidarVoucher(ValidarVoucherDto solicitud)
         {
             return await _repositorio.ValidarVoucher(solicitud);
+        }
+
+        public async Task<RespuestaBD> RechazarVoucher(RechazarVoucherDto solicitud)
+        {
+            return await _repositorio.RechazarVoucher(solicitud);
+        }
+
+        public Task<RespuestaBD> EliminarCita(EliminarCitaDto solicitud)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> EsSIS(string nroDocumento)
+        {
+            return await _repositorio.EsSIS(nroDocumento);
+        }
+
+        public async Task<IEnumerable<ComboBox>> ListarCajerosAsync()
+        {
+            return await _repositorio.ListarCajerosAsync();
         }
     }
 }

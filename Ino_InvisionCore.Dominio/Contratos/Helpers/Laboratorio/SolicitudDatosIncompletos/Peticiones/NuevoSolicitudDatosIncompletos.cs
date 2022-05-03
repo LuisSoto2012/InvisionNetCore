@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,6 +18,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.SolicitudDatosI
         public string DatoPacienteIncompleto { get; set; }
         public string DatoMuestraIncompleto { get; set; }
         public string DatoMedicoSolicitanteIncompleto { get; set; }
-        public string Origen { get; set; }
+        public ComboBox Origen { get; set; }
     }
 }

@@ -192,6 +192,13 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         new SqlParameter("IdServicio", Id)).ToList().Select(x => Mapper.Map<ComboBox>(x)).ToList();
         }
 
+        public async Task<IEnumerable<ComboBox>> ListarCallCenterUsuariosAsync()
+        {
+            var list = await InoContext.Query<ComboBoxView>().FromSql("dbo.Invision_CallCenterUsuarios").ToListAsync();
+
+            return list.Select(x => Mapper.Map<ComboBox>(x));
+        }
+
         public async Task<IEnumerable<ComboBox>> ListarServicioEspecialidadAsync(int? Id)
         {
             return await GalenPlusContext.Query<ComboBoxView>().FromSql("dbo.Invision_ServicioEspecialidadListar @IdServicio",
@@ -261,6 +268,11 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         .ToList();
         }
 
-       
+        public async Task<IEnumerable<ComboBox>> ListarMedicosReporte()
+        {
+            return await InoContext.Query<ComboBoxView>().FromSql("dbo.Invision_ListarMedicosReporte")
+                            .Select(x => Mapper.Map<ComboBox>(x))
+                            .ToListAsync();
+        }
     }
 }

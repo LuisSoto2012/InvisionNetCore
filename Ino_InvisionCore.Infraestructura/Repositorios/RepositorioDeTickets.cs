@@ -172,7 +172,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 TicketConsultaExterna pacienteEncontrado = InoContext.TicketConsultaExterna.Where(x => x.FechaCreacion.Day == DateTime.Now.Day &&
                                                                     x.FechaCreacion.Month == DateTime.Now.Month &&
                                                                     x.FechaCreacion.Year == DateTime.Now.Year &&
-                                                                    x.HistoriaClinica == nuevoTicketConsultaExterna.HistoriaClinica &&
+                                                                    x.HistoriaClinica == (nuevoTicketConsultaExterna.HistoriaClinica ?? 0).ToString() &&
                                                                     x.IdEspecialidad == nuevoTicketConsultaExterna.IdEspecialidad).FirstOrDefault();
                 nuevoTicketConsultaExterna.Medico = (nuevoTicketConsultaExterna.Medico == "<SELECCIONAR>") ? " " : nuevoTicketConsultaExterna.Medico ?? " ";
                 if (pacienteEncontrado == null)
@@ -246,7 +246,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 TicketConsultaExterna pacienteEncontrado = await InoContext.TicketConsultaExterna.Where(x => x.FechaCreacion.Day == DateTime.Now.Day &&
                                                                     x.FechaCreacion.Month == DateTime.Now.Month &&
                                                                     x.FechaCreacion.Year == DateTime.Now.Year &&
-                                                                    x.HistoriaClinica == nuevoTicketConsultaExterna.HistoriaClinica &&
+                                                                    x.HistoriaClinica == (nuevoTicketConsultaExterna.HistoriaClinica ?? 0).ToString() &&
                                                                     x.IdEspecialidad == nuevoTicketConsultaExterna.IdEspecialidad).FirstOrDefaultAsync();
                 nuevoTicketConsultaExterna.Medico = (nuevoTicketConsultaExterna.Medico == "<SELECCIONAR>") ? " " : nuevoTicketConsultaExterna.Medico ?? " ";
                 if (pacienteEncontrado == null)

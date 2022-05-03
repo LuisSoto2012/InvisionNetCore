@@ -113,5 +113,17 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         {
             return await _servicioDeComunes.ListarMedicamentosFarmacia();
         }
+
+        [HttpGet]
+        public async Task<IEnumerable<ComboBox>> ListarCallCenterUsuariosAsync()
+        {
+            return await _servicioDeComunes.ListarCallCenterUsuariosAsync();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<ComboBox>> ListarMedicosReporte()
+        {
+            return await _servicioDeComunes.ListarMedicosReporte();
+        }
     }
 }

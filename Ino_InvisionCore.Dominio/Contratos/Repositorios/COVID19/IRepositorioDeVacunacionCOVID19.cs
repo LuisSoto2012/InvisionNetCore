@@ -11,8 +11,10 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.COVID19
     public interface IRepositorioDeVacunacionCOVID19
     {
         Task<ConsultaDataDto> ObtenerDatosPorDocumento(string numeroDocumento);
+        Task<ConsultaDataDto> ObtenerDatosPorDocumentoDosis4(string numeroDocumento);
         Task<RespuestaBD> GuardarConsentimientoInformado(GuardarCIDto solicitud);
         Task<IEnumerable<DataCIDto>> ListarConsentimientosInformados(DateTime fechaDesde, DateTime fechaHasta, bool vacunacion);
+        Task<IEnumerable<DataCIDto>> ListarConsentimientosInformadosDosis4(DateTime fechaDesde, DateTime fechaHasta, bool vacunacion);
         Task<RespuestaBD> GuardarVacunacion(GuardarVacDto solicitud);
         Task<RespuestaBD> GuardarRevocatoria(GuardarRevocatoriaDto solicitud);
     }

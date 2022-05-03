@@ -26,12 +26,12 @@ namespace Ino_InvisionCore.Dominio.Servicios
 
         public async Task<ConsultaDataDto> ObtenerDatosPorDocumento(string numeroDocumento)
         {
-            return await _repositorio.ObtenerDatosPorDocumento(numeroDocumento);
+            return await _repositorio.ObtenerDatosPorDocumentoDosis4(numeroDocumento);
         }
 
         public async Task<IEnumerable<DataCIDto>> ListarConsentimientosInformados(DateTime fechaDesde, DateTime fechaHasta, bool vacunacion)
         {
-            return await _repositorio.ListarConsentimientosInformados(fechaDesde, fechaHasta, vacunacion);
+            return await _repositorio.ListarConsentimientosInformadosDosis4(fechaDesde, fechaHasta, vacunacion);
         }
 
         public async Task<RespuestaBD> GuardarVacunacion(GuardarVacDto solicitud)

@@ -1,5 +1,6 @@
 // VoucherFileFormData.cs21:0421:04
 
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
@@ -11,5 +12,6 @@ namespace Ino_InvisionCore.Presentation.Models
         public IList<IFormFile> Imagen { get; set; }
         public string NumeroDocumento { get; set; }
         public string Voucher { get; set; }
+        public DateTime FechaPago { get; set; }
     }
 }

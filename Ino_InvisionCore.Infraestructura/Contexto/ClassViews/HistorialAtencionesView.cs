@@ -25,5 +25,6 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public string Diacod { get; set; }
         public string Diades { get; set; }
         public string FF { get; set; }
+        public int IdRecetaRefraccion { get; set; }
     }
 }

@@ -37,5 +37,8 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Comunes
         Task<IEnumerable<ComboBox>> ListarMateriales();
 
         Task<IEnumerable<ComboBox>> ListarMedicamentosFarmacia();
+
+        Task<IEnumerable<ComboBox>> ListarCallCenterUsuariosAsync();
+        Task<IEnumerable<ComboBox>> ListarMedicosReporte();    
     }
 }

@@ -1474,6 +1474,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
                 if (responseStr != null)
                 {
+                    if (string.IsNullOrEmpty(responseStr[1]))
+                        return null;
                     dto.Apellidos = responseStr[0];
                     dto.Nombres = responseStr[1];
                     dto.FechaNacimiento = responseStr[2];
@@ -1484,9 +1486,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     dto.Nacionalidad = responseStr[7];
                     dto.Edad = responseStr[8];
                     dto.Dni = dni;
-                }
-
-                
+                }          
             }
 
             return dto;
@@ -1828,7 +1828,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             var idEspecialidad = 0;
 
             var list = await GalenContext.Query<ProgramacionMedicaFiltroView>()
-                                        .FromSql("INO_ProgramacionMedicaPorFiltro @Fecha, @IdMedico, @IdEspecialidad",
+                                        .FromSql("Invision_ProgramacionMedicaPorFiltro @Fecha, @IdMedico, @IdEspecialidad",
                                         new SqlParameter("Fecha", fechaCita.Date),
                                         new SqlParameter("IdMedico", idMedico),
                                         new SqlParameter("IdEspecialidad", idEspecialidad))

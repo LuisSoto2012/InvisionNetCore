@@ -69,17 +69,17 @@ namespace Ino_InvisionCore.Dominio.Entidades.AtencionCE
         [StringLength(100)]
         public string Cprisma { get; set; }
 
-        public int? IdMaterial { get; set; }
-        public int? IdBifocal { get; set; }
+        //public int? IdMaterial { get; set; }
+        //public int? IdBifocal { get; set; }
 
-        public bool AdicionalMas { get; set; }
-        public bool AdicionalMenos { get; set; }
+        //public bool AdicionalMas { get; set; }
+        //public bool AdicionalMenos { get; set; }
 
-        public int? IdEspecificacion1 { get; set; }
-        public int? IdEspecificacion2 { get; set; }
-        public int? IdEspecificacion3 { get; set; }
-        public int? IdEspecificacion4 { get; set; }
-        public int? IdEspecificacion5 { get; set; }
+        public string Material { get; set; }
+        public string Diseno { get; set; }
+        public string Tratamiento { get; set; }
+        public string Servicio { get; set; }
+        //public int? IdEspecificacion5 { get; set; }
 
         [StringLength(250)]
         public string Paciente { get; set; }
@@ -89,6 +89,31 @@ namespace Ino_InvisionCore.Dominio.Entidades.AtencionCE
         public string DxOD { get; set; }
         [StringLength(200)]
         public string DxOI { get; set; }
+
+        [StringLength(10)]
+        public string LAVOD { get; set; }
+        [StringLength(10)]
+        public string LAVOI { get; set; }
+        [StringLength(10)]
+        public string CAVOD { get; set; }
+        [StringLength(10)]
+        public string CAVOI { get; set; }
+
+        [StringLength(100)]
+        public string ADD { get; set; }
+        [StringLength(250)]
+        public string Observaciones { get; set; }
+        [StringLength(250)]
+        public string ListaDeDx { get; set; }
+
+        [StringLength(100)]
+        public string LNSPD { get; set; }
+        [StringLength(100)]
+        public string LNSPI { get; set; }
+        [StringLength(100)]
+        public string CNSPD { get; set; }
+        [StringLength(100)]
+        public string CNSPI { get; set; }
 
         [Required]
         public DateTime FechaCreacion { get; set; }

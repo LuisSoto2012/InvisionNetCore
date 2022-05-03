@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Ino_InvisionCore.Infraestructura.ModelContext
+{
+    public partial class FactComprobantesPagoDetalle
+    {
+        public int IdComprobantePagoDetalle { get; set; }
+        public int? IdComprobantePago { get; set; }
+        public int? IdProducto { get; set; }
+        public string Descripcion { get; set; }
+        public decimal? PrecioUnitario { get; set; }
+        public int? Cantidad { get; set; }
+        public decimal? Importe { get; set; }
+
+        public FactComprobantesPago IdComprobantePagoNavigation { get; set; }
+    }
+}

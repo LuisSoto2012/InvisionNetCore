@@ -8,5 +8,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones
         public string MotivoConsulta { get; set; }
         public string NumeroReferencia { get; set; }
         public int IdUsuarioCreacion { get; set; }
+        public string RutaCompleta { get; set; }
     }
 }

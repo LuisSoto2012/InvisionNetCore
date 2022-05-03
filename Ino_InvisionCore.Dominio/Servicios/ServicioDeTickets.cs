@@ -49,7 +49,7 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             PacienteCitado pacienteCitado = ServicioDePacientes.ListarPacienteCitadoDelDia(new PacientePorHcDni
             {
-                NroHistoriaClinica = null,
+                NroHistoriaClinica = nuevoTicketConsultaExterna.HistoriaClinica,
                 NroDocumento = nuevoTicketConsultaExterna.NumeroDocumento,
                 IdEspecialidad = nuevoTicketConsultaExterna.IdEspecialidad
             });

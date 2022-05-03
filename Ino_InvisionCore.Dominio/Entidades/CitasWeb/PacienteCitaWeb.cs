@@ -50,7 +50,9 @@ namespace Ino_InvisionCore.Dominio.Entidades.CitasWeb
         public int IdRol { get; set; }
         [JsonIgnore]
         public virtual Rol Rol { get; set; }
-
+        public int IdDistritoDomicilio { get; set; }
+        public int IdTipoOcupacion { get; set; }
+        public int IdGradoInstruccion { get; set; }
         public PacienteCitaWeb()
         {
             //this.Roles = new HashSet<Rol>();

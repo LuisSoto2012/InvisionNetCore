@@ -28,11 +28,13 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             var ds = paciente.NroHistoriaClinica.Value;
             var idDepartamento = paciente.IdDepartamento ?? 0;
             var anestesia = paciente.Anestesia;
+            var refraccion = paciente.EsRefraccion;
             //return Context.Database.SqlQuery<HistorialAtenciones>("dbo.INO_CEHistorialAtenciones @NroHistoriaClinica",
             //        new SqlParameter("NroHistoriaClinica", paciente.NroHistoriaClinica.Value)).ToList();
 
-            return Context.Query<HistorialAtencionesView>().FromSql("dbo.Invision_CEHistorialAtenciones @NroHistoriaClinica, @IdDepartamento, @EsAnestesia",
-                    new SqlParameter("NroHistoriaClinica", paciente.NroHistoriaClinica.Value), new SqlParameter("IdDepartamento", idDepartamento), new SqlParameter("EsAnestesia", anestesia)).ToList().Select(x => Mapper.Map<HistorialAtenciones>(x)).ToList();
+            return Context.Query<HistorialAtencionesView>().FromSql("dbo.Invision_CEHistorialAtenciones @NroHistoriaClinica, @IdDepartamento, @EsAnestesia, @EsRefraccion",
+                    new SqlParameter("NroHistoriaClinica", paciente.NroHistoriaClinica.Value), new SqlParameter("IdDepartamento", idDepartamento),
+                    new SqlParameter("EsAnestesia", anestesia), new SqlParameter("EsRefraccion", refraccion)).ToList().Select(x => Mapper.Map<HistorialAtenciones>(x)).ToList();
         }
 
         public async Task<IEnumerable<HistorialAtenciones>> ListarHistorialAtencionesAsync(PacientePorHcDni paciente)

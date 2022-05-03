@@ -154,7 +154,13 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                         FechaRegistro = DateTime.Now,
                         Observaciones = nuevaAtencion.Observaciones,
                         MedidasGenerales = nuevaAtencion.MedidasGenerales,
-                        Antecedentes = nuevaAtencion.Antecedentes
+                        Antecedentes = nuevaAtencion.Antecedentes,
+                        CamaraAnteriorOD = nuevaAtencion.CamaraAnteriorOD,
+                        CamaraAnteriorOI = nuevaAtencion.CamaraAnteriorOI,
+                        IrisOD = nuevaAtencion.IrisOD,
+                        IrisOI = nuevaAtencion.IrisOI,
+                        ViaLagrimalOD = nuevaAtencion.ViaLagrimalOD,
+                        ViaLagrimalOI = nuevaAtencion.ViaLagrimalOI
                     };
 
                     InoContext.AtencionesCE.Add(atencionCE);
@@ -355,6 +361,12 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 atencionCE.Observaciones = nuevaAtencion.Observaciones;
                 atencionCE.MedidasGenerales = nuevaAtencion.MedidasGenerales;
                 atencionCE.Antecedentes = nuevaAtencion.Antecedentes;
+                atencionCE.CamaraAnteriorOD = nuevaAtencion.CamaraAnteriorOD;
+                atencionCE.CamaraAnteriorOI = nuevaAtencion.CamaraAnteriorOI;
+                atencionCE.IrisOD = nuevaAtencion.IrisOD;
+                atencionCE.IrisOI = nuevaAtencion.IrisOI;
+                atencionCE.ViaLagrimalOD = nuevaAtencion.ViaLagrimalOD;
+                atencionCE.ViaLagrimalOI = nuevaAtencion.ViaLagrimalOI;
 
                 InoContext.SaveChanges();
             }
@@ -619,9 +631,9 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                                                    .ToListAsync();
         }
 
-        public async Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion(DateTime fecha)
+        public async Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion(DateTime fechaDesde, DateTime fechaHasta)
         {
-            return await InoContext.RecetasRefraccion.Where(x => x.FechaCreacion.ToString("yyyy-MM-dd") == fecha.ToString("yyyy-MM-dd"))
+            return await InoContext.RecetasRefraccion.Where(x => x.FechaCreacion.Date >= fechaDesde && x.FechaCreacion.Date <= fechaHasta)
                                                    .Select(x => Mapper.Map<RecetaRefraccionDto>(x))
                                                    .ToListAsync();
         }
@@ -685,6 +697,235 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
 
             return respuesta;
+        }
+
+        public async Task<IEnumerable<CitaPorDiaDto>> ListarCitasPorDia(int nroHistoria, string nroDocumento)
+        {
+            if (string.IsNullOrEmpty(nroDocumento))
+                nroDocumento = string.Empty;
+            return await GalenPlusContext.Query<CitaPorDiaView>().FromSql("dbo.Invision_CitadosPorFiltro @NroHistoriaClinica,@DNI",
+                            new SqlParameter("NroHistoriaClinica",nroHistoria),
+                            new SqlParameter("DNI", nroDocumento)
+                        ).Select(x => Mapper.Map<CitaPorDiaDto>(x))
+                         .ToListAsync();
+        }
+
+        public async Task<RespuestaBD> GuardarIngresoPaciente(GaurdarIngresoPacienteDto solicitud)
+        {
+            try
+            {
+                if (solicitud.EsSalida)
+                {
+                    //Obtener registro
+                    var ingresoReg = await InoContext.IngresoPacientesINO.FirstOrDefaultAsync(x => x.Id == solicitud.Id);
+                    if (ingresoReg != null)
+                    {
+                        ingresoReg.FechaSalida = DateTime.Now;
+                        ingresoReg.IdUsuarioModifica = solicitud.IdUser;
+                        ingresoReg.PuertaSalida = solicitud.Puerta.Descripcion;
+                        await InoContext.SaveChangesAsync();
+                        return new RespuestaBD { Id = 1, Mensaje = "Se ha registrado al salida correctamente." };
+                    }
+                    return new RespuestaBD { Id = 0, Mensaje = "No se ha encontrado el ingreso en la base de datos." };
+                }
+                //validar si ya tiene ingreso del dia de hoy
+               
+                //var ingresoHoy = await InoContext.IngresoPacientesINO.FirstOrDefaultAsync(x => ((solicitud.IdPaciente > 0 && x.IdPaciente == solicitud.IdPaciente) || (!string.IsNullOrEmpty(solicitud.NroDocumento) && solicitud.NroDocumento == x.NroDocumento)) && x.FechaIngreso.Date == DateTime.Now.Date);
+                //if (ingresoHoy != null)
+                //{
+                //    return new RespuestaBD { Id = 0, Mensaje = "La persona ya tiene un ingreso registrado el dia de hoy." };
+                //}
+
+                if (solicitud.EsManual)
+                {
+                    var ingresoManual = new IngresoPacienteINO
+                    {
+                        FechaIngreso = DateTime.Now,
+                        IdUsuarioRegistro = solicitud.IdUser,
+                        PuertaIngreso = solicitud.Puerta.Descripcion,
+                        NroDocumento = solicitud.NroDocumento,
+                        Paciente = solicitud.Paciente,
+                    };
+
+                    InoContext.IngresoPacientesINO.Add(ingresoManual);
+                    await InoContext.SaveChangesAsync();
+                    return new RespuestaBD { Id = 1, Mensaje = "Se ha registrado el ingreso correctamente." };
+                }
+
+                var ingreso = new IngresoPacienteINO
+                {
+                    FechaIngreso = DateTime.Now,
+                    IdCita = solicitud.IdCita,
+                    IdPaciente = solicitud.IdPaciente,
+                    IdUsuarioRegistro = solicitud.IdUser,
+                    PuertaIngreso = solicitud.Puerta.Descripcion,
+                    EsTrabajador = solicitud.EsTrabajador
+                };
+
+                if (solicitud.IdPaciente == 0)
+                {
+                    if (solicitud.EsExtranjero)
+                    {
+                        ingreso.NroDocumento = solicitud.NroDocumento;
+                        ingreso.Paciente = solicitud.Paciente;
+                    }
+                    else
+                    {
+                        // Save today's date.
+                        var today = DateTime.Today;
+
+                        // Calculate the age.
+                        var age = today.Year - solicitud.FechaNacimiento.Value.Year;
+
+                        // Go back to the year in which the person was born in case of a leap year
+                        if (solicitud.FechaNacimiento.Value.Date > today.AddYears(-age)) age--;
+
+                        ingreso.NroDocumento = solicitud.NroDocumento;
+                        ingreso.Paciente = solicitud.Paciente;
+                        ingreso.Sexo = solicitud.Sexo;
+                        ingreso.Departamento = solicitud.DepProv.Split('/')[0];
+                        ingreso.Provincia = solicitud.DepProv.Split('/')[1];
+                        ingreso.Distrito = solicitud.Distrito;
+                        ingreso.FechaNacimiento = solicitud.FechaNacimiento;
+                        ingreso.Edad = age;
+                        ingreso.PuertaIngreso = solicitud.Puerta.Descripcion;
+                    }
+                    
+                }
+
+                InoContext.IngresoPacientesINO.Add(ingreso);
+                await InoContext.SaveChangesAsync();
+
+                if (solicitud.EsAcompaniante)
+                {
+                    IngresoPacienteINO acomp = new IngresoPacienteINO
+                    {
+                        EsAcompaniante = true,
+                        Acompaniante = solicitud.Acompaniante,
+                        DocumentoPaciente = solicitud.NroDocumento
+                    };
+                    InoContext.IngresoPacientesINO.Add(ingreso);
+                    await InoContext.SaveChangesAsync();
+                }
+
+                return new RespuestaBD { Id = 1, Mensaje = "Se ha registrado el ingreso correctamente." };
+            }
+            catch (Exception ex)
+            {
+                return new RespuestaBD { Id = 0, Mensaje = "Ha ocurrido un error." };
+            }
+        }
+
+        public async Task<int> ObtenerCantidadIngresosHoy()
+        {
+            try
+            {
+                var ingresos = await InoContext.IngresoPacientesINO.Where(x => x.FechaIngreso.Date == DateTime.Now.Date).ToListAsync();
+
+                return ingresos.Count();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<IEnumerable<IngresoSalidaDto>> ListarIngresosSalidasHoy()
+        {
+            try
+            {
+                var ingresos = await InoContext.IngresoPacientesINO.OrderByDescending(x => x.FechaIngreso).Where(x => x.FechaIngreso.Date == DateTime.Now.Date).Select(x => Mapper.Map<IngresoSalidaDto>(x)).ToListAsync();
+
+                return ingresos;
+            }
+            catch (Exception)
+            {
+                return new List<IngresoSalidaDto>();
+            }
+        }
+
+        public async Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosHoy()
+        {
+            var list = await GalenPlusContext.Query<MedicoCitadosView>().FromSql("dbo.Invision_ListarMedicosProgramadosHoy")
+                         .ToListAsync();
+            return list.Select(x => Mapper.Map<MedicoCitadosDto>(x));
+        }
+
+        public async Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosEspecialidadFecha(int idEspecialidad, DateTime fecha)
+        {
+            var list = await GalenPlusContext.Query<MedicoCitadosView>().FromSql("dbo.Invision_ListarMedicosProgramadosEspecialidadFecha @idespecialidad, @fecha",
+                new SqlParameter("idespecialidad", idEspecialidad),
+                new SqlParameter("fecha", fecha.Date))
+                         .ToListAsync();
+            return list.Select(x => Mapper.Map<MedicoCitadosDto>(x));
+        }
+
+        public async Task<RespuestaBD> ReprogramacionMedicaPorMedico(ReprogramacionMedicaPorMedicoDto solicitud)
+        {
+            try
+            {
+                await GalenPlusContext.Database.ExecuteSqlCommandAsync("dbo.Invision_ReprogramacionMedicaPorMedico @idprogramacion,@idmedico,@idservicio,@fecha,@idprogramacionnuevo",
+                    new SqlParameter("idprogramacion", solicitud.IdProgramacion),
+                    new SqlParameter("idmedico", solicitud.IdMedico),
+                    new SqlParameter("idservicio", solicitud.IdServicio),
+                    new SqlParameter("fecha", solicitud.Fecha.Date),
+                    new SqlParameter("idprogramacionnuevo", solicitud.IdProgramacionNuevo));
+
+                var reprogramacionMedica = new ReprogramacionMedica
+                {
+                    IdMedico = solicitud.IdMedico,
+                    Medico = solicitud.Medico,
+                    Servicio = solicitud.Servicio,
+                    IdUsuario = solicitud.IdUsuario,
+                    FechaReprogramacion = DateTime.Now
+                };
+
+                InoContext.ReprogramacionesMedicas.Add(reprogramacionMedica);
+                await InoContext.SaveChangesAsync();
+
+                return new RespuestaBD
+                {
+                    Id = 1,
+                    Mensaje = "Reprogramación satisfactoria!"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new RespuestaBD
+                {
+                    Id = 0,
+                    Mensaje = "Error en el servidor"
+                };
+            }  
+        }
+
+        public async Task<IEnumerable<ReprogramacionMedicaDto>> ListarReprogramacionesMedicas(DateTime fecha)
+        {
+            var lista = await InoContext.ReprogramacionesMedicas.Where(x => x.FechaReprogramacion.Date == fecha.Date).ToListAsync();
+
+            return lista.Select(x => Mapper.Map<ReprogramacionMedicaDto>(x));
+        }
+
+        public async Task<CitaGalenosTicketDto> ObtenerDatosCitaTicket(int numeroCuenta)
+        {
+            try
+            {
+                var list = await GalenPlusContext.Query<CitaGalenosTicketView>().FromSql("dbo.Invision_ObtenerDatosCitaGalenos @IdCuentaAtencion",
+                new SqlParameter("IdCuentaAtencion", numeroCuenta))
+                         .ToListAsync();
+
+                if (list.Count > 0)
+                {
+                    return list.Select(x => Mapper.Map<CitaGalenosTicketDto>(x)).First();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+           
+            return null;
         }
     }
 }

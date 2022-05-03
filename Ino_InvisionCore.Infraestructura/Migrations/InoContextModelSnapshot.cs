@@ -429,6 +429,10 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
 
                     b.Property<string>("AvSinCorreccionOI");
 
+                    b.Property<string>("CamaraAnteriorOD");
+
+                    b.Property<string>("CamaraAnteriorOI");
+
                     b.Property<string>("ConjuntivaOD");
 
                     b.Property<string>("ConjuntivaOI");
@@ -458,6 +462,10 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<int>("IdUsuarioRegistro");
 
                     b.Property<byte[]>("ImagenOjos");
+
+                    b.Property<string>("IrisOD");
+
+                    b.Property<string>("IrisOI");
 
                     b.Property<string>("MaculaOD");
 
@@ -501,6 +509,10 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
 
                     b.Property<string>("TiempoEnfermedad");
 
+                    b.Property<string>("ViaLagrimalOD");
+
+                    b.Property<string>("ViaLagrimalOI");
+
                     b.Property<string>("VitreoOD");
 
                     b.Property<string>("VitreoOI");
@@ -542,6 +554,59 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.ToTable("Especificaciones");
                 });
 
+            modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.AtencionCE.IngresoPacienteINO", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Acompaniante");
+
+                    b.Property<string>("Departamento");
+
+                    b.Property<string>("Distrito");
+
+                    b.Property<string>("DocumentoPaciente");
+
+                    b.Property<int?>("Edad");
+
+                    b.Property<bool>("EsAcompaniante");
+
+                    b.Property<bool>("EsExtranjero");
+
+                    b.Property<bool>("EsTrabajador");
+
+                    b.Property<DateTime>("FechaIngreso");
+
+                    b.Property<DateTime?>("FechaNacimiento");
+
+                    b.Property<DateTime?>("FechaSalida");
+
+                    b.Property<int>("IdCita");
+
+                    b.Property<int>("IdPaciente");
+
+                    b.Property<int?>("IdUsuarioModifica");
+
+                    b.Property<int>("IdUsuarioRegistro");
+
+                    b.Property<string>("NroDocumento");
+
+                    b.Property<string>("Paciente");
+
+                    b.Property<string>("Provincia");
+
+                    b.Property<string>("PuertaIngreso");
+
+                    b.Property<string>("PuertaSalida");
+
+                    b.Property<string>("Sexo");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IngresoPacienteINO");
+                });
+
             modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.AtencionCE.Material", b =>
                 {
                     b.Property<int>("IdMaterial")
@@ -564,9 +629,14 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("AdicionalMas");
+                    b.Property<string>("ADD")
+                        .HasMaxLength(100);
 
-                    b.Property<bool>("AdicionalMenos");
+                    b.Property<string>("CAVOD")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CAVOI")
+                        .HasMaxLength(10);
 
                     b.Property<string>("CCilindroOD")
                         .HasMaxLength(50);
@@ -586,6 +656,12 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<string>("CEsferaOI")
                         .HasMaxLength(50);
 
+                    b.Property<string>("CNSPD")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("CNSPI")
+                        .HasMaxLength(100);
+
                     b.Property<string>("CSignoOD1")
                         .HasMaxLength(2);
 
@@ -604,6 +680,8 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<string>("Cprisma")
                         .HasMaxLength(100);
 
+                    b.Property<string>("Diseno");
+
                     b.Property<string>("DxOD")
                         .HasMaxLength(200);
 
@@ -614,21 +692,13 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
 
                     b.Property<DateTime>("FechaCreacion");
 
-                    b.Property<int?>("IdBifocal");
-
                     b.Property<int>("IdCita");
 
-                    b.Property<int?>("IdEspecificacion1");
+                    b.Property<string>("LAVOD")
+                        .HasMaxLength(10);
 
-                    b.Property<int?>("IdEspecificacion2");
-
-                    b.Property<int?>("IdEspecificacion3");
-
-                    b.Property<int?>("IdEspecificacion4");
-
-                    b.Property<int?>("IdEspecificacion5");
-
-                    b.Property<int?>("IdMaterial");
+                    b.Property<string>("LAVOI")
+                        .HasMaxLength(10);
 
                     b.Property<string>("LCilindroOD")
                         .HasMaxLength(50);
@@ -648,6 +718,12 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<string>("LEsferaOI")
                         .HasMaxLength(50);
 
+                    b.Property<string>("LNSPD")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("LNSPI")
+                        .HasMaxLength(100);
+
                     b.Property<string>("LSignoOD1")
                         .HasMaxLength(2);
 
@@ -663,18 +739,51 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<string>("Ldip")
                         .HasMaxLength(100);
 
+                    b.Property<string>("ListaDeDx")
+                        .HasMaxLength(250);
+
                     b.Property<string>("Lprisma")
                         .HasMaxLength(100);
+
+                    b.Property<string>("Material");
 
                     b.Property<string>("NroDocumento")
                         .HasMaxLength(20);
 
+                    b.Property<string>("Observaciones")
+                        .HasMaxLength(250);
+
                     b.Property<string>("Paciente")
                         .HasMaxLength(250);
+
+                    b.Property<string>("Servicio");
+
+                    b.Property<string>("Tratamiento");
 
                     b.HasKey("IdRecetaRefraccion");
 
                     b.ToTable("RecetaRefraccionCE");
+                });
+
+            modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.AtencionCE.ReprogramacionMedica", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("FechaReprogramacion");
+
+                    b.Property<int>("IdMedico");
+
+                    b.Property<int>("IdUsuario");
+
+                    b.Property<string>("Medico");
+
+                    b.Property<string>("Servicio");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReprogramacionMedica");
                 });
 
             modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.AtencionTrabajador", b =>
@@ -787,11 +896,68 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.ToTable("Auditoria");
                 });
 
+            modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.CallCenter.CitaCallCenter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Correo");
+
+                    b.Property<string>("Edad");
+
+                    b.Property<bool>("EsCita");
+
+                    b.Property<string>("Especialidad");
+
+                    b.Property<string>("EstadoHojaReferencia");
+
+                    b.Property<DateTime?>("FechaCita");
+
+                    b.Property<DateTime>("FechaLlamada");
+
+                    b.Property<DateTime?>("FechaModificacion");
+
+                    b.Property<DateTime>("FechaRegistro");
+
+                    b.Property<string>("FinLlamada");
+
+                    b.Property<int?>("IdUsuarioModificacion");
+
+                    b.Property<int>("IdUsuarioRegistro");
+
+                    b.Property<string>("InicioLlamada");
+
+                    b.Property<bool>("LlamadaSinRegistro");
+
+                    b.Property<string>("Motivo");
+
+                    b.Property<string>("NroDocumento");
+
+                    b.Property<string>("Paciente");
+
+                    b.Property<string>("Sexo");
+
+                    b.Property<string>("Telefono");
+
+                    b.Property<string>("TipoSeguro");
+
+                    b.Property<string>("Turno");
+
+                    b.Property<string>("Usuario");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CitaCallCenter");
+                });
+
             modelBuilder.Entity("Ino_InvisionCore.Dominio.Entidades.CitasWeb.CitaWeb", b =>
                 {
                     b.Property<int>("IdCita")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Direccion");
 
                     b.Property<bool?>("EsCitaAdicional");
 
@@ -802,7 +968,15 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
 
                     b.Property<DateTime?>("FechaEliminacionCita");
 
+                    b.Property<DateTime?>("FechaEmisionComprobante");
+
+                    b.Property<DateTime?>("FechaPago");
+
+                    b.Property<DateTime?>("FechaRechazoVoucher");
+
                     b.Property<DateTime>("FechaSolicitud");
+
+                    b.Property<DateTime?>("FechaSubirVoucher");
 
                     b.Property<DateTime?>("FechaValidacionVoucher");
 
@@ -815,6 +989,8 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<string>("HoraSolicitud");
 
                     b.Property<int>("IdAtencionGalenos");
+
+                    b.Property<int>("IdCuentaAtencion");
 
                     b.Property<int>("IdEspecialidad");
 
@@ -834,6 +1010,8 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
 
                     b.Property<int?>("IdUsuarioElimina");
 
+                    b.Property<int?>("IdUsuarioRechazoVoucher");
+
                     b.Property<int?>("IdUsuarioValidaVoucher");
 
                     b.Property<string>("ImagenVoucher");
@@ -841,11 +1019,25 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<string>("Medico")
                         .IsRequired();
 
+                    b.Property<string>("MotivoRechazoVoucher");
+
+                    b.Property<string>("NroComprobante");
+
+                    b.Property<string>("NroDocumento");
+
                     b.Property<string>("Paciente")
                         .IsRequired();
 
+                    b.Property<string>("RazonSocial");
+
+                    b.Property<string>("Ruc");
+
                     b.Property<string>("Servicio")
                         .IsRequired();
+
+                    b.Property<string>("TelefonoMovil");
+
+                    b.Property<string>("TipoComprobante");
 
                     b.Property<string>("Voucher");
 
@@ -890,7 +1082,11 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
 
                     b.Property<DateTime>("FechaNacimiento");
 
+                    b.Property<int>("IdDistritoDomicilio");
+
                     b.Property<int>("IdEstadoCivil");
+
+                    b.Property<int>("IdGradoInstruccion");
 
                     b.Property<int>("IdPacienteGalenos");
 
@@ -899,6 +1095,8 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<int>("IdSexo");
 
                     b.Property<int>("IdTipoDocumento");
+
+                    b.Property<int>("IdTipoOcupacion");
 
                     b.Property<int>("IdUsuarioCreacion");
 
@@ -1344,6 +1542,8 @@ namespace Ino_InvisionCore.Infraestructura.Migrations
                     b.Property<int?>("IdUsuarioModificacion");
 
                     b.Property<int?>("IdUsuarioRechaza");
+
+                    b.Property<string>("ImagenReferencia");
 
                     b.Property<string>("Medico");
 

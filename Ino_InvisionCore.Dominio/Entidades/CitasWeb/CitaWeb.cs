@@ -41,5 +41,19 @@ namespace Ino_InvisionCore.Dominio.Entidades.CitasWeb
         public int IdEstado { get; set; }
         public int? IdUsuarioElimina { get; set; }
         public DateTime? FechaEliminacionCita { get; set; }
+        public int IdCuentaAtencion { get; set; }
+        public DateTime? FechaRechazoVoucher { get; set; }
+        public string MotivoRechazoVoucher { get; set; }
+        public int? IdUsuarioRechazoVoucher { get; set; }
+        public string TipoComprobante { get; set; }
+        public string NroDocumento { get; set; }
+        public string Ruc { get; set; }
+        public string Direccion { get; set; }
+        public string RazonSocial { get; set; }
+        public DateTime? FechaPago { get; set; }
+        public string TelefonoMovil { get; set; }
+        public string NroComprobante { get; set; }
+        public DateTime? FechaEmisionComprobante { get; set; }
+        public DateTime? FechaSubirVoucher { get; set; }
     }
 }

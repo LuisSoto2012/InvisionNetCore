@@ -69,6 +69,8 @@ namespace Ino_InvisionCore.Presentacion
             options.UseSqlServer(Configuration.GetConnectionString("InoDB")));
             services.AddDbContext<EvaluacionEscritaContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EvaluacionDB")));
+            services.AddDbContext<Ino_FacturacionContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("FacturacionDB")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper(typeof(AutoMapperProfile));
 

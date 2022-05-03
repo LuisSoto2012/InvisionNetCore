@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,6 +21,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.IncumplimientoA
         public bool Gram { get; set; }
         public bool Micotico { get; set; }
         public bool Pas { get; set; }
-        public string Origen { get; set; }
+        public ComboBox Origen { get; set; }
     }
 }

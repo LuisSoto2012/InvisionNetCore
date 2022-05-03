@@ -99,5 +99,15 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await RepositorioDeComunes.ListarMedicamentosFarmacia();
         }
+
+        public async Task<IEnumerable<ComboBox>> ListarCallCenterUsuariosAsync()
+        {
+            return await RepositorioDeComunes.ListarCallCenterUsuariosAsync();
+        }
+
+        public async Task<IEnumerable<ComboBox>> ListarMedicosReporte()
+        {
+            return await RepositorioDeComunes.ListarMedicosReporte();
+        }
     }
 }

@@ -9,6 +9,7 @@ using Ino_InvisionCore.Dominio.Contratos.Repositorios.Atencion;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.AtencionTrabajador;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Auditoria;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.BonoDesempeno;
+using Ino_InvisionCore.Dominio.Contratos.Repositorios.CallCenter;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.CitasWeb;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Comunes;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Congreso;
@@ -37,6 +38,7 @@ using Ino_InvisionCore.Dominio.Contratos.Servicios.Atencion;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.AtencionTrabajador;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Auditoria;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.BonoDesempeno;
+using Ino_InvisionCore.Dominio.Contratos.Servicios.CallCenter;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Comunes;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Congreso;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.ConsultasWeb;
@@ -106,6 +108,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<RepositorioDeNervioOptico>().As<IRepositorioDeNervioOptico>();
             builder.RegisterType<RepositorioDeCitasWeb>().As<IRepositorioDeCitasWeb>();
             builder.RegisterType<RepositorioDeEvaluaciones>().As<IRepositorioDeEvaluaciones>();
+            builder.RegisterType<RepositorioDeCallCenter>().As<IRepositorioDeCallCenter>();
 
             // Services
             builder.RegisterType<ServicioDeAdicionales>().As<IServicioDeAdicionales>();
@@ -141,6 +144,7 @@ namespace Ino_InvisionCore.Infraestructura.IoC
             builder.RegisterType<ServicioDeNervioOptico>().As<IServicioDeNervioOptico>();
             builder.RegisterType<ServicioDeCitasWeb>().As<IServicioDeCitasWeb>();
             builder.RegisterType<ServicioDeEvaluaciones>().As<IServicioDeEvaluaciones>();
+            builder.RegisterType<ServicioDeCallCenter>().As<IServicioDeCallCenter>();
         }
     }
 }

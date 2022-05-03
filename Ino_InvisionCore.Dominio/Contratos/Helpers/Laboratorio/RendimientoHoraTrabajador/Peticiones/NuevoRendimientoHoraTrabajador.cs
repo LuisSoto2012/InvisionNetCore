@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.RendimientoHora
         public int NumeroTrabajadores { get; set; }
         public int IdAreaLaboratorio { get; set; }
         public int IdUsuarioCreacion { get; set; }
-        public string Origen { get; set; }
+        public ComboBox Origen { get; set; }
     }
 }

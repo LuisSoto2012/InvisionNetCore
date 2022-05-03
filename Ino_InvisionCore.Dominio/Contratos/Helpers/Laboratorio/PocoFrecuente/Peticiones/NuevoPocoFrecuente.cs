@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,6 +17,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Laboratorio.PocoFrecuente.P
         public bool CuadernoPaciente { get; set; }
         public bool CuadernoSistema { get; set; }
         public bool SistemaCuaderno { get; set; }
-        public string Origen { get; set; }
+        public ComboBox Origen { get; set; }
     }
 }

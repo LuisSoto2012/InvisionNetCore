@@ -22,5 +22,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Paciente.Respuestas
         public string Diacod { get; set; }
         public string Diades { get; set; }
         public string FF { get; set; }
+        public int IdRecetaRefraccion { get; set; }
     }
 }

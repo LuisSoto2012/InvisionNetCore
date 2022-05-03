@@ -110,5 +110,12 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public string Antecedentes { get; set; }
 
         public string HoraCita { get; set; }
+
+        public string IrisOD { get; set; }
+        public string IrisOI { get; set; }
+        public string CamaraAnteriorOD { get; set; }
+        public string CamaraAnteriorOI { get; set; }
+        public string ViaLagrimalOD { get; set; }
+        public string ViaLagrimalOI { get; set; }
     }
 }

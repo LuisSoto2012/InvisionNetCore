@@ -18,5 +18,8 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones
         public int IdTipoDocumento { get; set; }
         public string CorreoElectronico { get; set; }
         public DateTime FechaEmision { get; set; }
+        public int IdDistritoDomicilio { get; set; }
+        public int IdTipoOcupacion { get; set; }
+        public int IdGradoInstruccion { get; set; }
     }
 }

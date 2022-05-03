@@ -84,9 +84,9 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion([FromQuery]DateTime fecha)
+        public async Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion([FromQuery]DateTime fechaDesde, [FromQuery] DateTime fechaHasta)
         {
-            return await _servicioDeAtenciones.ListarRecetaRefraccion(fecha);
+            return await _servicioDeAtenciones.ListarRecetaRefraccion(fechaDesde, fechaHasta);
         }
 
         [HttpPost]
@@ -121,6 +121,64 @@ namespace Ino_InvisionCore.Presentacion.Controllers
             var respuesta = await _servicioDeAtenciones.EliminarEvaluacionExamen(solicitud);
 
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<CitaPorDiaDto>> ListarCitasPorDia([FromQuery]int nroHistoria, [FromQuery]string nroDocumento)
+        {
+            return await _servicioDeAtenciones.ListarCitasPorDia(nroHistoria, nroDocumento);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GuardarIngresoPaciente([FromBody]GaurdarIngresoPacienteDto solicitud)
+        {
+            var respuesta = await _servicioDeAtenciones.GuardarIngresoPaciente(solicitud);
+
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+
+        [HttpGet]
+        public async Task<int> ObtenerCantidadIngresosHoy()
+        {
+            return await _servicioDeAtenciones.ObtenerCantidadIngresosHoy();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<IngresoSalidaDto>> ListarIngresosSalidasHoy()
+        {
+            return await _servicioDeAtenciones.ListarIngresosSalidasHoy();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosHoy()
+        {
+            return await _servicioDeAtenciones.ListarMedicosProgramadosHoy();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosEspecialidadFecha([FromQuery]int idEspecialidad, [FromQuery]DateTime fecha)
+        {
+            return await _servicioDeAtenciones.ListarMedicosProgramadosEspecialidadFecha(idEspecialidad, fecha);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReprogramacionMedicaPorMedico([FromBody]ReprogramacionMedicaPorMedicoDto solicitud)
+        {
+            var respuesta = await _servicioDeAtenciones.ReprogramacionMedicaPorMedico(solicitud);
+
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<ReprogramacionMedicaDto>> ListarReprogramacionesMedicas([FromQuery]DateTime fecha)
+        {
+            return await _servicioDeAtenciones.ListarReprogramacionesMedicas(fecha);
+        }
+
+        [HttpGet]
+        public async Task<CitaGalenosTicketDto> ObtenerDatosCitaTicket([FromQuery] int numeroCuenta)
+        {
+            return await _servicioDeAtenciones.ObtenerDatosCitaTicket(numeroCuenta);
         }
     }
 }

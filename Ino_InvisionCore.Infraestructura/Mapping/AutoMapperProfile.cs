@@ -109,6 +109,9 @@ using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Respuestas;
 using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Evaluacion;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.CallCenter.Peticiones;
+using Ino_InvisionCore.Dominio.Entidades.CallCenter;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.CallCenter.Respuestas;
 
 namespace Ino_InvisionCore.Infraestructura.Mapping
 {
@@ -204,113 +207,132 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<RolSubModuloDto, RolSubModulo>();
             CreateMap<RolSubModulo, RolSubModuloDto>();
             //IncidentesPacientes
-            CreateMap<NuevoIncidentesPacientes, IncidentesPacientes>();
+            CreateMap<NuevoIncidentesPacientes, IncidentesPacientes>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<ActualizarIncidentesPacientes, IncidentesPacientes>();
             CreateMap<IncidentesPacientes, IncidentesPacientesGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             CreateMap<IncidentesPacientesGeneral, IncidentesPacientes>();
             //IncumplimientoAnalisis
-            CreateMap<NuevoIncumplimientoAnalisis, IncumplimientoAnalisis>();
+            CreateMap<NuevoIncumplimientoAnalisis, IncumplimientoAnalisis>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<ActualizarIncumplimientoAnalisis, IncumplimientoAnalisis>();
             CreateMap<IncumplimientoAnalisis, IncumplimientoAnalisisGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             CreateMap<IncumplimientoAnalisisGeneral, IncumplimientoAnalisis>();
             //PruebasNoRealizadas
-            CreateMap<NuevoPruebasNoRealizadas, PruebasNoRealizadas>();
+            CreateMap<NuevoPruebasNoRealizadas, PruebasNoRealizadas>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<ActualizarPruebasNoRealizadas, PruebasNoRealizadas>();
             CreateMap<PruebasNoRealizadas, PruebasNoRealizadasGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             CreateMap<PruebasNoRealizadasGeneral, PruebasNoRealizadas>();
             //RecoleccionMuestra
-            CreateMap<NuevoRecoleccionMuestra, RecoleccionMuestra>();
+            CreateMap<NuevoRecoleccionMuestra, RecoleccionMuestra>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<ActualizarRecoleccionMuestra, RecoleccionMuestra>();
             CreateMap<RecoleccionMuestra, RecoleccionMuestraGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             CreateMap<RecoleccionMuestraGeneral, RecoleccionMuestra>();
             //VenopunturasFallidas
-            CreateMap<NuevoVenopunturasFallidas, VenopunturasFallidas>();
-            CreateMap<ActualizarVenopunturasFallidas, VenopunturasFallidas>();
+            CreateMap<NuevoVenopunturasFallidas, VenopunturasFallidas>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
+            CreateMap<ActualizarVenopunturasFallidas, VenopunturasFallidas>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<VenopunturasFallidas, VenopunturasFallidasGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             CreateMap<VenopunturasFallidasGeneral, VenopunturasFallidas>();
             //CalibracionDeficiente
-            CreateMap<NuevoCalibracionDeficiente, CalibracionDeficiente>();
+            CreateMap<NuevoCalibracionDeficiente, CalibracionDeficiente>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<CalibracionDeficiente, CalibracionDeficienteGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //EmpleoReactivo
-            CreateMap<NuevoEmpleoReactivo, EmpleoReactivo>();
+            CreateMap<NuevoEmpleoReactivo, EmpleoReactivo>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<EmpleoReactivo, EmpleoReactivoGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
 
             //EquipoMalCalibrado
-            CreateMap<NuevoEquipoMalCalibrado, EquipoMalCalibrado>();
+            CreateMap<NuevoEquipoMalCalibrado, EquipoMalCalibrado>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<EquipoMalCalibrado, EquipoMalCalibradoGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //EquipoUPS
-            CreateMap<NuevoEquipoUPS, EquipoUPS>();
+            CreateMap<NuevoEquipoUPS, EquipoUPS>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<EquipoUPS, EquipoUPSGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //MaterialNoCalibrado
-            CreateMap<NuevoMaterialNoCalibrado, MaterialNoCalibrado>();
+            CreateMap<NuevoMaterialNoCalibrado, MaterialNoCalibrado>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<MaterialNoCalibrado, MaterialNoCalibradoGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //MuestraHemolizadaLipemica
-            CreateMap<NuevoMuestraHemolizadaLipemica, MuestraHemolizadaLipemica>();
+            CreateMap<NuevoMuestraHemolizadaLipemica, MuestraHemolizadaLipemica>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<MuestraHemolizadaLipemica, MuestraHemolizadaLipemicaGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //PocoFrecuente
-            CreateMap<NuevoPocoFrecuente, PocoFrecuente>();
+            CreateMap<NuevoPocoFrecuente, PocoFrecuente>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<PocoFrecuente, PocoFrecuenteGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //SueroMalReferenciado
-            CreateMap<NuevoSueroMalReferenciado, SueroMalReferenciado>();
+            CreateMap<NuevoSueroMalReferenciado, SueroMalReferenciado>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<SueroMalReferenciado, SueroMalReferenciadoGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //SolicitudDatosIncompletos
-            CreateMap<NuevoSolicitudDatosIncompletos, SolicitudDatosIncompletos>();
+            CreateMap<NuevoSolicitudDatosIncompletos, SolicitudDatosIncompletos>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<SolicitudDatosIncompletos, SolicitudDatosIncompletosGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd"))); ;
             //TranscripcionErronea
-            CreateMap<NuevoTranscripcionErronea, TranscripcionErronea>();
+            CreateMap<NuevoTranscripcionErronea, TranscripcionErronea>()
+                            .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<TranscripcionErronea, TranscripcionErroneaGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //TranscripcionErroneaInoportuna
-            CreateMap<NuevoTranscripcionErroneaInoportuna, TranscripcionErroneaInoportuna>();
+            CreateMap<NuevoTranscripcionErroneaInoportuna, TranscripcionErroneaInoportuna>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<TranscripcionErroneaInoportuna, TranscripcionErroneaInoportunaGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //SueroMalReferenciado
-            CreateMap<NuevoRendimientoHoraTrabajador, RendimientoHoraTrabajador>();
+            CreateMap<NuevoRendimientoHoraTrabajador, RendimientoHoraTrabajador>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<RendimientoHoraTrabajador, RendimientoHoraTrabajadorGeneral>()
                             .ForMember(p => p.NombreMes, x => x.MapFrom(p => new DateTime(2020, p.NumeroMes, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).FirstCharToUpper()))
                             .ForMember(p => p.AreaLaboratorio, x => x.MapFrom(p => p.AreaLaboratorio.Nombre))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
             //PacienteSinResultado
-            CreateMap<NuevoPacienteSinResultado, PacienteSinResultado>();
+            CreateMap<NuevoPacienteSinResultado, PacienteSinResultado>()
+                .ForMember(r => r.Origen, x => x.MapFrom(p => p.Origen.Descripcion));
             CreateMap<PacienteSinResultado, PacienteSinResultadoGeneral>()
                             .ForMember(r => r.FechaOcurrencia, x => x.MapFrom(p => p.FechaOcurrencia.Equals(default(DateTime)) ? string.Empty : p.FechaOcurrencia.ToString("yyyy-MM-dd")))
                             .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("yyyy-MM-dd")));
@@ -369,13 +391,26 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             //Receta REfraccion
 
             CreateMap<RegistroRecetaRefraccion, RecetaRefraccionCE>()
-                            .ForMember(r => r.IdMaterial, x => x.MapFrom(p => p.Material.Id == 0 ? (int?)null : p.Material.Id))
-                            .ForMember(r => r.IdBifocal, x => x.MapFrom(p => p.Bifocal.Id == 0 ? (int?)null : p.Bifocal.Id))
-                            .ForMember(r => r.IdEspecificacion1, x => x.MapFrom(p => p.Especificacion1.Id == 0 ? (int?)null : p.Especificacion1.Id))
-                            .ForMember(r => r.IdEspecificacion2, x => x.MapFrom(p => p.Especificacion2.Id == 0 ? (int?)null : p.Especificacion2.Id))
-                            .ForMember(r => r.IdEspecificacion3, x => x.MapFrom(p => p.Especificacion3.Id == 0 ? (int?)null : p.Especificacion3.Id))
-                            .ForMember(r => r.IdEspecificacion4, x => x.MapFrom(p => p.Especificacion4.Id == 0 ? (int?)null : p.Especificacion4.Id))
-                            .ForMember(r => r.IdEspecificacion5, x => x.MapFrom(p => p.Especificacion5.Id == 0 ? (int?)null : p.Especificacion5.Id));
+                            .ForMember(r => r.LSignoOD1, x => x.MapFrom(p => p.LSignoOD1.Descripcion))
+                            .ForMember(r => r.LSignoOD2, x => x.MapFrom(p => p.LSignoOD2.Descripcion))
+                            .ForMember(r => r.LSignoOI1, x => x.MapFrom(p => p.LSignoOI1.Descripcion))
+                            .ForMember(r => r.LSignoOI2, x => x.MapFrom(p => p.LSignoOI2.Descripcion))
+                            .ForMember(r => r.CSignoOD1, x => x.MapFrom(p => p.CSignoOD1.Descripcion))
+                            .ForMember(r => r.CSignoOD2, x => x.MapFrom(p => p.CSignoOD2.Descripcion))
+                            .ForMember(r => r.CSignoOI1, x => x.MapFrom(p => p.CSignoOI1.Descripcion))
+                            .ForMember(r => r.CSignoOI2, x => x.MapFrom(p => p.CSignoOI2.Descripcion))
+                            .ForMember(r => r.ListaDeDx, x => x.MapFrom(p => string.Join(',', p.ListaDeDx)))
+                            //.ForMember(r => r.IdMaterial, x => x.MapFrom(p => p.Material.Id == 0 ? (int?)null : p.Material.Id))
+                            //.ForMember(r => r.IdBifocal, x => x.MapFrom(p => p.Bifocal.Id == 0 ? (int?)null : p.Bifocal.Id))
+                            //.ForMember(r => r.IdEspecificacion1, x => x.MapFrom(p => p.Especificacion1.Id == 0 ? (int?)null : p.Especificacion1.Id))
+                            //.ForMember(r => r.IdEspecificacion2, x => x.MapFrom(p => p.Especificacion2.Id == 0 ? (int?)null : p.Especificacion2.Id))
+                            //.ForMember(r => r.IdEspecificacion3, x => x.MapFrom(p => p.Especificacion3.Id == 0 ? (int?)null : p.Especificacion3.Id))
+                            //.ForMember(r => r.IdEspecificacion4, x => x.MapFrom(p => p.Especificacion4.Id == 0 ? (int?)null : p.Especificacion4.Id))
+                            //.ForMember(r => r.IdEspecificacion5, x => x.MapFrom(p => p.Especificacion5.Id == 0 ? (int?)null : p.Especificacion5.Id));
+                            .ForMember(r => r.Material, x => x.MapFrom(p => string.Join(',', p.Material.Select(s => s.Descripcion))))
+                            .ForMember(r => r.Diseno, x => x.MapFrom(p => string.Join(',', p.Diseno.Select(s => s.Descripcion))))
+                            .ForMember(r => r.Tratamiento, x => x.MapFrom(p => string.Join(',', p.Tratamiento.Select(s => s.Descripcion))))
+                            .ForMember(r => r.Servicio, x => x.MapFrom(p => string.Join(',', p.Servicio.Select(s => s.Descripcion))));
 
             // Views
 
@@ -423,6 +458,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<PacienteCitado, PacienteCitadoView>();
             CreateMap<PacienteAfiliacion, PacienteAfiliacionView>();
             CreateMap<PacientePorHcDni, PacientePorHcDniView>();
+            CreateMap<PacientePorHcDniView, PacientePorHcDni>()
+                .ForMember(r => r.EsRefraccion, x => x.Ignore());
 
             //Repositorio de Servicios
             CreateMap<ServicioPorEspecialidad, ServicioPorEspecialidadView>();
@@ -537,7 +574,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                             .ForMember(r => r.NumeroReferencia, x => x.MapFrom(p => p.NumeroReferencia ?? ""))
                             .ForMember(r => r.Especialidad, x => x.MapFrom(p => p.IdEspecialidad.HasValue ? new ComboBox { Id = p.IdEspecialidad.Value, Descripcion = p.NombreEspecialidad } : new ComboBox { Id = 0, Descripcion = "<SELECCIONAR>"}))
                             .ForMember(r => r.FechaRechazo, x => x.MapFrom(p => p.FechaRechazo.HasValue ? p.FechaRechazo.Value.ToString("dd/MM/yyyy HH:mm") : ""))
-                            .ForMember(r => r.TipoPaciente, x => x.MapFrom(p => string.IsNullOrEmpty(p.NumeroReferencia) ? "OTROS": "SIS"));
+                            .ForMember(r => r.TipoPaciente, x => x.MapFrom(p => string.IsNullOrEmpty(p.NumeroReferencia) ? "OTROS": "SIS"))
+                            .ForMember(r => r.ImagenReferencia, x => x.MapFrom(p => (string.IsNullOrEmpty(p.ImagenReferencia)) ? string.Empty : Convert.ToBase64String(File.ReadAllBytes(p.ImagenReferencia))));
 
             //Vacunacion Covid - 19
             CreateMap<GuardarCIDto, ConsentimientoInformadoCOVID19>();
@@ -598,6 +636,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             //Citas Web
             CreateMap<CitaWeb, CitaWebDto>()
                 .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
+                .ForMember(r => r.FechaEmisionComprobante, x => x.MapFrom(p => p.FechaEmisionComprobante.HasValue ? p.FechaEmisionComprobante.Value.ToString("dd/MM/yyyy") : ""))
+                .ForMember(r => r.FechaPago, x => x.MapFrom(p => p.FechaPago.HasValue ? p.FechaPago.Value.ToString("dd/MM/yyyy") : ""))
                 .ForMember(r => r.ImagenVoucher, x => x.MapFrom(p => (string.IsNullOrEmpty(p.ImagenVoucher)) ? string.Empty : Convert.ToBase64String(File.ReadAllBytes(p.ImagenVoucher))))
                 .ForMember(r => r.Aprobado, x => x.MapFrom(p => p.VoucherValido.HasValue && p.VoucherValido.Value ? 1 : 0));
             
@@ -624,6 +664,37 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<EvalPartCertView, EvalPartCertDto>()
                 .ForMember(r => r.FechaEmision, x => x.MapFrom(p => p.FechaEmision.ToString("dd/MM/yyyy")))
                 .ForMember(r => r.Certificados, x => x.MapFrom(p => MapCertificates(p)));
+
+            CreateMap<CitaPorDiaView, CitaPorDiaDto>()
+                .ForMember(r => r.Fecha, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
+                .ForMember(r => r.NroDocumento, x => x.MapFrom(p => p.NroDocumento.ToString()));
+            CreateMap<IngresoPacienteINO, IngresoSalidaDto>()
+                .ForMember(r => r.FechaIngreso, x => x.MapFrom(p => p.FechaIngreso.ToString("dd/MM/yyyy HH:mm")))
+                .ForMember(r => r.FechaNacimiento, x => x.MapFrom(p => p.FechaNacimiento.HasValue ? p.FechaNacimiento.Value.ToString("dd/MM/yyyy") : ""))
+                .ForMember(r => r.FechaSalida, x => x.MapFrom(p => p.FechaSalida.HasValue ? p.FechaSalida.Value.ToString("dd/MM/yyyy HH:mm") : ""))
+                .ForMember(r => r.Edad, x => x.MapFrom(p => p.Edad ?? 0))
+                .ForMember(r => r.IdUsuarioModifica, x => x.MapFrom(p => p.IdUsuarioModifica ?? 0));
+
+            CreateMap<MedicoCitadosView, MedicoCitadosView>();
+
+            CreateMap<ReprogramacionMedica, ReprogramacionMedicaDto>()
+                .ForMember(r => r.FechaReprogramacion, x => x.MapFrom(p => p.FechaReprogramacion.ToString("dd/MM/yyyy HH:mm")));
+
+            CreateMap<CitaGalenosTicketView, CitaGalenosTicketDto>()
+                .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.FechaCita.ToString("dd/MM/yyyy")));
+
+            CreateMap<RegistrarCitaCallCenter, CitaCallCenter>()
+                .ForMember(r => r.IdUsuarioRegistro, x => x.MapFrom(p => p.IdUsuario))
+                .ForMember(r => r.TipoSeguro, x => x.MapFrom(p => p.LlamadaSinRegistro ? null : p.TipoSeguro.Descripcion))
+                .ForMember(r => r.Especialidad, x => x.MapFrom(p => p.LlamadaSinRegistro ? null : !p.EsCita ? null : p.Especialidad.Especialidad))
+                //.ForMember(r => r.FinLlamada, x => x.MapFrom(p => DateTime.Now.ToString("HH:mm")))
+                .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.LlamadaSinRegistro ? (DateTime?)null : !p.EsCita ? (DateTime?)null : p.FechaCita.Value))
+                .ForMember(r => r.Turno, x => x.MapFrom(p => p.LlamadaSinRegistro ?  null :!p.EsCita ? null : p.Turno.Descripcion))
+                .ForMember(r => r.FechaRegistro, x => x.MapFrom(p => DateTime.Now));
+
+            CreateMap<CitaCallCenter, CitaCallCenterDto>()
+                .ForMember(r => r.FechaCita, x => x.MapFrom(p => p.FechaCita.HasValue ? p.FechaCita.Value.ToString("dd/MM/yyyy") : ""))
+                .ForMember(r => r.FechaLlamada, x => x.MapFrom(p => p.FechaLlamada.ToString("dd/MM/yyyy")));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

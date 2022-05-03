@@ -2,6 +2,7 @@
 using Ino_InvisionCore.Dominio.Entidades.AccidenteDeTrabajo;
 using Ino_InvisionCore.Dominio.Entidades.Anestesia;
 using Ino_InvisionCore.Dominio.Entidades.AtencionCE;
+using Ino_InvisionCore.Dominio.Entidades.CallCenter;
 using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Comunes;
 using Ino_InvisionCore.Dominio.Entidades.ConsultaWeb;
@@ -98,6 +99,10 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public DbSet<EvaluacionParticipante> EvaluacionParticipantes { get; set; }
         public DbSet<EvaluacionResultado> EvaluacionResultados { get; set; }
         public DbSet<EvaluacionParticipanteCertificado> EvaluacionParticipantseCertificados { get; set; }
+        public DbSet<IngresoPacienteINO> IngresoPacientesINO { get; set; }
+        public DbSet<ReprogramacionMedica> ReprogramacionesMedicas { get; set; }
+
+        public DbSet<CitaCallCenter> CitasCallCenter { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 
@@ -114,6 +119,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
 
             modelBuilder.Query<EvalParticipanteNumPregView>();
             modelBuilder.Query<EvalPartCertView>();
+            modelBuilder.Query<ComboBoxView>();
             //Entity
 
             //TipoOrdenMedica_Procedimiento

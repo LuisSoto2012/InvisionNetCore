@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 using Ino_InvisionCore.Dominio.Entidades.CitasWeb;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
 
@@ -21,8 +22,11 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.CitasWeb
         Task<IEnumerable<CitaWebDto>> ListarCitasdWebPorPaciente(int idPaciente);
         Task<RespuestaBD> SubirVouchersACita(SubirVoucherDto solicitud);
         Task<string> EliminarVoucher(int idCita);
-        Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime FechaDesde, DateTime FechaHasta);
+        Task<IEnumerable<CitaWebDto>> ListarCitasWebPorFecha(DateTime? fechaPagoDesde, DateTime? fechaPagoHasta, DateTime? fechaCitaDesde, DateTime? fechaCitaHasta);
         Task<RespuestaBD> ValidarVoucher(ValidarVoucherDto solicitud);
+        Task<RespuestaBD> RechazarVoucher(RechazarVoucherDto solicitud);
         Task<RespuestaBD> EliminarCita(EliminarCitaDto solicitud);
+        Task<bool> EsSIS(string nroDocumento);
+        Task<IEnumerable<ComboBox>> ListarCajerosAsync();
     }
 }

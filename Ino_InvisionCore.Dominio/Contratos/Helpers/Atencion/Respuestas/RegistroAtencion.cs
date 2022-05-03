@@ -101,5 +101,12 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Atencion.Respuestas
         public string Observaciones { get; set; }
         public string MedidasGenerales { get; set; }
         public string Antecedentes { get; set; }
+
+        public string IrisOD { get; set; }
+        public string IrisOI { get; set; }
+        public string CamaraAnteriorOD { get; set; }
+        public string CamaraAnteriorOI { get; set; }
+        public string ViaLagrimalOD { get; set; }
+        public string ViaLagrimalOI { get; set; }
     }
 }

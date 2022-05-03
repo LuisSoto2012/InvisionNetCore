@@ -21,10 +21,19 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.Atencion
         IEnumerable<ProcedimientoDto> ListarProcedimientos(ProcedimientoDto procedimiento);
 
         Task<RespuestaBD> AgregarRecetaRefraccion(RegistroRecetaRefraccion parametrosRegistro);
-        Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion(DateTime fecha);
+        Task<IEnumerable<RecetaRefraccionDto>> ListarRecetaRefraccion(DateTime fechaDesde, DateTime fechaHasta);
         Task<RespuestaBD> ImprimirRecetaRefraccion(ImprimirRecetaRefraccion parametros);
         Task<RespuestaBD> RegistrarEvaluacionExamen(RegistrarEvaluacionExamenDto solicitud);
         Task<IEnumerable<EvaluacionExamenDto>> ListarEvaluacionExamenPorAtencion(int idAtencion);
         Task<RespuestaBD> EliminarEvaluacionExamen(EliminarEvaluacionExamenDto solicitud);
+        Task<IEnumerable<CitaPorDiaDto>> ListarCitasPorDia(int nroHistoria, string nroDocumento);
+        Task<RespuestaBD> GuardarIngresoPaciente(GaurdarIngresoPacienteDto solicitud);
+        Task<int> ObtenerCantidadIngresosHoy();
+        Task<IEnumerable<IngresoSalidaDto>> ListarIngresosSalidasHoy();
+        Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosHoy();
+        Task<IEnumerable<MedicoCitadosDto>> ListarMedicosProgramadosEspecialidadFecha(int idEspecialidad, DateTime fecha);
+        Task<RespuestaBD> ReprogramacionMedicaPorMedico(ReprogramacionMedicaPorMedicoDto solicitud);
+        Task<IEnumerable<ReprogramacionMedicaDto>> ListarReprogramacionesMedicas(DateTime fecha);
+        Task<CitaGalenosTicketDto> ObtenerDatosCitaTicket(int numeroCuenta);
     }
 }
