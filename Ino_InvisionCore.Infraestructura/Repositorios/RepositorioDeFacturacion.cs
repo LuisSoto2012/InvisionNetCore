@@ -56,8 +56,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     .Include(x => x.IdTipoOperacionNavigation)
                     .Include(x => x.EstadoNavigation)
                     .Where(x => x.IdTipoDocumento == idTipoDocumento && x.FechaEmision.HasValue &&
-                                x.FechaEmision.Value.Date >= fechaDesde
-                                && x.FechaEmision.Value.Date <= fechaHasta)
+                                x.FechaEmision.Value.Date >= fechaDesde.Date
+                                && x.FechaEmision.Value.Date <= fechaHasta.Date)
                     .ToListAsync();
 
                 return listaDb;
