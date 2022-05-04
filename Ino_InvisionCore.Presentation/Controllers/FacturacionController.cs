@@ -25,7 +25,7 @@ namespace Ino_InvisionCore.Presentation.Controllers
         
         [HttpPost(Name = "RegistrarNotaCreditoDebito")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> RegistrarNotaCreditoDebito(RegistrarNotaCreditoDebitoDto solicitud)
+        public async Task<IActionResult> RegistrarNotaCreditoDebito([FromBody]RegistrarNotaCreditoDebitoDto solicitud)
         {
             var respuesta = await _servicio.RegistrarNotaCreditoDebito(solicitud);
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
