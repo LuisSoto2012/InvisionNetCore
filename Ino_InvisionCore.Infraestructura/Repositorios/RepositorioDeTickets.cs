@@ -180,7 +180,8 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     int pacienteTotalHoy = InoContext.TicketConsultaExterna.Where(x => x.FechaCreacion.Day == DateTime.Now.Day &&
                                                                         x.FechaCreacion.Month == DateTime.Now.Month &&
                                                                         x.FechaCreacion.Year == DateTime.Now.Year &&
-                                                                        x.IdTurno == nuevoTicketConsultaExterna.IdTurno).Count();
+                                                                        x.IdTurno == nuevoTicketConsultaExterna.IdTurno
+                                                                        && x.IdMedico ==  nuevoTicketConsultaExterna.IdMedico).Count();
                     TicketConsultaExterna ticketConsultaExterna = Mapper.Map<TicketConsultaExterna>(nuevoTicketConsultaExterna);
                     if (pacienteTotalHoy == 0)
                     {
