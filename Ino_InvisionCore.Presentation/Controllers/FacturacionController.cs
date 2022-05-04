@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Facturacion;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,15 @@ namespace Ino_InvisionCore.Presentation.Controllers
         public FacturacionController(IServicioDeFacturacion servicio)
         {
             _servicio = servicio;
+        }
+        
+        [HttpGet(Name = "ListarComprobantesPago")]
+        [ProducesResponseType(typeof(IEnumerable<ComprobantePagoDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<ComprobantePagoDto>>> ListarComprobantesPago([FromQuery]DateTime fechaDesde, [FromQuery]DateTime fechaHasta,
+                                                                        [FromQuery]int idTipoDocumento)
+        {
+            var lista = await _servicio.ListarComprobantesPago(fechaDesde, fechaHasta, idTipoDocumento);
+            return Ok(lista);
         }
         
         [HttpPost(Name = "RegistrarNotaCreditoDebito")]

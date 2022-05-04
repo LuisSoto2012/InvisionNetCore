@@ -1,5 +1,5 @@
 ﻿using System;
-using Ino_InvisionCore.Infraestructura.ModelContext;
+using Ino_InvisionCore.Dominio.Entidades.Facturacion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 

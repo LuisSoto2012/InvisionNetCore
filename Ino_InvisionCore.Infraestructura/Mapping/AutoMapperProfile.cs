@@ -103,6 +103,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CitasWeb.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Evaluacion.Respuestas;
@@ -113,7 +114,8 @@ using Ino_InvisionCore.Dominio.Contratos.Helpers.CallCenter.Peticiones;
 using Ino_InvisionCore.Dominio.Entidades.CallCenter;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.CallCenter.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
-using Ino_InvisionCore.Infraestructura.ModelContext;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Respuestas;
+using Ino_InvisionCore.Dominio.Entidades.Facturacion;
 
 namespace Ino_InvisionCore.Infraestructura.Mapping
 {
@@ -707,6 +709,17 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now))
                 .ForMember(r => r.UsuarioCreacion,  x => x.MapFrom(p => p.Usuario))
                 ;
+
+            CreateMap<FactComprobantesPago, ComprobantePagoDto>()
+                .ForMember(r => r.FechaEmision,
+                    x => x.MapFrom(p => p.FechaEmision.HasValue ? p.FechaEmision.Value.ToString("dd/MM/yyyy") : ""))
+                .ForMember(r => r.Documento, x => x.MapFrom(p => p.NroSerie + "-" + p.NroDocumento))
+                .ForMember(r => r.TipoDoc, x => x.MapFrom(p => p.IdTipoDocumentoNavigation.Descripcion))
+                .ForMember(r => r.TipoDocIdentidad, x => x.MapFrom(p => p.IdTipoDocProv == 1 ? "DNI" : "RUC"))
+                .ForMember(r => r.NroDocIdentidad, x => x.MapFrom(p => p.NroDocumentoProv ?? ""))
+                .ForMember(r => r.ReceptorRazonSocial, x => x.MapFrom(p => p.NombreProveedor ?? ""))
+                .ForMember(r => r.Total, x => x.MapFrom(p => p.Total))
+                .ForMember(r => r.Estado, x => x.MapFrom(p => p.EstadoNavigation.Descripcion));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

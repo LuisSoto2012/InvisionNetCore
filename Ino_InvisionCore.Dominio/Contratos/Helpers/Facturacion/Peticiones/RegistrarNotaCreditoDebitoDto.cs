@@ -10,7 +10,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones
         public string NroDocumentoProv { get; set; }
         public string NombreProveedor { get; set; }
         public int TipoOperacion { get; set; }
-        public string NroHistoriClinica { get; set; }
+        public string NroHistoriaClinica { get; set; }
         public string Paciente { get; set; }
         public int IdTipoDocumento { get; set; }
         public int IdTipoOperacion { get; set; }

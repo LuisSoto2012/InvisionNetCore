@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ino_InvisionCore.Infraestructura.ModelContext
+namespace Ino_InvisionCore.Dominio.Entidades.Facturacion
 {
     public partial class FactTipoOperacion
     {
