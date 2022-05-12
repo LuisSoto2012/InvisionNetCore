@@ -18,5 +18,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public decimal Total { get; set; }
         public string Direccion { get; set; }
         public string Distrito { get; set; }
+        public int IdTipoDocProv { get; set; }
+        public string Paciente { get; set; }
+        public string NumeroHistoriaCliica { get; set; }
     }
 }
