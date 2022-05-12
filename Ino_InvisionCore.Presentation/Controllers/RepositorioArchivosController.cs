@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 
 namespace Ino_InvisionCore.Presentacion.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     //[ActionWorkFilter]
     [Route("api/[controller]/[action]")]

@@ -24,6 +24,7 @@ using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 
 namespace Ino_InvisionCore.Presentation.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]

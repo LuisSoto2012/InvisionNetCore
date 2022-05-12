@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ino_InvisionCore.Presentation.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
