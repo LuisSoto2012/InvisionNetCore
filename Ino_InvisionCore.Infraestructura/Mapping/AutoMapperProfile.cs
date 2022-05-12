@@ -715,7 +715,7 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.IdTipoDocumento,  x => x.MapFrom(p => p.TipoDocumento.Id))
                 .ForMember(r => r.IdTipoOperacion,  x => x.MapFrom(p => p.TipoOperacion.Id))
                 .ForMember(r => r.Concepto,  x => x.MapFrom(p => p.Motivo))
-                
+                .ForMember(r => r.NroHistoriaClinica,  x => x.MapFrom(p => p.NumeroHistoriaClinica))
                 ;
 
             CreateMap<FactComprobantesPago, ComprobantePagoDto>()

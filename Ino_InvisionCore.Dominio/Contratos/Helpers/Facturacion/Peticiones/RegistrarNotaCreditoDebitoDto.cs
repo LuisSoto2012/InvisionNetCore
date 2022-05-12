@@ -11,7 +11,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones
         public string NumeroDocumento { get; set; }
         public string RazonSocial { get; set; }
         public int? TipoOperacionGravada { get; set; }
-        public string NroHistoriaClinica { get; set; }
+        public string NumeroHistoriaClinica { get; set; }
         public string Paciente { get; set; }
         public ComboBox TipoDocumento { get; set; }
         public ComboBox TipoOperacion { get; set; }
