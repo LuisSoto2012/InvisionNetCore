@@ -25,5 +25,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Ticket.Respuestas
         public int Edad { get; set; }
         public bool AtencionEspecial { get; set; }
         public bool EsActivo { get; set; }
+        public int Numero { get; set; }
     }
 }

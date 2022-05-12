@@ -324,10 +324,11 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
         public async Task<IEnumerable<TicketConsultaExternaGeneral>> ListarTicketConsultaExternaAsync(int? Id, DateTime? Fecha)
         {
-            return await InoContext.TicketConsultaExterna.Where(x => (Id == null || x.IdTicketConsultaExterna == Id) &&
-                                                      (Fecha == null || (x.FechaCreacion.Day == Fecha.Value.Day && x.FechaCreacion.Month == Fecha.Value.Month && x.FechaCreacion.Year == Fecha.Value.Year)))
-                                               .Select(x => Mapper.Map<TicketConsultaExternaGeneral>(x))
-                                               .ToListAsync();
+            var lista = await InoContext.TicketConsultaExterna.Where(x => (Id == null || x.IdTicketConsultaExterna == Id) &&
+                                                                          (Fecha == null || (x.FechaCreacion.Day == Fecha.Value.Day && x.FechaCreacion.Month == Fecha.Value.Month && x.FechaCreacion.Year == Fecha.Value.Year)))
+                .Select(x => Mapper.Map<TicketConsultaExternaGeneral>(x))
+                .ToListAsync();
+            return lista;
         }
 
         public IEnumerable<TicketConsultaExternaGeneral> ListarTicketsHub(DateTime Fecha)

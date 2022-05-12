@@ -350,6 +350,7 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             //TicketConsultaExterna
             CreateMap<NuevoTicketConsultaExterna, TicketConsultaExterna>();
             CreateMap<TicketConsultaExterna, TicketConsultaExternaGeneral>()
+                .ForMember(r => r.Numero, x => x.MapFrom(p => 0))
                             .ForMember(r => r.FechaHora, x => x.MapFrom(p => p.FechaCreacion.Equals(default(DateTime)) ? string.Empty : p.FechaCreacion.ToString("dd/MM/yyyy - HH:mm:ss")));
             //ORDENES MEDICAS
             CreateMap<NuevaOrdenMedica, OrdenesMedicas>();
@@ -731,7 +732,10 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<FactTipoOperacion, ComboBox>()
                 .ForMember(p => p.Id, x => x.MapFrom(p => p.IdTipoOperacion))
                 .ForMember(p => p.Descripcion, x => x.MapFrom(p => p.Codigo + " - " + p.Descripcion));
-            CreateMap<ComprobantePagoGalenosView, ComprobantePagoGalenosDto>();
+            CreateMap<ComprobantePagoGalenosView, ComprobantePagoGalenosDto>()
+                .ForMember(r => r.Fecha,
+                    x => x.MapFrom(p => p.Fecha ? p.Fecha.ToString("dd/MM/yyyy") : ""))
+                ;
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)
