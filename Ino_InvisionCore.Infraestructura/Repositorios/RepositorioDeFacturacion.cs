@@ -68,5 +68,10 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 return new List<FactComprobantesPago>();
             }
         }
+
+        public async Task<IEnumerable<FactTipoOperacion>> ListarTipoOperacion()
+        {
+            return await _context.FactTipoOperacion.OrderBy(x => x.Codigo).ToListAsync();
+        }
     }
 }

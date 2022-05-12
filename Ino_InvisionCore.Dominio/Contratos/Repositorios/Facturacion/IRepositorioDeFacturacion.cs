@@ -15,5 +15,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Facturacion
         Task<RespuestaBD> RegistrarNotaCreditoDebito(RegistrarNotaCreditoDebitoDto solicitud);
         Task<IEnumerable<FactComprobantesPago>> ListarComprobantesPago(DateTime fechaDesde, DateTime fechaHasta,
             int idTipoDocumento);
+
+        Task<IEnumerable<FactTipoOperacion>> ListarTipoOperacion();
     }
 }

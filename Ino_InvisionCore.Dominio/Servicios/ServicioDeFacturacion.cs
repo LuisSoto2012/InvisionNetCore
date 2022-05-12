@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Facturacion;
@@ -36,6 +37,13 @@ namespace Ino_InvisionCore.Dominio.Servicios
             var lista = listaDb.Select(x => _mapper.Map<ComprobantePagoDto>(x));
 
             return lista;
+        }
+
+        public async Task<IEnumerable<ComboBox>> ListarTipoOperacion()
+        {
+            var listaDb = await _repositorio.ListarTipoOperacion();
+
+            return listaDb.Select(x => _mapper.Map<ComboBox>(x));
         }
     }
 }

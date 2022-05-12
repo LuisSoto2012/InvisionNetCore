@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Servicios.Facturacion;
@@ -39,6 +40,14 @@ namespace Ino_InvisionCore.Presentation.Controllers
         {
             var respuesta = await _servicio.RegistrarNotaCreditoDebito(solicitud);
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+        
+        [HttpGet(Name = "ListarTipoOperacion")]
+        [ProducesResponseType(typeof(IEnumerable<ComboBox>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<ComboBox>>> ListarTipoOperacion()
+        {
+            var lista = await _servicio.ListarTipoOperacion();
+            return Ok(lista);
         }
     }
 }
