@@ -734,7 +734,7 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(p => p.Descripcion, x => x.MapFrom(p => p.Codigo + " - " + p.Descripcion));
             CreateMap<ComprobantePagoGalenosView, ComprobantePagoGalenosDto>()
                 .ForMember(r => r.Fecha,
-                    x => x.MapFrom(p => p.Fecha ? p.Fecha.ToString("dd/MM/yyyy") : ""))
+                    x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
                 ;
         }
 
