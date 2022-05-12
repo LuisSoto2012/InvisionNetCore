@@ -315,10 +315,14 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         public IEnumerable<TicketConsultaExternaGeneral> ListarTicketConsultaExterna(DateTime Fecha)
         {
             var list = InoContext.TicketConsultaExterna.Where(x => (x.FechaCreacion.Day == Fecha.Day && x.FechaCreacion.Month == Fecha.Month && x.FechaCreacion.Year == Fecha.Year))
-                                               .ToList()
-                                               .OrderByDescending(x => x.FechaCreacion)
+                .OrderByDescending(x => x.FechaCreacion)
                                                .Select(x => Mapper.Map<TicketConsultaExternaGeneral>(x))
                                                .ToList();
+            
+            foreach (var e in list)
+            {
+                e.Numero = list.Count - list.IndexOf(e);
+            }
             return list;
         }
 
