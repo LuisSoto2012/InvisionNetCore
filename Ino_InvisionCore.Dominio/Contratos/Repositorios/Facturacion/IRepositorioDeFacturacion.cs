@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Respuestas;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
@@ -17,5 +18,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Facturacion
             int idTipoDocumento);
 
         Task<IEnumerable<FactTipoOperacion>> ListarTipoOperacion();
+        Task<IEnumerable<ComboBox>> ListarDistritos();
+        Task<IEnumerable<ComprobantePagoGalenosDto>> ListarComprobantesPagoGalenos(string filtroTexto, string filtro);
     }
 }

@@ -45,5 +45,17 @@ namespace Ino_InvisionCore.Dominio.Servicios
 
             return listaDb.Select(x => _mapper.Map<ComboBox>(x));
         }
+        
+        public async Task<IEnumerable<ComboBox>> ListarDistritos()
+        {
+            return await _repositorio.ListarDistritos();
+        }
+
+        public async Task<IEnumerable<ComprobantePagoGalenosDto>> ListarComprobantesPagoGalenos(string filtroTexto, string filtro)
+        {
+            var listaDb = await _repositorio.ListarComprobantesPagoGalenos(filtroTexto, filtro);
+
+            return listaDb;
+        }
     }
 }

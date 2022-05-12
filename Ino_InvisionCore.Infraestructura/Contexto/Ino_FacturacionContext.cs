@@ -1,5 +1,6 @@
 ﻿using System;
 using Ino_InvisionCore.Dominio.Entidades.Facturacion;
+using Ino_InvisionCore.Infraestructura.Contexto.ClassViews;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -28,6 +29,10 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //ClassView
+            //Facturacion
+            modelBuilder.Query<ComprobantePagoGalenosView>();
+            
             modelBuilder.Entity<FactComprobantesPago>(entity =>
             {
                 entity.HasKey(e => e.IdComprobantePago);

@@ -731,6 +731,7 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<FactTipoOperacion, ComboBox>()
                 .ForMember(p => p.Id, x => x.MapFrom(p => p.IdTipoOperacion))
                 .ForMember(p => p.Descripcion, x => x.MapFrom(p => p.Codigo + " - " + p.Descripcion));
+            CreateMap<ComprobantePagoGalenosView, ComprobantePagoGalenosDto>();
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

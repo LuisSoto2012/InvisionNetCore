@@ -49,5 +49,21 @@ namespace Ino_InvisionCore.Presentation.Controllers
             var lista = await _servicio.ListarTipoOperacion();
             return Ok(lista);
         }
+        
+        [HttpGet(Name = "ListarDistritos")]
+        [ProducesResponseType(typeof(IEnumerable<ComboBox>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<ComboBox>>> ListarDistritos()
+        {
+            var lista = await _servicio.ListarDistritos();
+            return Ok(lista);
+        }
+        
+        [HttpGet(Name = "ListarComprobantesPagoGalenos")]
+        [ProducesResponseType(typeof(IEnumerable<ComprobantePagoGalenosDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<ComprobantePagoGalenosDto>>> ListarComprobantesPagoGalenos([FromQuery]string filtroTexto, [FromQuery]string filtro)
+        {
+            var lista = await _servicio.ListarComprobantesPagoGalenos(filtroTexto, filtro);
+            return Ok(lista);
+        }
     }
 }

@@ -2,15 +2,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Respuestas;
 using Ino_InvisionCore.Dominio.Contratos.Repositorios.Facturacion;
 using Ino_InvisionCore.Dominio.Entidades.Compartido;
 using Ino_InvisionCore.Dominio.Entidades.Facturacion;
 using Ino_InvisionCore.Infraestructura.Contexto;
+using Ino_InvisionCore.Infraestructura.Contexto.ClassViews;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ino_InvisionCore.Infraestructura.Repositorios
@@ -72,6 +75,22 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         public async Task<IEnumerable<FactTipoOperacion>> ListarTipoOperacion()
         {
             return await _context.FactTipoOperacion.OrderBy(x => x.Codigo).ToListAsync();
+        }
+        
+        public async Task<IEnumerable<ComboBox>> ListarDistritos()
+        {
+            return await _context.Query<ComboBoxView>().FromSql("dbo.ListarDistritosGalenos"
+                ).Select(x => Mapper.Map<ComboBox>(x))
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ComprobantePagoGalenosDto>> ListarComprobantesPagoGalenos(string filtroTexto, string filtro)
+        {
+            return await _context.Query<ComprobantePagoGalenosView>().FromSql("dbo.ListarComprobantesPagoGalenos @FiltroTexto,@Filtro",
+                    new SqlParameter("FiltroTexto",filtroTexto),
+                    new SqlParameter("Filtro", filtro)
+                ).Select(x => Mapper.Map<ComprobantePagoGalenosDto>(x))
+                .ToListAsync();
         }
     }
 }

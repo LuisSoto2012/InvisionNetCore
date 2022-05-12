@@ -17,5 +17,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.Facturacion
             int idTipoDocumento);
 
         Task<IEnumerable<ComboBox>> ListarTipoOperacion();
+        Task<IEnumerable<ComboBox>> ListarDistritos();
+        Task<IEnumerable<ComprobantePagoGalenosDto>> ListarComprobantesPagoGalenos(string filtroTexto, string filtro);
     }
 }
