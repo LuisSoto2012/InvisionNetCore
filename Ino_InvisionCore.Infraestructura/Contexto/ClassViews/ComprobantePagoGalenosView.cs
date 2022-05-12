@@ -20,6 +20,6 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public string Distrito { get; set; }
         public int IdTipoDocProv { get; set; }
         public string Paciente { get; set; }
-        public string NumeroHistoriaCliica { get; set; }
+        public string NumeroHistoriaClinica { get; set; }
     }
 }
