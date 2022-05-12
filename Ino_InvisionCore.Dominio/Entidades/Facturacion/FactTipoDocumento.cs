@@ -8,6 +8,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.Facturacion
         public FactTipoDocumento()
         {
             FactComprobantesPago = new HashSet<FactComprobantesPago>();
+            FactNroDocumento = new HashSet<FactNroDocumento>();
             FactTipoOperacion = new HashSet<FactTipoOperacion>();
         }
 
@@ -15,6 +16,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.Facturacion
         public string Descripcion { get; set; }
 
         public ICollection<FactComprobantesPago> FactComprobantesPago { get; set; }
+        public ICollection<FactNroDocumento> FactNroDocumento { get; set; }
         public ICollection<FactTipoOperacion> FactTipoOperacion { get; set; }
     }
 }

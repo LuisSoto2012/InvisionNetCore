@@ -34,6 +34,12 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
 
                 entity.Property(e => e.Concepto).IsUnicode(false);
 
+                entity.Property(e => e.Direccion).IsUnicode(false);
+
+                entity.Property(e => e.DocumentoSeleccionado)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
                 entity.Property(e => e.FechaEmision).HasColumnType("date");
@@ -75,6 +81,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
                 entity.Property(e => e.SubTotal).HasColumnType("decimal(15, 2)");
 
                 entity.Property(e => e.Total).HasColumnType("decimal(15, 2)");
+
+                entity.Property(e => e.TotalComprobante).HasColumnType("decimal(15, 2)");
 
                 entity.Property(e => e.TotalLetras).IsUnicode(false);
 
@@ -127,6 +135,32 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(200)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<FactNroDocumento>(entity =>
+            {
+                entity.HasKey(e => e.IdFactNroDocumento);
+
+                entity.Property(e => e.NroDocumento)
+                    .IsRequired()
+                    .HasMaxLength(12)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NroDocumentoFinal)
+                    .HasMaxLength(12)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NroDocumentoInicial)
+                    .HasMaxLength(12)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NroSerie).HasMaxLength(4);
+
+                entity.HasOne(d => d.IdTipoComprobanteNavigation)
+                    .WithMany(p => p.FactNroDocumento)
+                    .HasForeignKey(d => d.IdTipoComprobante)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__FactNroDo__IdTip__47DBAE45");
             });
 
             modelBuilder.Entity<FactTipoDocumento>(entity =>

@@ -708,6 +708,13 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.Estado, x => x.MapFrom(p => 1))
                 .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now))
                 .ForMember(r => r.UsuarioCreacion,  x => x.MapFrom(p => p.Usuario))
+                .ForMember(r => r.NroDocumento,  x => x.MapFrom(p => p.NumeroDocumento))
+                .ForMember(r => r.NombreProveedor,  x => x.MapFrom(p => p.RazonSocial))
+                .ForMember(r => r.TipoOperacionGravada,  x => x.MapFrom(p => p.TipoOperacionGravada))
+                .ForMember(r => r.IdTipoDocumento,  x => x.MapFrom(p => p.TipoDocumento.Id))
+                .ForMember(r => r.IdTipoOperacion,  x => x.MapFrom(p => p.TipoOperacion.Id))
+                .ForMember(r => r.Concepto,  x => x.MapFrom(p => p.Motivo))
+                
                 ;
 
             CreateMap<FactComprobantesPago, ComprobantePagoDto>()
