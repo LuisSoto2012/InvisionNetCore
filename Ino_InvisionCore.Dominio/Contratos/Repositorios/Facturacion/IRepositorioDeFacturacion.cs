@@ -20,5 +20,8 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Facturacion
         Task<IEnumerable<FactTipoOperacion>> ListarTipoOperacion();
         Task<IEnumerable<ComboBox>> ListarDistritos();
         Task<IEnumerable<ComprobantePagoGalenosDto>> ListarComprobantesPagoGalenos(string filtroTexto, string filtro);
+        Task<RespuestaBD> RegistrarProveedor(RegistrarProveedorDto solicitud);
+        Task<IEnumerable<Proveedores>> ListarProveedores();
+        Task<Proveedores> BuscarProveedor(string ruc, string razonSocial);
     }
 }

@@ -57,5 +57,26 @@ namespace Ino_InvisionCore.Dominio.Servicios
 
             return listaDb;
         }
+
+        public async Task<RespuestaBD> RegistrarProveedor(RegistrarProveedorDto solicitud)
+        {
+            return await _repositorio.RegistrarProveedor(solicitud);
+        }
+
+        public async Task<IEnumerable<ProveedorDto>> ListarProveedores()
+        {
+            var listaDb = await _repositorio.ListarProveedores();
+
+            var lista = listaDb.Select(x => _mapper.Map<ProveedorDto>(x));
+
+            return lista;
+        }
+
+        public async Task<ProveedorDto> BuscarProveedor(string ruc, string razonSocial)
+        {
+            var proveedorDb = await _repositorio.BuscarProveedor(ruc, razonSocial);
+
+            return _mapper.Map<ProveedorDto>(proveedorDb);
+        }
     }
 }

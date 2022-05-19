@@ -734,8 +734,16 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(p => p.Descripcion, x => x.MapFrom(p => p.Codigo + " - " + p.Descripcion));
             CreateMap<ComprobantePagoGalenosView, ComprobantePagoGalenosDto>()
                 .ForMember(r => r.Fecha,
-                    x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
-                ;
+                    x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")));
+
+            CreateMap<RegistrarProveedorDto, Proveedores>()
+                .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now));
+            
+            CreateMap<Proveedores, ProveedorDto>()
+                .ForMember(r => r.FechaCreacion,
+                    x => x.MapFrom(p => p.FechaCreacion.HasValue ? p.FechaCreacion.Value.ToString("dd/MM/yyyy") : ""))
+                .ForMember(r => r.FechaModificacion,
+                    x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy") : ""));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

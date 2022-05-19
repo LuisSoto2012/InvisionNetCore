@@ -65,5 +65,29 @@ namespace Ino_InvisionCore.Presentation.Controllers
             var lista = await _servicio.ListarComprobantesPagoGalenos(filtroTexto, filtro);
             return Ok(lista);
         }
+        
+        [HttpPost(Name = "RegistrarProveedor")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> RegistrarProveedor([FromBody]RegistrarProveedorDto solicitud)
+        {
+            var respuesta = await _servicio.RegistrarProveedor(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+        
+        [HttpGet(Name = "ListarProveedores")]
+        [ProducesResponseType(typeof(IEnumerable<ComboBox>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<ComboBox>>> ListarProveedores()
+        {
+            var lista = await _servicio.ListarProveedores();
+            return Ok(lista);
+        }
+        
+        [HttpGet(Name = "BuscarProveedor")]
+        [ProducesResponseType(typeof(ProveedorDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ProveedorDto>> BuscarProveedor([FromQuery]string ruc, [FromQuery]string razonSocial)
+        {
+            var proveedor = await _servicio.BuscarProveedor(ruc, razonSocial);
+            return Ok(proveedor);
+        }
     }
 }

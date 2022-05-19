@@ -32,7 +32,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         
         public async Task<RespuestaBD> RegistrarNotaCreditoDebito(RegistrarNotaCreditoDebitoDto solicitud)
         {
-            RespuestaBD respuesta = new RespuestaBD();
+            var respuesta = new RespuestaBD();
 
             try
             {
@@ -91,6 +91,39 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     new SqlParameter("Filtro", filtro)
                 ).Select(x => Mapper.Map<ComprobantePagoGalenosDto>(x))
                 .ToListAsync();
+        }
+
+        public async Task<RespuestaBD> RegistrarProveedor(RegistrarProveedorDto solicitud)
+        {
+            var respuesta = new RespuestaBD();
+
+            try
+            {
+                var nuevoProveedor = _mapper.Map<Proveedores>(solicitud);
+                _context.Proveedores.Add(nuevoProveedor);
+                await _context.SaveChangesAsync();
+                respuesta.Id = 1;
+                respuesta.Mensaje = "Se ha registrado el proveedor de manera exitosa!";
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+            
+            return respuesta;
+        }
+
+        public async Task<IEnumerable<Proveedores>> ListarProveedores()
+        {
+            return await _context.Proveedores.ToListAsync();
+        }
+
+        public async Task<Proveedores> BuscarProveedor(string ruc, string razonSocial)
+        {
+            return await _context.Proveedores.FirstOrDefaultAsync(x =>
+                (!string.IsNullOrEmpty(ruc) && x.Ruc == ruc) ||
+                (!string.IsNullOrEmpty(razonSocial) && x.RazonSocial == razonSocial));
         }
     }
 }
