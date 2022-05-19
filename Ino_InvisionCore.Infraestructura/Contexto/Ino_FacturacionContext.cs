@@ -22,6 +22,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public virtual DbSet<FactEstadosComprobantes> FactEstadosComprobantes { get; set; }
         public virtual DbSet<FactTipoDocumento> FactTipoDocumento { get; set; }
         public virtual DbSet<FactTipoOperacion> FactTipoOperacion { get; set; }
+        public virtual DbSet<Proveedores> Proveedores { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -195,6 +196,41 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
                     .WithMany(p => p.FactTipoOperacion)
                     .HasForeignKey(d => d.IdTipoDocumento)
                     .HasConstraintName("FK__FactTipoO__IdTip__398D8EEE");
+            });
+
+            modelBuilder.Entity<Proveedores>(entity =>
+            {
+                entity.HasKey(e => e.IdProveedor);
+
+                entity.Property(e => e.Direccion)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.IdDistrito)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RazonSocial)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ruc)
+                    .IsRequired()
+                    .HasColumnName("RUC")
+                    .HasMaxLength(11)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UsuarioCreacion)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UsuarioModificacion)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
             });
         }
     }

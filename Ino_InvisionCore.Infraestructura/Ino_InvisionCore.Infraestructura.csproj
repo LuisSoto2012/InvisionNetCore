@@ -84,7 +84,7 @@
   <ItemGroup>
     <Folder Include="Connected Services\" />
     <Folder Include="Hubs\" />
-    <Folder Include="ModelContext" />
+    <Folder Include="ModelContext\" />
     <Folder Include="WebServices\" />
   </ItemGroup>
 
