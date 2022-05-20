@@ -29,6 +29,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             modelBuilder.Query<DiagnosticoView>();
             modelBuilder.Query<CitaPorDiaView>();
             modelBuilder.Query<CitaGalenosTicketView>();
+            modelBuilder.Query<AtencionConstanciaTop5View>();
 
             //Repositorio de Bono Desempeno
             modelBuilder.Query<DiferimientoCitasView>().ToView("VW_DIFERIMIENTO_CITAS_DIAS");

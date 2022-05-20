@@ -35,5 +35,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Servicios.Atencion
         Task<RespuestaBD> ReprogramacionMedicaPorMedico(ReprogramacionMedicaPorMedicoDto solicitud);
         Task<IEnumerable<ReprogramacionMedicaDto>> ListarReprogramacionesMedicas(DateTime fecha);
         Task<CitaGalenosTicketDto> ObtenerDatosCitaTicket(int numeroCuenta);
+        Task<IEnumerable<AtencionConstanciaTop5Dto>> ListarAtencionesConstanciaTop5(string nroDocumento);
     }
 }

@@ -166,5 +166,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await RepositorioDeAtenciones.ObtenerDatosCitaTicket(numeroCuenta);
         }
+
+        public async Task<IEnumerable<AtencionConstanciaTop5Dto>> ListarAtencionesConstanciaTop5(string nroDocumento)
+        {
+            return await RepositorioDeAtenciones.ListarAtencionesConstanciaTop5(nroDocumento);
+        }
     }
 }

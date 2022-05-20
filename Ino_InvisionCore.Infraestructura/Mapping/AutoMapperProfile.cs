@@ -744,6 +744,9 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                     x => x.MapFrom(p => p.FechaCreacion.HasValue ? p.FechaCreacion.Value.ToString("dd/MM/yyyy") : ""))
                 .ForMember(r => r.FechaModificacion,
                     x => x.MapFrom(p => p.FechaModificacion.HasValue ? p.FechaModificacion.Value.ToString("dd/MM/yyyy") : ""));
+            
+            CreateMap<AtencionConstanciaTop5View, AtencionConstanciaTop5Dto>()
+                .ForMember(r => r.FechaAtencion, x => x.MapFrom(p => p.FechaAtencion.ToString("dd/MM/yyyy")));
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

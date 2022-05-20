@@ -181,5 +181,11 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         {
             return await _servicioDeAtenciones.ObtenerDatosCitaTicket(numeroCuenta);
         }
+
+        [HttpGet]
+        public async Task<IEnumerable<AtencionConstanciaTop5Dto>> ListarAtencionesConstanciaTop5([FromQuery]string nroDocumento)
+        {
+            return await _servicioDeAtenciones.ListarAtencionesConstanciaTop5(nroDocumento);
+        }
     }
 }

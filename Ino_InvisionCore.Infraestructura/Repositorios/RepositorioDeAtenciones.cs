@@ -927,5 +927,13 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
            
             return null;
         }
+
+        public async Task<IEnumerable<AtencionConstanciaTop5Dto>> ListarAtencionesConstanciaTop5(string nroDocumento)
+        {
+            return await GalenPlusContext.Query<AtencionConstanciaTop5View>().FromSql("dbo.ListarAtencionesConstanciaTop5 @doc",
+                    new SqlParameter("doc", nroDocumento)
+                ).Select(x => Mapper.Map<AtencionConstanciaTop5Dto>(x))
+                .ToListAsync();
+        }
     }
 }
