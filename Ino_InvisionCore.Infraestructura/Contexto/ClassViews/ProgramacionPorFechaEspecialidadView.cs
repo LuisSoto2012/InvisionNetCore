@@ -9,6 +9,8 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
     {
         [Key]
         public int IdEspecialidad { get; set; }
+
+        public int IdProgramacion { get; set; }
         public int IdMedico { get; set; }
         public string Medico { get; set; }
         public string Nombre { get; set; }
