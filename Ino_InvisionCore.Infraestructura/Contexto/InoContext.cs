@@ -470,6 +470,9 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
                 .HasOne(s => s.Rol)
                 .WithMany(m => m.PacientesCitaWeb)
                 .HasForeignKey(s => s.IdRol);
+            
+            modelBuilder.Entity<AtencionCE>()
+                .ToTable("AtencionCENew");
         }
 
     }
