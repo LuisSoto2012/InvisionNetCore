@@ -42,5 +42,11 @@ namespace Ino_InvisionCore.Dominio.Contratos.Repositorios.Atencion
         Task<IEnumerable<ReprogramacionMedicaDto>> ListarReprogramacionesMedicas(DateTime fecha);
         Task<CitaGalenosTicketDto> ObtenerDatosCitaTicket(int numeroCuenta);
         Task<IEnumerable<AtencionConstanciaTop5Dto>> ListarAtencionesConstanciaTop5(string nroDocumento);
+
+        Task<CitaPorNroCuentaDto> ObtenerCitaPorNroCuenta(int nroCuenta);
+        Task<RespuestaBD> ReprogramacionMedicaPorPaciente(ReprogramacionMedicaPorPacienteDto solicitud);
+        Task<IEnumerable<MedicoPorEspecialidadDto>> ListarMedicosPorEspecialidad(int idEspecialidad);
+        Task<ProgramacionPorFechaEspecialidadDto> ObtenerProgramacionPorFechaEspecialidad(DateTime fecha, int especialidad, int idMedico);
+        Task<IEnumerable<ReprogramacionesCuposLibresDto>> ReprogramacionesCuposLibres(int idProgramacion);
     }
 }

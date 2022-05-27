@@ -90,6 +90,11 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             modelBuilder.Query<FechaProgramacionView>();
 
             modelBuilder.Query<MedicoCitadosView>();
+            
+            modelBuilder.Query<CitaPorNroCuentaView>();
+            modelBuilder.Query<MedicoPorEspecialidadOldView>();
+            modelBuilder.Query<ProgramacionPorFechaEspecialidadView>();
+            modelBuilder.Query<ReprogramacionesCuposLibresView>();
         }
     }
 }

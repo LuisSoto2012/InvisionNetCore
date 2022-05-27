@@ -187,5 +187,37 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         {
             return await _servicioDeAtenciones.ListarAtencionesConstanciaTop5(nroDocumento);
         }
+
+        [HttpGet]
+        public async Task<CitaPorNroCuentaDto> ObtenerCitaPorNroCuenta([FromQuery] int nroCuenta)
+        {
+            return await _servicioDeAtenciones.ObtenerCitaPorNroCuenta(nroCuenta);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ReprogramacionMedicaPorPaciente([FromBody]ReprogramacionMedicaPorPacienteDto solicitud)
+        {
+            var respuesta = await _servicioDeAtenciones.ReprogramacionMedicaPorPaciente(solicitud);
+
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+        
+        [HttpGet]
+        public async Task<IEnumerable<MedicoPorEspecialidadDto>> ListarMedicosPorEspecialidad([FromQuery]int idEspecialidad)
+        {
+            return await _servicioDeAtenciones.ListarMedicosPorEspecialidad(idEspecialidad);
+        }
+        
+        [HttpGet]
+        public async Task<ProgramacionPorFechaEspecialidadDto> ObtenerProgramacionPorFechaEspecialidad([FromQuery]DateTime fecha, [FromQuery]int especialidad, [FromQuery]int idMedico)
+        {
+            return await _servicioDeAtenciones.ObtenerProgramacionPorFechaEspecialidad(fecha, especialidad, idMedico);
+        }
+        
+        [HttpGet]
+        public async Task<IEnumerable<ReprogramacionesCuposLibresDto>> ReprogramacionesCuposLibres([FromQuery]int idProgramacion)
+        {
+            return await _servicioDeAtenciones.ReprogramacionesCuposLibres(idProgramacion);
+        }
     }
 }

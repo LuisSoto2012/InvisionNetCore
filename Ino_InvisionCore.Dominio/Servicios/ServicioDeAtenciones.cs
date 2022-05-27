@@ -171,5 +171,30 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await RepositorioDeAtenciones.ListarAtencionesConstanciaTop5(nroDocumento);
         }
+
+        public async Task<CitaPorNroCuentaDto> ObtenerCitaPorNroCuenta(int nroCuenta)
+        {
+            return await RepositorioDeAtenciones.ObtenerCitaPorNroCuenta(nroCuenta);
+        }
+
+        public async Task<RespuestaBD> ReprogramacionMedicaPorPaciente(ReprogramacionMedicaPorPacienteDto solicitud)
+        {
+            return await RepositorioDeAtenciones.ReprogramacionMedicaPorPaciente(solicitud);
+        }
+
+        public async Task<IEnumerable<MedicoPorEspecialidadDto>> ListarMedicosPorEspecialidad(int idEspecialidad)
+        {
+            return await RepositorioDeAtenciones.ListarMedicosPorEspecialidad(idEspecialidad);
+        }
+
+        public async Task<ProgramacionPorFechaEspecialidadDto> ObtenerProgramacionPorFechaEspecialidad(DateTime fecha, int especialidad, int idMedico)
+        {
+            return await RepositorioDeAtenciones.ObtenerProgramacionPorFechaEspecialidad(fecha, especialidad, idMedico);
+        }
+
+        public async Task<IEnumerable<ReprogramacionesCuposLibresDto>> ReprogramacionesCuposLibres(int idProgramacion)
+        {
+            return await RepositorioDeAtenciones.ReprogramacionesCuposLibres(idProgramacion);
+        }
     }
 }

@@ -747,6 +747,15 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             
             CreateMap<AtencionConstanciaTop5View, AtencionConstanciaTop5Dto>()
                 .ForMember(r => r.FechaAtencion, x => x.MapFrom(p => p.FechaAtencion.ToString("dd/MM/yyyy")));
+            
+            CreateMap<CitaPorNroCuentaView, CitaPorNroCuentaDto>()
+                .ForMember(r => r.Fecha, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")))
+                .ForMember(r => r.FechaAt, x => x.MapFrom(p => p.FechaAt.HasValue ? p.FechaAt.Value.ToString("dd/MM/yyyy") : ""));
+            
+            CreateMap<ProgramacionPorFechaEspecialidadView, ProgramacionPorFechaEspecialidadDto>()
+                .ForMember(r => r.Fecha, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")));
+
+            CreateMap<ReprogramacionesCuposLibresView, ReprogramacionesCuposLibresDto>();
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

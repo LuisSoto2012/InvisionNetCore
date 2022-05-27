@@ -935,5 +935,79 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                 ).Select(x => Mapper.Map<AtencionConstanciaTop5Dto>(x))
                 .ToListAsync();
         }
+
+        public async Task<CitaPorNroCuentaDto> ObtenerCitaPorNroCuenta(int nroCuenta)
+        {
+            return await GalenPlusContext.Query<CitaPorNroCuentaView>().FromSql("dbo.Invision_ObtenerCitaPorNroCuenta @nroCuenta",
+                    new SqlParameter("nroCuenta", nroCuenta)
+                ).Select(x => Mapper.Map<CitaPorNroCuentaDto>(x))
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<RespuestaBD> ReprogramacionMedicaPorPaciente(ReprogramacionMedicaPorPacienteDto solicitud)
+        {
+            try
+            {
+                // @idmedico as int,
+                // @idProgramacion as int, 
+                // @idAtencion as int,
+                // @fechaIngreso as date,
+                // @hInicio as varchar(5),
+                // @hFin as varchar(5),
+                // @idcuentaAtencion as int,
+                // @idUsuario as int,
+                // @idNuevoServicio as int
+                await GalenPlusContext.Database.ExecuteSqlCommandAsync("dbo.Invision_ReprogramacionMedicaPorPaciente @idmedico,@idProgramacion,@idAtencion,@fechaIngreso,@hInicio,@hFin,@idcuentaAtencion,@idUsuario,@idNuevoServicio",
+                    new SqlParameter("idmedico", solicitud.IdMedico.IdMedico),
+                    new SqlParameter("idprogramacion", solicitud.IdProgramacion),
+                    new SqlParameter("idAtencion", solicitud.IdAtencion),
+                    new SqlParameter("fechaIngreso", solicitud.FechaIngreso.Date),
+                    new SqlParameter("hInicio", solicitud.HInicio),
+                    new SqlParameter("hFin", solicitud.HFin),
+                    new SqlParameter("idcuentaAtencion", solicitud.IdCuentaAtencion),
+                    new SqlParameter("idUsuario", solicitud.IdUsuario),
+                    new SqlParameter("idNuevoServicio", solicitud.IdNuevoServicio));
+            }
+            catch (Exception ex)
+            {
+                return new RespuestaBD
+                {
+                    Id = 0,
+                    Mensaje = "Error en el servidor"
+                };
+            }
+            
+            return new RespuestaBD
+            {
+                Id = 1,
+                Mensaje = "Reprogramación satisfactoria!"
+            };
+        }
+
+        public async Task<IEnumerable<MedicoPorEspecialidadDto>> ListarMedicosPorEspecialidad(int idEspecialidad)
+        {
+            return await GalenPlusContext.Query<MedicoPorEspecialidadOldView>().FromSql("dbo.INO_ListarMedicosPorEspecialidad @idEspecialidad",
+                    new SqlParameter("idEspecialidad", idEspecialidad)
+                ).Select(x => Mapper.Map<MedicoPorEspecialidadDto>(x))
+                .ToListAsync();
+        }
+
+        public async Task<ProgramacionPorFechaEspecialidadDto> ObtenerProgramacionPorFechaEspecialidad(DateTime fecha, int especialidad, int idMedico)
+        {
+            return await GalenPlusContext.Query<ProgramacionPorFechaEspecialidadView>().FromSql("dbo.INO_ObtenerProgramacionPorFechaEspecialidad @fecha,@especialidad,@idmedico",
+                    new SqlParameter("fecha", fecha),
+                    new SqlParameter("especialidad", especialidad),
+                    new SqlParameter("idmedico", idMedico)
+                ).Select(x => Mapper.Map<ProgramacionPorFechaEspecialidadDto>(x))
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ReprogramacionesCuposLibresDto>> ReprogramacionesCuposLibres(int idProgramacion)
+        {
+            return await GalenPlusContext.Query<ReprogramacionesCuposLibresView>().FromSql("dbo.[INO_ReprogramacionesCuposLibres @idProgramacion",
+                    new SqlParameter("idProgramacion", idProgramacion)
+                ).Select(x => Mapper.Map<ReprogramacionesCuposLibresDto>(x))
+                .ToListAsync();
+        }
     }
 }
