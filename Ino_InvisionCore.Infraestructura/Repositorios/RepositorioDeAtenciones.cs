@@ -994,7 +994,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
         public async Task<ProgramacionPorFechaEspecialidadDto> ObtenerProgramacionPorFechaEspecialidad(DateTime fecha, int especialidad, int idMedico)
         {
-            return await GalenPlusContext.Query<ProgramacionPorFechaEspecialidadView>().FromSql("dbo.INO_ObtenerProgramacionPorFechaEspecialidad @fecha,@especialidad,@idmedico",
+            return await GalenPlusContext.Query<ProgramacionPorFechaEspecialidadView>().FromSql("dbo.Invision_ObtenerProgramacionPorFechaEspecialidad @fecha,@especialidad,@idmedico",
                     new SqlParameter("fecha", fecha),
                     new SqlParameter("especialidad", especialidad),
                     new SqlParameter("idmedico", idMedico)
