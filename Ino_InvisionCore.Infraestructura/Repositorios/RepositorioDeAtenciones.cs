@@ -1004,7 +1004,7 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
 
         public async Task<IEnumerable<ReprogramacionesCuposLibresDto>> ReprogramacionesCuposLibres(int idProgramacion)
         {
-            return await GalenPlusContext.Query<ReprogramacionesCuposLibresView>().FromSql("dbo.[INO_ReprogramacionesCuposLibres @idProgramacion",
+            return await GalenPlusContext.Query<ReprogramacionesCuposLibresView>().FromSql("dbo.INO_ReprogramacionesCuposLibres @idProgramacion",
                     new SqlParameter("idProgramacion", idProgramacion)
                 ).Select(x => Mapper.Map<ReprogramacionesCuposLibresDto>(x))
                 .ToListAsync();
