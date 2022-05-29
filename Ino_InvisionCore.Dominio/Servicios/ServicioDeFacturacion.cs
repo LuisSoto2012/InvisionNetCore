@@ -63,6 +63,11 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return await _repositorio.RegistrarProveedor(solicitud);
         }
 
+        public async Task<RespuestaBD> ActualizarProveedor(ActualizarProveedorDto solicitud)
+        {
+            return await _repositorio.ActualizarProveedor(solicitud);
+        }
+
         public async Task<IEnumerable<ProveedorDto>> ListarProveedores()
         {
             var listaDb = await _repositorio.ListarProveedores();

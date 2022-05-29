@@ -739,6 +739,9 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<RegistrarProveedorDto, Proveedores>()
                 .ForMember(r => r.FechaCreacion, x => x.MapFrom(p => DateTime.Now));
             
+            CreateMap<ActualizarProveedorDto, Proveedores>()
+                .ForMember(r => r.FechaModificacion, x => x.MapFrom(p => DateTime.Now));
+            
             CreateMap<Proveedores, ProveedorDto>()
                 .ForMember(r => r.FechaCreacion,
                     x => x.MapFrom(p => p.FechaCreacion.HasValue ? p.FechaCreacion.Value.ToString("dd/MM/yyyy") : ""))

@@ -74,6 +74,14 @@ namespace Ino_InvisionCore.Presentation.Controllers
             return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
         }
         
+        [HttpPost(Name = "ActualizarProveedor")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ActualizarProveedor([FromBody]ActualizarProveedorDto solicitud)
+        {
+            var respuesta = await _servicio.ActualizarProveedor(solicitud);
+            return new OkObjectResult(new { respuesta.Id, respuesta.Mensaje });
+        }
+        
         [HttpGet(Name = "ListarProveedores")]
         [ProducesResponseType(typeof(IEnumerable<ComboBox>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<ComboBox>>> ListarProveedores()

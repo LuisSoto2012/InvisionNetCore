@@ -114,6 +114,40 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             return respuesta;
         }
 
+        public async Task<RespuestaBD> ActualizarProveedor(ActualizarProveedorDto solicitud)
+        {
+            var respuesta = new RespuestaBD();
+
+            try
+            {
+                //Obtener proveedor
+                var proveedorPorId =
+                    await _context.Proveedores.FirstOrDefaultAsync(x => x.IdProveedor == solicitud.IdProveedor);
+                if (proveedorPorId == null)
+                {
+                    respuesta.Id = 0;
+                    respuesta.Mensaje = "No se ha encontrado el proveedor en la bd.";
+                    return respuesta;
+                }
+                _mapper.Map(solicitud, proveedorPorId);
+                await _context.SaveChangesAsync();
+                respuesta.Id = 1;
+                respuesta.Mensaje = "Se ha actualizado el proveedor de manera exitosa!";
+            }
+            catch (Exception e)
+            {
+                respuesta.Id = 0;
+                respuesta.Mensaje = "Error en el servidor";
+            }
+            
+            return respuesta;
+        }
+
+        public async Task<Proveedores> ObtenerProveedorPorId(int idProveedor)
+        {
+            return await _context.Proveedores.FirstOrDefaultAsync(x => x.IdProveedor == idProveedor);
+        }
+
         public async Task<IEnumerable<Proveedores>> ListarProveedores()
         {
             return await _context.Proveedores.ToListAsync();
