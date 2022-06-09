@@ -219,5 +219,11 @@ namespace Ino_InvisionCore.Presentacion.Controllers
         {
             return await _servicioDeAtenciones.ReprogramacionesCuposLibres(idProgramacion);
         }
+
+        [HttpGet]
+        public async Task<PersonalDto> BuscarEmpleado([FromQuery] string dni)
+        {
+            return await _servicioDeAtenciones.BuscarEmpleado(dni);
+        }
     }
 }

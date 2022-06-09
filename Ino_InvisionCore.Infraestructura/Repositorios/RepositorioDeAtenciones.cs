@@ -772,22 +772,22 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     else
                     {
                         // Save today's date.
-                        var today = DateTime.Today;
+                        //var today = DateTime.Today;
 
                         // Calculate the age.
-                        var age = today.Year - solicitud.FechaNacimiento.Value.Year;
+                        //var age = today.Year - solicitud.FechaNacimiento.Value.Year;
 
                         // Go back to the year in which the person was born in case of a leap year
-                        if (solicitud.FechaNacimiento.Value.Date > today.AddYears(-age)) age--;
+                        //if (solicitud.FechaNacimiento.Value.Date > today.AddYears(-age)) age--;
 
                         ingreso.NroDocumento = solicitud.NroDocumento;
                         ingreso.Paciente = solicitud.Paciente;
-                        ingreso.Sexo = solicitud.Sexo;
-                        ingreso.Departamento = solicitud.DepProv.Split('/')[0];
-                        ingreso.Provincia = solicitud.DepProv.Split('/')[1];
-                        ingreso.Distrito = solicitud.Distrito;
-                        ingreso.FechaNacimiento = solicitud.FechaNacimiento;
-                        ingreso.Edad = age;
+                        //ingreso.Sexo = solicitud.Sexo;
+                        //ingreso.Departamento = solicitud.DepProv.Split('/')[0];
+                        //ingreso.Provincia = solicitud.DepProv.Split('/')[1];
+                        //ingreso.Distrito = solicitud.Distrito;
+                        //ingreso.FechaNacimiento = solicitud.FechaNacimiento;
+                        //ingreso.Edad = age;
                         ingreso.PuertaIngreso = solicitud.Puerta.Descripcion;
                     }
                     
@@ -1008,6 +1008,20 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
                     new SqlParameter("idProgramacion", idProgramacion)
                 ).Select(x => Mapper.Map<ReprogramacionesCuposLibresDto>(x))
                 .ToListAsync();
+        }
+
+        public async Task<PersonalDto> BuscarEmpleado(string dni)
+        {
+            PersonalDto dto = null;
+            
+            var personalDb = await InoContext.NominaPersonal.FirstOrDefaultAsync(x => x.NumeroDocumento == dni);
+
+            if (personalDb != null)
+            {
+                dto = Mapper.Map<PersonalDto>(personalDb);
+            }
+
+            return dto;
         }
     }
 }

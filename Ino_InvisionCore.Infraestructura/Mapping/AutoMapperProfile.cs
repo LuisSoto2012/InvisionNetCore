@@ -759,6 +759,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.Fecha, x => x.MapFrom(p => p.Fecha.ToString("dd/MM/yyyy")));
 
             CreateMap<ReprogramacionesCuposLibresView, ReprogramacionesCuposLibresDto>();
+            
+            CreateMap<Personal, PersonalDto>();
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

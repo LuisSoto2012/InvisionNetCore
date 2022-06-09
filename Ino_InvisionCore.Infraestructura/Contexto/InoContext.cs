@@ -103,6 +103,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
         public DbSet<ReprogramacionMedica> ReprogramacionesMedicas { get; set; }
 
         public DbSet<CitaCallCenter> CitasCallCenter { get; set; }
+        public DbSet<Personal> NominaPersonal { get; set; }
 
         public InoContext(DbContextOptions<InoContext> options) : base(options) { }
 

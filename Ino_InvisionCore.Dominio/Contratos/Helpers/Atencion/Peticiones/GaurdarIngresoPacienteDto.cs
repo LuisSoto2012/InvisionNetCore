@@ -14,10 +14,10 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Atencion.Peticiones
         public int IdUser { get; set; }
         public string NroDocumento { get; set; }
         public string Paciente { get; set; }
-        public string Sexo { get; set; }
-        public string DepProv { get; set; }
-        public string Distrito { get; set; }
-        public DateTime? FechaNacimiento { get; set; }
+        //public string Sexo { get; set; }
+        //public string DepProv { get; set; }
+        //public string Distrito { get; set; }
+        //public DateTime? FechaNacimiento { get; set; }
         public bool EsSalida { get; set; }
         public ComboBox Puerta { get; set; }
         public bool EsExtranjero { get; set; }

@@ -196,5 +196,10 @@ namespace Ino_InvisionCore.Dominio.Servicios
         {
             return await RepositorioDeAtenciones.ReprogramacionesCuposLibres(idProgramacion);
         }
+
+        public async Task<PersonalDto> BuscarEmpleado(string dni)
+        {
+            return await RepositorioDeAtenciones.BuscarEmpleado(dni);
+        }
     }
 }
