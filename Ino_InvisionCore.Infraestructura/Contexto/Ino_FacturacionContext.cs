@@ -33,6 +33,7 @@ namespace Ino_InvisionCore.Infraestructura.Contexto
             //ClassView
             //Facturacion
             modelBuilder.Query<ComprobantePagoGalenosView>();
+            modelBuilder.Query<ComboBoxView>();
             
             modelBuilder.Entity<FactComprobantesPago>(entity =>
             {
