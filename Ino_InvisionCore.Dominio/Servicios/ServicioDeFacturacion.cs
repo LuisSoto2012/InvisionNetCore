@@ -39,9 +39,9 @@ namespace Ino_InvisionCore.Dominio.Servicios
             return lista;
         }
 
-        public async Task<IEnumerable<ComboBox>> ListarTipoOperacion()
+        public async Task<IEnumerable<ComboBox>> ListarTipoOperacion(int idTipoDocumento)
         {
-            var listaDb = await _repositorio.ListarTipoOperacion();
+            var listaDb = await _repositorio.ListarTipoOperacion(idTipoDocumento);
 
             return listaDb.Select(x => _mapper.Map<ComboBox>(x));
         }

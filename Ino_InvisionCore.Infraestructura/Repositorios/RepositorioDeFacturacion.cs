@@ -14,6 +14,7 @@ using Ino_InvisionCore.Dominio.Entidades.Compartido;
 using Ino_InvisionCore.Dominio.Entidades.Facturacion;
 using Ino_InvisionCore.Infraestructura.Contexto;
 using Ino_InvisionCore.Infraestructura.Contexto.ClassViews;
+using Ino_InvisionCore.Infraestructura.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ino_InvisionCore.Infraestructura.Repositorios
@@ -34,19 +35,43 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
         {
             var respuesta = new RespuestaBD();
 
-            try
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                var nuevoCompPago = _mapper.Map<FactComprobantesPago>(solicitud);
-                _context.FactComprobantesPago.Add(nuevoCompPago);
-                await _context.SaveChangesAsync();
-                respuesta.Id = 1;
-                respuesta.Mensaje = "Se ha registrado el comprobante de manera exitosa!";
+                try
+                {
+                    var nuevoCompPago = _mapper.Map<FactComprobantesPago>(solicitud);
+                    _context.FactComprobantesPago.Add(nuevoCompPago);
+                    await _context.SaveChangesAsync();
+                    if (solicitud.TipoDocumento.Id == 20)
+                    {
+                        var listaDocs = new List<FactComprobantesPagoDetalle>();
+                        //Registrar Detalle
+                        foreach (var doc in solicitud.ListaDeDocumentos)
+                        {
+                            var docDetalle = _mapper.Map<FactComprobantesPagoDetalle>(doc);
+                            docDetalle.IdComprobantePago = nuevoCompPago.IdComprobantePago;
+                            listaDocs.Add(docDetalle);
+                        }
+
+                        if (listaDocs.Any())
+                        {
+                            await _context.FactComprobantesPagoDetalle.AddRangeAsync(listaDocs);
+                            await _context.SaveChangesAsync();
+                        }
+                        
+                    }
+                    transaction.Commit();
+                    respuesta.Id = 1;
+                    respuesta.Mensaje = "Se ha registrado el comprobante de manera exitosa!";
+                }
+                catch (Exception e)
+                {
+                    respuesta.Id = 0;
+                    respuesta.Mensaje = "Error en el servidor";
+                    transaction.Rollback();
+                }
             }
-            catch (Exception e)
-            {
-                respuesta.Id = 0;
-                respuesta.Mensaje = "Error en el servidor";
-            }
+            
             
             return respuesta;
         }
@@ -72,9 +97,9 @@ namespace Ino_InvisionCore.Infraestructura.Repositorios
             }
         }
 
-        public async Task<IEnumerable<FactTipoOperacion>> ListarTipoOperacion()
+        public async Task<IEnumerable<FactTipoOperacion>> ListarTipoOperacion(int idTipoDocumento)
         {
-            return await _context.FactTipoOperacion.OrderBy(x => x.Codigo).ToListAsync();
+            return await _context.FactTipoOperacion.Where(x => x.IdTipoDocumento == idTipoDocumento).OrderBy(x => x.Codigo).ToListAsync();
         }
         
         public async Task<IEnumerable<ComboBox>> ListarDistritos()

@@ -39,6 +39,7 @@ namespace Ino_InvisionCore.Dominio.Entidades.Facturacion
         public string DocumentoSeleccionado { get; set; }
         public string Direccion { get; set; }
         public decimal? TotalComprobante { get; set; }
+        public int? TipoDocumentoFiltrado { get; set; }
 
         public FactEstadosComprobantes EstadoNavigation { get; set; }
         public FactTipoDocumento IdTipoDocumentoNavigation { get; set; }

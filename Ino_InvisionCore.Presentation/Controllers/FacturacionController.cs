@@ -44,9 +44,9 @@ namespace Ino_InvisionCore.Presentation.Controllers
         
         [HttpGet(Name = "ListarTipoOperacion")]
         [ProducesResponseType(typeof(IEnumerable<ComboBox>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<ComboBox>>> ListarTipoOperacion()
+        public async Task<ActionResult<IEnumerable<ComboBox>>> ListarTipoOperacion([FromQuery]int idTipoDocumento)
         {
-            var lista = await _servicio.ListarTipoOperacion();
+            var lista = await _servicio.ListarTipoOperacion(idTipoDocumento);
             return Ok(lista);
         }
         

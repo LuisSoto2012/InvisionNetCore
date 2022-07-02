@@ -716,6 +716,7 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
                 .ForMember(r => r.IdTipoOperacion,  x => x.MapFrom(p => p.TipoOperacion.Id))
                 .ForMember(r => r.Concepto,  x => x.MapFrom(p => p.Motivo))
                 .ForMember(r => r.NroHistoriaClinica,  x => x.MapFrom(p => p.NumeroHistoriaClinica))
+                .ForMember(r => r.TipoDocumentoFiltrado, x => x.MapFrom(p => p.TipoDocumentoFiltrado.Id))
                 ;
 
             CreateMap<FactComprobantesPago, ComprobantePagoDto>()
@@ -761,6 +762,8 @@ namespace Ino_InvisionCore.Infraestructura.Mapping
             CreateMap<ReprogramacionesCuposLibresView, ReprogramacionesCuposLibresDto>();
             
             CreateMap<Personal, PersonalDto>();
+
+            CreateMap<DocumentoDto, FactComprobantesPagoDetalle>();
         }
 
         private string CalculateAgeStr(DateTime birthday, int option)

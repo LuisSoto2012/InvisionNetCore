@@ -21,5 +21,6 @@ namespace Ino_InvisionCore.Infraestructura.Contexto.ClassViews
         public int IdTipoDocProv { get; set; }
         public string Paciente { get; set; }
         public string NumeroHistoriaClinica { get; set; }
+        public string TipoOperacionGravada  { get; set; }
     }
 }

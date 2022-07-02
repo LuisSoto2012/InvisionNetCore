@@ -17,5 +17,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Respuestas
         public int IdTipoDocProv { get; set; }
         public string Paciente { get; set; }
         public string NumeroHistoriaClinica { get; set; }
+        public string TipoOperacionGravada  { get; set; }
     }
 }

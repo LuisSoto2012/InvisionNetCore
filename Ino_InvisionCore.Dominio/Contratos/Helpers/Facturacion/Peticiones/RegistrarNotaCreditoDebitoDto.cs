@@ -1,6 +1,7 @@
 // RegistrarNotaCreditoDebitoDto.cs18:1018:10
 
 using System;
+using System.Collections.Generic;
 using Ino_InvisionCore.Dominio.Contratos.Helpers.Comunes.Respuestas;
 
 namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones
@@ -14,6 +15,7 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones
         public string NumeroHistoriaClinica { get; set; }
         public string Paciente { get; set; }
         public ComboBox TipoDocumento { get; set; }
+        public ComboBox TipoDocumentoFiltrado { get; set; }
         public ComboBox TipoOperacion { get; set; }
         public int? IdComprobantePagoGalenos { get; set; }
         public string Motivo { get; set; }
@@ -27,5 +29,6 @@ namespace Ino_InvisionCore.Dominio.Contratos.Helpers.Facturacion.Peticiones
         public string DocumentoSeleccionado { get; set; }
         public string Direccion { get; set; }
         public decimal? TotalComprobante { get; set; }
+        public List<DocumentoDto> ListaDeDocumentos { get; set; }
     }
 }
